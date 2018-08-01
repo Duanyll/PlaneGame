@@ -4,15 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PlaneGameTest
+namespace GameruleHandler
 {
-    class Program
+    public class GameRuleHandler
     {
-        static void Main(string[] args)
-        {
-#if DEBUG
 
-#endif
-        }
     }
 }
