@@ -3,10 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:PlaneGame"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450">
     <Grid>
-        
+        <materialDesign:Card Margin="80,20,80,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="120" Width="644">
+            <TextBlock Style="{StaticResource MaterialDesignDisplay4TextBlock}" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="PlaneGame" VerticalAlignment="Center"/>
+        </materialDesign:Card>
+        <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}" Header="开始游戏" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Width="200">
+            <StackPanel>
+                <Button Content="我要开服" Margin="0,5"></Button>
+                <Button Content="我要加入服务器" Margin="0,5"></Button>
+                <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="设置" Margin="0,5"></Button>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </Window>
