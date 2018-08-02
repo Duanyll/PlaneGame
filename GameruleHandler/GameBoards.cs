@@ -54,27 +54,30 @@ namespace GameruleHandler
         public GameBoard(string[] vs)
         {
             Height = vs.Length;
+            Width = int.MaxValue;
             for (int i = 0; i < Height; i++)
             {
                 Width = Math.Min(Width, vs[i].Length);
             }
+            Blocks = new List<List<GameBoardBlock>>(Height);
             for (int i = 0; i < Height; i++)
             {
+                Blocks.Add(new List<GameBoardBlock>(Width));
                 for (int j = 0; j < Width; j++)
                 {
                     switch (vs[i][j])
                     {
                         case ' ':
-                            Blocks[i][j] = GameBoardBlock.Nothing;
+                            Blocks[i].Add(GameBoardBlock.Nothing);
                             break;
                         case '?':
-                            Blocks[i][j] = GameBoardBlock.Unknown;
+                            Blocks[i].Add(GameBoardBlock.Unknown);
                             break;
                         case '!':
-                            Blocks[i][j] = GameBoardBlock.Null;
+                            Blocks[i].Add(GameBoardBlock.Null);
                             break;
                         default:
-                            Blocks[i][j] = (GameBoardBlock)vs[i][j];
+                            Blocks[i].Add((GameBoardBlock)vs[i][j]);
                             break;
                     }
                 }
