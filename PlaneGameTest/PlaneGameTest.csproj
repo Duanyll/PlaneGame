@@ -51,6 +51,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GameruleHandler\GameruleHandler.csproj">
+      <Project>{50e7c48e-6cd3-4538-9440-a2f5ecf5aaff}</Project>
+      <Name>GameruleHandler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NetClient\NetClient.csproj">
       <Project>{4e1d4f94-72a9-4d93-9de0-d2303262e3fa}</Project>
       <Name>NetClient</Name>
@@ -58,10 +62,6 @@
     <ProjectReference Include="..\NetServer\NetServer.csproj">
       <Project>{aeb775af-b368-4b09-b90e-4bd5129c48e5}</Project>
       <Name>NetServer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PlaneGame\PlaneGame.csproj">
-      <Project>{d611db35-506f-4327-b6c2-4fcf275e4349}</Project>
-      <Name>PlaneGame</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

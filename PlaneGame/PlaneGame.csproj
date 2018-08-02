@@ -100,5 +100,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlaneGameTest\PlaneGameTest.csproj">
+      <Project>{1c2cebc1-99fb-4ab1-8757-6d4441be765e}</Project>
+      <Name>PlaneGameTest</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -21,7 +21,7 @@
                 <Button Content="我要开服" Margin="0,5"></Button>
                 <Button Content="我要加入服务器" Margin="0,5"></Button>
                 <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="设置" Margin="0,5"></Button>
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="0,5" Content="关于"></Button>
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="0,5" Content="关于" Click="Button_Click"></Button>
             </StackPanel>
         </GroupBox>
     </Grid>
