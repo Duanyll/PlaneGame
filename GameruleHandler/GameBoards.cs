@@ -8,15 +8,18 @@ namespace GameruleHandler
 {
     /// <summary>
     /// 表示一个格子的内容。其实是个char类型
+    /// 用二十六个英文大小写字母表示不同类型单位的机身与机头
     /// </summary>
     public enum GameBoardBlock
     {
         Null,
         Nothing,
-        Unknown
+        Unknown,
+        ModelHead = 'A',
+        ModelBody = 'a'
     }
     /// <summary>
-    /// 表示一个玩家的游戏板
+    /// 表示默认的游戏版
     /// </summary>
     public class GameBoard
     {
@@ -35,6 +38,13 @@ namespace GameruleHandler
             {
                 return Blocks[x][y];
             }
+        }
+        /// <summary>
+        /// 不应该调用
+        /// </summary>
+        public GameBoard()
+        {
+            
         }
         /// <summary>
         /// 构造一个具有指定大小的GameBoard
@@ -83,6 +93,10 @@ namespace GameruleHandler
                 }
             }
         }
+        /// <summary>
+        /// 将当前Game Board转换为字符串数组
+        /// </summary>
+        /// <returns></returns>
         public string[] ToStrings()
         {
             string[] vs = new string[Height];
@@ -110,6 +124,78 @@ namespace GameruleHandler
                 vs[i] = new string(tmp);
             }
             return vs;
+        }
+
+        /// <summary>
+        /// 表示某个特定单位模板
+        /// 机身默认是a，机头默认是A
+        /// </summary>
+        public class PatternGameBoard : GameBoard
+        {
+            /// <summary>
+            /// 初始化一个指定大小的PatternGameBoard。元素将会初始化为Nothing
+            /// </summary>
+            /// <param name="w"></param>
+            /// <param name="h"></param>
+            public PatternGameBoard(int w,int h):base(w,h)
+            {
+                for(int i = 0; i < Height; i++)
+                {
+                    for(int j = 0; j < Width; j++)
+                    {
+                        Blocks[i][j] = GameBoardBlock.Nothing;
+                    }
+                }
+            }
+
+            private int hcnt = 0;
+            /// <summary>
+            /// 获得当前机头数量
+            /// </summary>
+            public int HeadCount { get { return hcnt; } }
+            /// <summary>
+            /// 切换指定格子机头状态
+            /// </summary>
+            /// <param name="x"></param>
+            /// <param name="y"></param>
+            public void SwitchHead(int x,int y)
+            {
+                if (x > Height || y > Width || x < 0 || y < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                if (this[x, y] == GameBoardBlock.ModelHead)
+                {
+                    hcnt--;
+                    Blocks[x][y] = GameBoardBlock.Nothing;
+                }
+                else
+                {
+                    hcnt++;
+                    Blocks[x][y] = GameBoardBlock.ModelHead;
+                }
+            }
+
+            /// <summary>
+            /// 切换指定格子机身状态
+            /// </summary>
+            /// <param name="x"></param>
+            /// <param name="y"></param>
+            public void SetBody(int x,int y)
+            {
+                if (x > Height || y > Width || x < 0 || y < 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+                if (this[x, y] == GameBoardBlock.ModelHead || this[x,y]==GameBoardBlock.ModelBody)
+                {
+                    Blocks[x][y] = GameBoardBlock.Nothing;
+                }
+                else
+                {
+                    Blocks[x][y] = GameBoardBlock.ModelBody;
+                }
+            }
         }
     }
 }
