@@ -23,9 +23,31 @@ namespace GameruleHandler
     /// </summary>
     public class GameBoard
     {
-        private List<List<GameBoardBlock>> Blocks;
+        /// <summary>
+        /// 如果只是修改单个格子，应使用this索引器
+        /// </summary>
+        protected List<List<GameBoardBlock>> Blocks;
         public readonly int Width;
         public readonly int Height;
+
+        /// <summary>
+        /// 某个格子改变时引发的事件
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        public delegate void BlockChangedDelegate(int x1, int y1);
+        public event BlockChangedDelegate BlockChanged;
+
+        /// <summary>
+        /// 某个范围改变时引发的事件
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        public delegate void BlockRangeChangedDel(int x1, int y1, int x2, int y2);
+        public event BlockRangeChangedDel BlockRangeChanged;
+
         /// <summary>
         /// 获取某个特定格子的状态
         /// </summary>
@@ -37,6 +59,11 @@ namespace GameruleHandler
             get
             {
                 return Blocks[x][y];
+            }
+            protected set
+            {
+                Blocks[x][y] = value;
+                BlockChanged?.Invoke(x,y);
             }
         }
         /// <summary>
@@ -92,6 +119,7 @@ namespace GameruleHandler
                     }
                 }
             }
+            BlockRangeChanged?.Invoke(0, 0, Height - 1, Width - 1);
         }
         /// <summary>
         /// 将当前Game Board转换为字符串数组
@@ -146,13 +174,13 @@ namespace GameruleHandler
                         Blocks[i][j] = GameBoardBlock.Nothing;
                     }
                 }
+                BlockRangeChanged?.Invoke(0, 0, Height - 1, Width - 1);
             }
 
-            private int hcnt = 0;
             /// <summary>
             /// 获得当前机头数量
             /// </summary>
-            public int HeadCount { get { return hcnt; } }
+            public int HeadCount { get; private set; }
             /// <summary>
             /// 切换指定格子机头状态
             /// </summary>
@@ -166,13 +194,13 @@ namespace GameruleHandler
                 }
                 if (this[x, y] == GameBoardBlock.ModelHead)
                 {
-                    hcnt--;
-                    Blocks[x][y] = GameBoardBlock.Nothing;
+                    HeadCount--;
+                    this[x,y] = GameBoardBlock.Nothing;
                 }
                 else
                 {
-                    hcnt++;
-                    Blocks[x][y] = GameBoardBlock.ModelHead;
+                    HeadCount++;
+                    this[x, y] = GameBoardBlock.ModelHead;
                 }
             }
 
@@ -189,21 +217,31 @@ namespace GameruleHandler
                 }
                 if (this[x, y] == GameBoardBlock.ModelHead || this[x,y]==GameBoardBlock.ModelBody)
                 {
-                    Blocks[x][y] = GameBoardBlock.Nothing;
+                    this[x, y] = GameBoardBlock.Nothing;
                 }
                 else
                 {
-                    Blocks[x][y] = GameBoardBlock.ModelBody;
+                    this[x, y] = GameBoardBlock.ModelBody;
                 }
             }
         }
-    }
 
-    /// <summary>
-    /// 表示一队玩家的完整游戏版，特色是可以判断与放置PatternGameBoard
-    /// </summary>
-    public class FullPlayerGameBoard : GameBoard
-    {
-
+        /// <summary>
+        /// 表示一队玩家的完整游戏版，特色是可以判断与放置PatternGameBoard
+        /// </summary>
+        public class FullPlayerGameBoard : GameBoard
+        {
+            public FullPlayerGameBoard(int w, int h) : base(w, h)
+            {
+                for (int i = 0; i < Height; i++)
+                {
+                    for (int j = 0; j < Width; j++)
+                    {
+                        Blocks[i][j] = GameBoardBlock.Nothing;
+                    }
+                }
+                BlockRangeChanged?.Invoke(0, 0, Height - 1, Width - 1);
+            }
+        }
     }
 }
