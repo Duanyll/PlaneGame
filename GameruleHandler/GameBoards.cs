@@ -19,7 +19,7 @@ namespace GameruleHandler
         ModelBody = 'a'
     }
     /// <summary>
-    /// 表示默认的游戏版
+    /// 表示普通的游戏版
     /// </summary>
     public class GameBoard
     {
@@ -127,7 +127,7 @@ namespace GameruleHandler
         }
 
         /// <summary>
-        /// 表示某个特定单位模板
+        /// 表示某个特定单位模板，特色功能是可以任意设置某个格子
         /// 机身默认是a，机头默认是A
         /// </summary>
         public class PatternGameBoard : GameBoard
@@ -197,5 +197,13 @@ namespace GameruleHandler
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// 表示一队玩家的完整游戏版，特色是可以判断与放置PatternGameBoard
+    /// </summary>
+    public class FullPlayerGameBoard : GameBoard
+    {
+
     }
 }
