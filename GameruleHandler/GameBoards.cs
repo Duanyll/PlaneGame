@@ -24,7 +24,7 @@ namespace GameruleHandler
     public class GameBoard
     {
         /// <summary>
-        /// 如果只是修改单个格子，应使用this索引器
+        /// 除了在构造函数中，不应直接访问此字段
         /// </summary>
         protected List<List<GameBoardBlock>> Blocks;
         public readonly int Width;
@@ -155,11 +155,53 @@ namespace GameruleHandler
         }
 
         /// <summary>
+        /// 是否允许两个单位连通
+        /// </summary>
+        [Flags]
+        public enum CornorMode
+        {
+            /// <summary>
+            /// 允许任意连通
+            /// </summary>
+            All = 0,
+            /// <summary>
+            /// 不允许边相连
+            /// </summary>
+            NoEdge = 1,
+            /// <summary>
+            /// 不允许角相连
+            /// </summary>
+            NoCornor = 2
+        }
+
+        /// <summary>
         /// 表示某个特定单位模板，特色功能是可以任意设置某个格子
         /// 机身默认是a，机头默认是A
         /// </summary>
         public class PatternGameBoard : GameBoard
         {
+            /// <summary>
+            /// 表示游戏版的旋转
+            /// </summary>
+            public enum RoationMode
+            {
+                None,
+                Turn90,
+                Turn180,
+                Turn270
+            }
+
+            /// <summary>
+            /// 表示游戏版的翻转
+            /// </summary>
+            [Flags]
+            public enum FlipMode
+            {
+                None = 0,
+                FlipX = 1,
+                FlipY = 2
+            }
+
             /// <summary>
             /// 初始化一个指定大小的PatternGameBoard。元素将会初始化为Nothing
             /// </summary>
@@ -181,6 +223,9 @@ namespace GameruleHandler
             /// 获得当前机头数量
             /// </summary>
             public int HeadCount { get; private set; }
+            public RoationMode Roation { get; set; } = RoationMode.None;
+            public FlipMode Flip { get; set; } = FlipMode.None;
+
             /// <summary>
             /// 切换指定格子机头状态
             /// </summary>
@@ -241,6 +286,115 @@ namespace GameruleHandler
                     }
                 }
                 BlockRangeChanged?.Invoke(0, 0, Height - 1, Width - 1);
+            }
+
+            Dictionary<char,PatternGameBoard> PatternChars = new Dictionary<char,PatternGameBoard>();
+            char NewPatternChar = 'a';
+
+            public int PlaneCount { get; private set; } = 0;
+            public int HeadCount { get; private set; } = 0;
+
+            /// <summary>
+            /// 尝试在给定坐标处放置单位
+            /// </summary>
+            /// <param name="pattern"></param>
+            /// <param name="x"></param>
+            /// <param name="y"></param>
+            /// <param name="cornor"></param>
+            /// <returns>放置是否成功</returns>
+            public bool PutPatern(PatternGameBoard pattern,int x,int y,CornorMode cornor = CornorMode.All)
+            {
+                if (x > Height || y > Width || x < 0 || y < 0)
+                {
+                    return false;
+                }
+                if (x + pattern.Height > Height || y + pattern.Width > Width)
+                {
+                    return false;
+                }
+                for(int iout = x; iout < x + pattern.Height; iout++)
+                {
+                    int iin = iout - x;
+                    for(int jout = y; jout < y + pattern.Width; jout++)
+                    {
+                        int jin = jout - y;
+                        if (pattern[iin, jin] == GameBoardBlock.ModelBody || pattern[iin, jin] == GameBoardBlock.ModelHead)
+                        {
+                            if (!CheckSurroundings(iout, jout, cornor))
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+                PlaneCount++;
+                HeadCount += pattern.HeadCount;
+                char pchar = 'a';
+                if (PatternChars.ContainsValue(pattern))
+                {
+                    foreach(char i in PatternChars.Keys)
+                    {
+                        if(PatternChars[i].Equals(pattern))
+                        {
+                            pchar = i;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    pchar = NewPatternChar;
+                    PatternChars.Add(pchar, pattern);
+                    NewPatternChar++;
+                }
+                for (int iout = x; iout < x + pattern.Height; iout++)
+                {
+                    int iin = iout - x;
+                    for (int jout = y; jout < y + pattern.Width; jout++)
+                    {
+                        int jin = jout - y;
+                        if(pattern[iin,jin] == GameBoardBlock.ModelBody)
+                        {
+                            this[iout, jout] = (GameBoardBlock)pchar;
+                        }
+                        if (pattern[iin, jin] == GameBoardBlock.ModelHead)
+                        {
+                            this[iout, jout] = (GameBoardBlock)char.ToUpper(pchar);
+                        }
+                    }
+                }
+                return true;
+            }
+
+            bool NothingIn(int x,int y)
+            {
+                if (x > Height || y > Width || x < 0 || y < 0)
+                {
+                    return true;
+                }
+                return this[x, y] == GameBoardBlock.Nothing;
+            }
+            bool CheckSurroundings(int x,int y,CornorMode mode)
+            {
+                if (!NothingIn(x,y))
+                {
+                    return false;
+                }
+                if ((mode & CornorMode.NoEdge) == CornorMode.NoEdge)
+                {
+                    if (!(NothingIn(x + 1, y) && NothingIn(x - 1, y) && NothingIn(x, y + 1) && NothingIn(x, y - 1)))
+                    {
+                        return false;
+                    }
+                }
+                if ((mode & CornorMode.NoCornor) == CornorMode.NoCornor)
+                {
+                    if (!(NothingIn(x + 1, y + 1) && NothingIn(x - 1, y + 1) && NothingIn(x + 1, y - 1) && NothingIn(x - 1, y - 1)))
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }
         }
     }
