@@ -530,6 +530,56 @@ namespace GameruleHandler
                 }
                 return true;
             }
+
+            /// <summary>
+            /// 尝试攻击某格。
+            /// </summary>
+            /// <param name="x"></param>
+            /// <param name="y"></param>
+            /// <returns>攻击结果</returns>
+            public GameBoardBlock Attack(int x,int y)
+            {
+                if (NotInRange(x, y))
+                {
+                    return GameBoardBlock.Null;
+                }
+                else
+                {
+                    if (char.IsUpper((char)this[x, y]))
+                    {
+                        HeadCount--;
+                    }
+                    return this[x,y];
+                }
+            }
+
+            /// <summary>
+            /// 获取指定block的名字
+            /// </summary>
+            /// <param name="block"></param>
+            /// <returns></returns>
+            public string CheckName(GameBoardBlock block)
+            {
+                if (char.IsLetter((char)block))
+                {
+                    if (char.IsUpper((char)block))
+                    {
+                        block = (GameBoardBlock)char.ToLower((char)block);
+                    }
+                    if (PatternChars.ContainsKey((char)block))
+                    {
+                        return PatternChars[(char)block];
+                    }
+                    else
+                    {
+                        return "Unknown";
+                    }
+                }
+                else
+                {
+                    return block.ToString();
+                }
+            }
         }
     }
 }

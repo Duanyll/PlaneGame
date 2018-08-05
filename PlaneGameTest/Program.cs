@@ -48,7 +48,7 @@ namespace PlaneGameTest
                 map[i] = Console.ReadLine();
             }
             GameBoard.PatternGameBoard pboard = new GameBoard.PatternGameBoard(map);
-            pboard.Roation = GameBoard.PatternGameBoard.RoationMode.Turn270;
+            pboard.Flip = GameBoard.PatternGameBoard.FlipMode.FlipX | GameBoard.PatternGameBoard.FlipMode.FlipY;
             map = pboard.ToStrings();
             foreach (var i in map)
             {
