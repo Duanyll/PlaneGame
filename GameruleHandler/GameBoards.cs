@@ -496,6 +496,7 @@ namespace GameruleHandler
                         }
                     }
                 }
+                BlockRangeChanged?.Invoke(x, y, x + pattern.Height, y + pattern.Width);
                 return true;
             }
 
@@ -572,13 +573,36 @@ namespace GameruleHandler
                     }
                     else
                     {
-                        return "Unknown";
+                        return "Unknown Plane";
                     }
                 }
                 else
                 {
                     return block.ToString();
                 }
+            }
+        }
+
+        /// <summary>
+        /// 表示玩家看对方的游戏版
+        /// </summary>
+        public class MaskedGameBoard : GameBoard
+        {
+            MaskedGameBoard(int w,int h) : base(w, h)
+            {
+                for (int i = 0; i < Height; i++)
+                {
+                    for (int j = 0; j < Width; j++)
+                    {
+                        Blocks[i][j] = GameBoardBlock.Unknown;
+                    }
+                }
+                BlockRangeChanged?.Invoke(0, 0, Height - 1, Width - 1);
+            }
+
+            public void SetBlock(GameBoardBlock block,int x,int y)
+            {
+                this[x, y] = block;
             }
         }
     }

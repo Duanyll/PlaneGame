@@ -48,11 +48,26 @@ namespace PlaneGameTest
                 map[i] = Console.ReadLine();
             }
             GameBoard.PatternGameBoard pboard = new GameBoard.PatternGameBoard(map);
-            pboard.Flip = GameBoard.PatternGameBoard.FlipMode.FlipX | GameBoard.PatternGameBoard.FlipMode.FlipY;
+            //pboard.Flip = GameBoard.PatternGameBoard.FlipMode.FlipX | GameBoard.PatternGameBoard.FlipMode.FlipY;
             map = pboard.ToStrings();
             foreach (var i in map)
             {
                 Console.WriteLine(i);
+            }
+            pboard.Name = Console.ReadLine();
+
+            for(int i = 0;i<3;i++)
+            {
+                Console.WriteLine("输入插入x,y坐标");
+                tmp = Console.ReadLine().Split(' ');
+                w = int.Parse(tmp[0]);
+                h = int.Parse(tmp[1]);
+                Console.WriteLine( board.PutPatern(pboard, w, h,GameBoard.CornorMode.All));
+                map = board.ToStrings();
+                foreach (var a in map)
+                {
+                    Console.WriteLine(a);
+                }
             }
 
             while (true)
@@ -61,12 +76,7 @@ namespace PlaneGameTest
                 tmp = Console.ReadLine().Split(' ');
                 w = int.Parse(tmp[0]);
                 h = int.Parse(tmp[1]);
-                Console.WriteLine( board.PutPatern(pboard, w, h,GameBoard.CornorMode.All));
-                map = board.ToStrings();
-                foreach (var i in map)
-                {
-                    Console.WriteLine(i);
-                }
+                Console.WriteLine(board.CheckName(board.Attack(w, h)) + ' ' + board.HeadCount);
             }
 
             Console.ReadKey();
