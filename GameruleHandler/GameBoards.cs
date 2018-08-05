@@ -27,8 +27,8 @@ namespace GameruleHandler
         /// 除了在构造函数中，不应直接访问此字段
         /// </summary>
         protected List<List<GameBoardBlock>> Blocks;
-        public readonly int Width;
-        public readonly int Height;
+        public virtual int Width { get; protected set; }
+        public virtual int Height { get; protected set; }
 
         /// <summary>
         /// 某个格子改变时引发的事件
@@ -54,7 +54,7 @@ namespace GameruleHandler
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public GameBoardBlock this[int x, int y]
+        public virtual GameBoardBlock this[int x, int y]
         {
             get
             {
@@ -142,7 +142,7 @@ namespace GameruleHandler
                 char[] tmp = new char[Width];
                 for (int j = 0; j < Width; j++)
                 {
-                    switch (Blocks[i][j])
+                    switch (this[i,j])
                     {
                         case GameBoardBlock.Null:
                             tmp[j] = '!';
@@ -154,7 +154,7 @@ namespace GameruleHandler
                             tmp[j] = '?';
                             break;
                         default:
-                            tmp[j] = (char)Blocks[i][j];
+                            tmp[j] = (char)this[i,j];
                             break;
                     }
                 }
@@ -163,7 +163,7 @@ namespace GameruleHandler
             return vs;
         }
 
-        protected bool InRange(int x, int y)
+        protected bool NotInRange(int x, int y)
         {
             return x >= Height || y >= Width || x < 0 || y < 0;
         }
@@ -195,7 +195,7 @@ namespace GameruleHandler
         public class PatternGameBoard : GameBoard
         {
             /// <summary>
-            /// 表示游戏版的旋转
+            /// 表示游戏版逆时针旋转
             /// </summary>
             public enum RoationMode
             {
@@ -206,7 +206,7 @@ namespace GameruleHandler
             }
 
             /// <summary>
-            /// 表示游戏版的翻转
+            /// 表示游戏版的翻转（先旋转再翻转）
             /// </summary>
             [Flags]
             public enum FlipMode
@@ -235,6 +235,16 @@ namespace GameruleHandler
 
             public PatternGameBoard(string[] vs) : base(vs)
             {
+                for (int i = 0; i < Height; i++)
+                {
+                    for (int j = 0; j < Width; j++)
+                    {
+                        if (Blocks[i][j] == GameBoardBlock.ModelHead)
+                        {
+                            HeadCount++;
+                        }
+                    }
+                }
             }
 
             /// <summary>
@@ -244,16 +254,102 @@ namespace GameruleHandler
             public RoationMode Roation { get; set; } = RoationMode.None;
             public FlipMode Flip { get; set; } = FlipMode.None;
 
-            //TODO:完善与旋转有关的索引器与width，height
-            public new GameBoardBlock this[int x,int y]
+            /// <summary>
+            /// 表示可能旋转后的宽度
+            /// </summary>
+            public override int Width
             {
                 get
                 {
-                    return base[x, y];
+                    if (Roation == RoationMode.Turn270 || Roation == RoationMode.Turn90)
+                    {
+                        return base.Height;
+                    }
+                    else
+                    {
+                        return base.Width;
+                    }
                 }
-                private set
+            }
+
+            /// <summary>
+            /// 表示可能旋转后的高度
+            /// </summary>
+            public override int Height
+            {
+                get
                 {
-                    base[x, y] = value;
+                    if (Roation == RoationMode.Turn270 || Roation == RoationMode.Turn90)
+                    {
+                        return base.Width;
+                    }
+                    else
+                    {
+                        return base.Height;
+                    }
+                }
+            }
+
+            int TransformedX(int x,int y)
+            {
+                switch (Roation)
+                {
+                    case RoationMode.None:
+                        break;
+                    case RoationMode.Turn90:
+                        x = y;
+                        break;
+                    case RoationMode.Turn180:
+                        x = base.Height - x - 1;
+                        break;
+                    case RoationMode.Turn270:
+                        x = base.Width - y - 1;
+                        break;
+                }
+                if ((Flip & FlipMode.FlipX) == FlipMode.FlipX)
+                {
+                    x = Height - 1 - x;
+                }
+                return x;
+            }
+            int TransformedY(int x,int y)
+            {
+                switch (Roation)
+                {
+                    case RoationMode.None:
+                        break;
+                    case RoationMode.Turn90:
+                        y = base.Height - x - 1;
+                        break;
+                    case RoationMode.Turn180:
+                        y = base.Width - y - 1;
+                        break;
+                    case RoationMode.Turn270:
+                        y = x;
+                        break;
+                }
+                if ((Flip & FlipMode.FlipY) == FlipMode.FlipY)
+                {
+                    y = Width - 1 - y;
+                }
+                return y;
+            }
+            //TODO:完善与旋转有关的索引器与width，height
+            /// <summary>
+            /// 返回旋转/翻转后的格子
+            /// </summary>
+            /// <param name="x"></param>
+            /// <param name="y"></param>
+            /// <returns></returns>
+            public override GameBoardBlock this[int x,int y]
+            {
+                get
+                {
+                    return base[TransformedX(x,y), TransformedY(x,y)];
+                }
+                protected set
+                {
+                    base[TransformedX(x,y), TransformedY(x,y)] = value;
                 }
             }
 
@@ -264,7 +360,7 @@ namespace GameruleHandler
             /// <param name="y"></param>
             public void SwitchHead(int x,int y)
             {
-                if (!InRange(x, y))
+                if (NotInRange(x, y))
                 {
                     throw new ArgumentOutOfRangeException();
                 }
@@ -287,7 +383,7 @@ namespace GameruleHandler
             /// <param name="y"></param>
             public void SetBody(int x,int y)
             {
-                if (!InRange(x, y))
+                if (NotInRange(x, y))
                 {
                     throw new ArgumentOutOfRangeException();
                 }
@@ -403,7 +499,7 @@ namespace GameruleHandler
 
             bool NothingIn(int x,int y)
             {
-                if (InRange(x, y))
+                if (NotInRange(x, y))
                 {
                     return true;
                 }

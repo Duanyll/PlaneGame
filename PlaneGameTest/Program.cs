@@ -48,6 +48,7 @@ namespace PlaneGameTest
                 map[i] = Console.ReadLine();
             }
             GameBoard.PatternGameBoard pboard = new GameBoard.PatternGameBoard(map);
+            pboard.Roation = GameBoard.PatternGameBoard.RoationMode.Turn270;
             map = pboard.ToStrings();
             foreach (var i in map)
             {
@@ -60,7 +61,7 @@ namespace PlaneGameTest
                 tmp = Console.ReadLine().Split(' ');
                 w = int.Parse(tmp[0]);
                 h = int.Parse(tmp[1]);
-                Console.WriteLine( board.PutPatern(pboard, w, h,GameBoard.CornorMode.NoCornor));
+                Console.WriteLine( board.PutPatern(pboard, w, h,GameBoard.CornorMode.All));
                 map = board.ToStrings();
                 foreach (var i in map)
                 {
