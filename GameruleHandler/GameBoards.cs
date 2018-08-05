@@ -74,7 +74,7 @@ namespace GameruleHandler
             
         }
         /// <summary>
-        /// 构造一个具有指定大小的GameBoard
+        /// 构造一个具有指定大小的GameBoard，每个格子初始化为null
         /// </summary>
         /// <param name="w"></param>
         /// <param name="h"></param>
@@ -83,6 +83,15 @@ namespace GameruleHandler
             Width = w;
             Height = h;
             Blocks = new List<List<GameBoardBlock>>();
+            for (int i = 0; i < Height; i++)
+            {
+                Blocks.Add(new List<GameBoardBlock>());
+                for (int j = 0; j < Width; j++)
+                {
+                    Blocks[i].Add(GameBoardBlock.Null);
+                }
+            }
+            //BlockRangeChanged?.Invoke(0, 0, Height - 1, Width - 1);
         }
         /// <summary>
         /// 从现有字符串数组加载GameBoard
@@ -154,6 +163,11 @@ namespace GameruleHandler
             return vs;
         }
 
+        protected bool InRange(int x, int y)
+        {
+            return x >= Height || y >= Width || x < 0 || y < 0;
+        }
+
         /// <summary>
         /// 是否允许两个单位连通
         /// </summary>
@@ -209,14 +223,18 @@ namespace GameruleHandler
             /// <param name="h"></param>
             public PatternGameBoard(int w,int h):base(w,h)
             {
-                for(int i = 0; i < Height; i++)
+                for (int i = 0; i < Height; i++)
                 {
-                    for(int j = 0; j < Width; j++)
+                    for (int j = 0; j < Width; j++)
                     {
                         Blocks[i][j] = GameBoardBlock.Nothing;
                     }
                 }
                 BlockRangeChanged?.Invoke(0, 0, Height - 1, Width - 1);
+            }
+
+            public PatternGameBoard(string[] vs) : base(vs)
+            {
             }
 
             /// <summary>
@@ -226,6 +244,19 @@ namespace GameruleHandler
             public RoationMode Roation { get; set; } = RoationMode.None;
             public FlipMode Flip { get; set; } = FlipMode.None;
 
+            //TODO:完善与旋转有关的索引器与width，height
+            public new GameBoardBlock this[int x,int y]
+            {
+                get
+                {
+                    return base[x, y];
+                }
+                private set
+                {
+                    base[x, y] = value;
+                }
+            }
+
             /// <summary>
             /// 切换指定格子机头状态
             /// </summary>
@@ -233,7 +264,7 @@ namespace GameruleHandler
             /// <param name="y"></param>
             public void SwitchHead(int x,int y)
             {
-                if (x > Height || y > Width || x < 0 || y < 0)
+                if (!InRange(x, y))
                 {
                     throw new ArgumentOutOfRangeException();
                 }
@@ -256,7 +287,7 @@ namespace GameruleHandler
             /// <param name="y"></param>
             public void SetBody(int x,int y)
             {
-                if (x > Height || y > Width || x < 0 || y < 0)
+                if (!InRange(x, y))
                 {
                     throw new ArgumentOutOfRangeException();
                 }
@@ -286,6 +317,10 @@ namespace GameruleHandler
                     }
                 }
                 BlockRangeChanged?.Invoke(0, 0, Height - 1, Width - 1);
+            }
+
+            public FullPlayerGameBoard(string[] vs) : base(vs)
+            {
             }
 
             Dictionary<char,PatternGameBoard> PatternChars = new Dictionary<char,PatternGameBoard>();
@@ -368,12 +403,13 @@ namespace GameruleHandler
 
             bool NothingIn(int x,int y)
             {
-                if (x > Height || y > Width || x < 0 || y < 0)
+                if (InRange(x, y))
                 {
                     return true;
                 }
                 return this[x, y] == GameBoardBlock.Nothing;
             }
+
             bool CheckSurroundings(int x,int y,CornorMode mode)
             {
                 if (!NothingIn(x,y))

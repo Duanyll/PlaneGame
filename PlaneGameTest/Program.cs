@@ -21,21 +21,53 @@ namespace PlaneGameTest
             Console.WriteLine("已启动测试");
 
             //测试GameBoard的构造与ToStrings
+            Console.WriteLine("输入原始PlayerGB");
             int w, h;
             string[] tmp = Console.ReadLine().Split(' ');
             w = int.Parse(tmp[0]);
             h = int.Parse(tmp[1]);
             string[] map = new string[h];
-            for(int i = 0; i < h; i++)
-            {
-                map[i] = Console.ReadLine();
-            }
-            GameBoard board = new GameBoard(map);
+            //for(int i = 0; i < h; i++)
+            //{
+            //    map[i] = Console.ReadLine();
+            //}
+            GameBoard.FullPlayerGameBoard board = new GameBoard.FullPlayerGameBoard(w,h);
             map = board.ToStrings();
             foreach (var i in map)
             {
                 Console.WriteLine(i);
             }
+
+            Console.WriteLine("输入PatternGB");
+            tmp = Console.ReadLine().Split(' ');
+            w = int.Parse(tmp[0]);
+            h = int.Parse(tmp[1]);
+            map = new string[h];
+            for (int i = 0; i < h; i++)
+            {
+                map[i] = Console.ReadLine();
+            }
+            GameBoard.PatternGameBoard pboard = new GameBoard.PatternGameBoard(map);
+            map = pboard.ToStrings();
+            foreach (var i in map)
+            {
+                Console.WriteLine(i);
+            }
+
+            while (true)
+            {
+                Console.WriteLine("输入插入x,y坐标");
+                tmp = Console.ReadLine().Split(' ');
+                w = int.Parse(tmp[0]);
+                h = int.Parse(tmp[1]);
+                Console.WriteLine( board.PutPatern(pboard, w, h,GameBoard.CornorMode.NoCornor));
+                map = board.ToStrings();
+                foreach (var i in map)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+
             Console.ReadKey();
         }
     }
