@@ -216,6 +216,8 @@ namespace GameruleHandler
                 FlipY = 2
             }
 
+            public string Name { get; set; } = "No Name";
+
             /// <summary>
             /// 初始化一个指定大小的PatternGameBoard。元素将会初始化为Nothing
             /// </summary>
@@ -419,7 +421,7 @@ namespace GameruleHandler
             {
             }
 
-            Dictionary<char,PatternGameBoard> PatternChars = new Dictionary<char,PatternGameBoard>();
+            Dictionary<char,string> PatternChars = new Dictionary<char,string>();
             char NewPatternChar = 'a';
 
             public int PlaneCount { get; private set; } = 0;
@@ -461,7 +463,7 @@ namespace GameruleHandler
                 PlaneCount++;
                 HeadCount += pattern.HeadCount;
                 char pchar = 'a';
-                if (PatternChars.ContainsValue(pattern))
+                if (PatternChars.ContainsValue(pattern.Name))
                 {
                     foreach(char i in PatternChars.Keys)
                     {
@@ -475,7 +477,7 @@ namespace GameruleHandler
                 else
                 {
                     pchar = NewPatternChar;
-                    PatternChars.Add(pchar, pattern);
+                    PatternChars.Add(pchar, pattern.Name);
                     NewPatternChar++;
                 }
                 for (int iout = x; iout < x + pattern.Height; iout++)
