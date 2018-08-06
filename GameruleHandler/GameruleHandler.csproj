@@ -40,9 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FullPlayerGameBoard.cs" />
     <Compile Include="GameBoards.cs" />
     <Compile Include="GameInfo.cs" />
     <Compile Include="IGamerule.cs" />
+    <Compile Include="MaskGameBoard.cs" />
+    <Compile Include="PatternGameBoard.cs" />
+    <Compile Include="PlayerViewGameBoard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
