@@ -41,8 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameBoards.cs" />
-    <Compile Include="GameRuleHandler.cs" />
+    <Compile Include="GameInfo.cs" />
+    <Compile Include="IGamerule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetServer\NetServer.csproj">
+      <Project>{aeb775af-b368-4b09-b90e-4bd5129c48e5}</Project>
+      <Name>NetServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
