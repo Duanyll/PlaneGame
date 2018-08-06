@@ -9,10 +9,12 @@ using System.Net.Sockets;
 
 namespace NetServer
 {
-    public class NetServer
+    public class NetworkServer
     {
-        //保存多个客户端的通信套接字
-        public static Dictionary<String, Socket> clientList = null;
+        public const int MAX_CONNECTIONS = 100;
+        public int Port { get; } = 8080;
+
+        static Dictionary<String, Socket> clientList = null;
         //申明一个监听套接字 
         Socket serverSocket = null;
         //设置一个监听标记
@@ -60,7 +62,7 @@ namespace NetServer
             }
         }
 
-        public NetServer()
+        public NetworkServer()
         {
             ipadr = IPAddress.Parse( GetLocalIP());
             Log("本机ip：" + ipadr.ToString());
@@ -103,7 +105,7 @@ namespace NetServer
                     //IPAddress ipadr = IPAddress.Parse("192.168.1.100");
                     //如果txtIP里面有值，就选择填入的IP作为服务器IP，不填的话就默认是本机的
 
-                    endPoint = new IPEndPoint(ipadr, 8080);     //IPAddress.loopback是本地环回接口，其实是虚拟接口，物理不存在的  参考网址：http://baike.sogou.com/v7893363.htm?fromTitle=loopback
+                    endPoint = new IPEndPoint(ipadr, Port);     //IPAddress.loopback是本地环回接口，其实是虚拟接口，物理不存在的  参考网址：http://baike.sogou.com/v7893363.htm?fromTitle=loopback
 
 
                     //绑定
@@ -132,7 +134,7 @@ namespace NetServer
                         //int listen(int sockfd, int backlog);
                         //listen函数的第一个参数即为要监听的socket描述字，第二个参数为相应socket可以排队的最大连接个数。
                         //socket()函数创建的socket默认是一个主动类型的，listen函数将socket变为被动类型的，等待客户的连接请求。
-                        serverSocket.Listen(100);
+                        serverSocket.Listen(MAX_CONNECTIONS);
 
 
                         thStartListen = new Thread(StartListen);
@@ -326,9 +328,9 @@ namespace NetServer
                 serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);//实例，监听套接字
                                                                                                            //IPAddress ipadr = IPAddress.Parse("192.168.1.100");
 
-                endPoint = new IPEndPoint(ipadr, 8080);//端点
+                endPoint = new IPEndPoint(ipadr, Port);//端点
                 serverSocket.Bind(endPoint);//绑定
-                serverSocket.Listen(100);   //设置最大连接数
+                serverSocket.Listen(MAX_CONNECTIONS);   //设置最大连接数
                 thStartListen = new Thread(StartListen);
                 thStartListen.IsBackground = true;
                 thStartListen.Start();
