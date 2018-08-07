@@ -35,6 +35,9 @@ namespace GameruleHandler
         }
 
         int _tcnt = 2;
+        /// <summary>
+        /// 要求的队伍数量
+        /// </summary>
         public int TeamCount
         {
             get
@@ -65,12 +68,87 @@ namespace GameruleHandler
             }
         }
         /// <summary>
-        /// 表示可用的单位种类
+        /// 表示可用的单位种类与数量等
         /// </summary>
         public List<GameBoard.PatternGameBoard> Patterns = new List<GameBoard.PatternGameBoard>();
         /// <summary>
         /// 表示每队玩家的基础游戏版
         /// </summary>
         public GameBoard.MaskedGameBoard Mask { get; set; }
+        int _fpr = 1;
+        /// <summary>
+        /// 如果BindFPRWithHeadCount为false，则是玩家每回合的开火次数
+        /// </summary>
+        public int FirePerRound
+        {
+            get
+            {
+                return _fpr;
+            }
+            set
+            {
+                if (value > 0)
+                {
+                    _fpr = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 是否将开火次数与生命值相关联
+        /// </summary>
+        public bool BindFPRWithHeadCount { get; set; } = false;
+        int _mxfpr = 1;
+        int _mnfpr = 1;
+        /// <summary>
+        /// 最多开火次数
+        /// </summary>
+        public int MaxFPR
+        {
+            get
+            {
+                return _mxfpr;
+            }
+            set
+            {
+                if (value >= MinFPR)
+                {
+                    _mxfpr = value;
+                }
+            }
+        }
+        /// <summary>
+        /// 最少开火次数
+        /// </summary>
+        public int MinFPR
+        {
+            get
+            {
+                return _mnfpr;
+            }
+            set
+            {
+                if (value > 0 && value <= _mxfpr)
+                {
+                    _mnfpr = value;
+                }
+            }
+        }
+        
+        public enum RoundOrderType
+        {
+            /// <summary>
+            /// 按队伍控制出牌顺序，轮到每个队伍出牌时每个队员都能出
+            /// </summary>
+            TeamTogether,
+            /// <summary>
+            /// 玩家按队伍顺序排列，每个玩家单独出牌
+            /// </summary>
+            PlayerWithTeam,
+            /// <summary>
+            /// 玩家按任意顺序排列，每个玩家单独出牌
+            /// </summary>
+            Shuffle
+        }
     }
 }

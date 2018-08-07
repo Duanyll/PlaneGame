@@ -75,6 +75,24 @@ namespace GameruleHandler
             public int HeadCount { get; private set; }
             public RoationMode Roation { get; set; } = RoationMode.None;
             public FlipMode Flip { get; set; } = FlipMode.None;
+            int _cpt = 1;
+            /// <summary>
+            /// 每个玩家应该拥有多少个这种单位
+            /// </summary>
+            public int CountPerTeam
+            {
+                get
+                {
+                    return _cpt;
+                }
+                set
+                {
+                    if (value > 0)
+                    {
+                        _cpt = value;
+                    }
+                }
+            }
 
             /// <summary>
             /// 表示可能旋转后的宽度
