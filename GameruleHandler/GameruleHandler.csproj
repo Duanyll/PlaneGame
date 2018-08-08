@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassicGamerule.cs" />
     <Compile Include="FullPlayerGameBoard.cs" />
     <Compile Include="GameBoards.cs" />
     <Compile Include="GameInfo.cs" />
