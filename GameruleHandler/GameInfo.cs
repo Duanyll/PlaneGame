@@ -148,7 +148,13 @@ namespace GameruleHandler
             /// <summary>
             /// 玩家按任意顺序排列，每个玩家单独出牌
             /// </summary>
-            Shuffle
+            Shuffle,
+            /// <summary>
+            /// 即时混战
+            /// </summary>
+            Battle
         }
+        public RoundOrderType RoundOrder { get; set; } = RoundOrderType.TeamTogether;
+        public bool ShowKindWhileShoot { get; set; } = false;
     }
 }
