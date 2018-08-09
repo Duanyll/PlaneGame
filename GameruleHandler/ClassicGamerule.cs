@@ -9,6 +9,10 @@ namespace GameruleHandler
     class ClassicGamerule:GameruleBase
     {
         /// <summary>
+        /// 当前所有在线玩家的用户名
+        /// </summary>
+        List<string> OnlinePlayers = new List<string>();
+        /// <summary>
         /// 每个玩家及其分数
         /// </summary>
         Dictionary<string, int> Score = new Dictionary<string, int>();
@@ -25,6 +29,7 @@ namespace GameruleHandler
         /// 当前存活的队伍编号
         /// </summary>
         List<int> AliveTeam = new List<int>();
+
         public override void StartGame()
         {
             if (Info == null)
@@ -70,6 +75,9 @@ namespace GameruleHandler
             Server.StopService();
         }
 
+        /// <summary>
+        /// 当各队伍都准备好棋盘后，新启线程调用这个开局
+        /// </summary>
         public override void Work()
         {
             
@@ -81,8 +89,13 @@ namespace GameruleHandler
         /// <param name="order">玩家的顺序</param>
         void StartByPlayerOrder(List<string> order)
         {
+            for(int i = 0; i < Info.TeamCount; i++)
+            {
+                AliveTeam.Add(i);
+            }
             TellGameStart();
             int now = 0;
+            int DieOrder = 0;
             while (true)
             {
                 string Name = order[now];
@@ -101,6 +114,12 @@ namespace GameruleHandler
                     {
                         if (AliveTeam.Contains(i.Team))
                         {
+                            DieOrder++;
+                            foreach(string name in Teams[i.Team])
+                            {
+                                Score[name] += DieOrder;
+                                UpdateScore(name);
+                            }
                             TellFailure(i.Team);
                             AliveTeam.Remove(i.Team);
                         }
@@ -108,10 +127,27 @@ namespace GameruleHandler
                 }
                 if (AliveTeam.Count <= 1)
                 {
+                    DieOrder++;
+                    foreach (string name in Teams[0])
+                    {
+                        Score[name] += DieOrder;
+                        UpdateScore(name);
+                    }
                     break;
                 }
+                now++;
+                now %= Info.PlayerCount;
             }
             TellGameEnd();
+        }
+
+        /// <summary>
+        /// 广播name的分数改变了
+        /// </summary>
+        /// <param name="name"></param>
+        private void UpdateScore(string name)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
