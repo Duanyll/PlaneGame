@@ -42,7 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassicGamerule.cs" />
+    <Compile Include="ClassicGamerule.AttackLogic.cs" />
+    <Compile Include="ClassicGamerule.Communicating.cs" />
+    <Compile Include="ClassicGamerule.User.cs" />
     <Compile Include="FullPlayerGameBoard.cs" />
     <Compile Include="GameBoards.cs" />
     <Compile Include="GameInfo.cs" />
@@ -58,6 +60,9 @@
       <Project>{aeb775af-b368-4b09-b90e-4bd5129c48e5}</Project>
       <Name>NetServer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClassicGamerule.Threading.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
