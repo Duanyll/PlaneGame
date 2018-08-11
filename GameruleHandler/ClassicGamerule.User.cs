@@ -31,17 +31,34 @@ namespace GameruleHandler
         {
             if (TeamOf.Keys.Contains(UserName))
             {
+                //移除有关该玩家的信息
+                Teams[TeamOf[UserName]].Remove(UserName);
                 TeamOf.Remove(UserName);
             }
             //throw new NotImplementedException();
         }
 
-        private void Server_UserLoggedIn(string UserName)
+        private async void Server_UserLoggedIn(string UserName)
         {
             OnlinePlayers.Add(UserName);
             Score.Add(UserName, 0);
             TellNewUser(UserName);
+            int Team = await Task.Run(() => GetTeam(UserName));
+            if (Team != -1)
+            {
+                TeamOf.Add(UserName, Team);
+                Teams[Team].Add(UserName);
+            }
             //throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 向指定玩家询问加入哪个队伍
+        /// </summary>
+        /// <param name="UserName"></param>
+        private int GetTeam(string UserName)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
