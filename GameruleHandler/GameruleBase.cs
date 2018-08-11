@@ -31,7 +31,6 @@ namespace GameruleHandler
             return true;
             //throw new NotImplementedException();
         }
-        public abstract void Work();
         /// <summary>
         /// 启动网络服务，并在人数足够后开局
         /// </summary>

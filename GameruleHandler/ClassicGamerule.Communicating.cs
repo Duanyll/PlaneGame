@@ -84,5 +84,35 @@ namespace GameruleHandler
         {
             throw new NotImplementedException();
         }
+
+
+        /// <summary>
+        /// 从list中的玩家处获得v条开火信息
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        private List<FirePoints> GetPoints(List<string> list, int v)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 广播现在由now队伍走
+        /// </summary>
+        /// <param name="now"></param>
+        private void ShowRound(int now)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 广播一条文本信息
+        /// </summary>
+        /// <param name="msg"></param>
+        private void BroadcastMessage(string msg)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

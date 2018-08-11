@@ -16,6 +16,7 @@ namespace GameruleHandler
         Nothing,
         Unknown,
         Barrier,
+        Killed,
         ModelHead = 'A',
         ModelBody = 'a'
     }

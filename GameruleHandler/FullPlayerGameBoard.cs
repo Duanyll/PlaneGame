@@ -157,6 +157,7 @@ namespace GameruleHandler
                     if (char.IsUpper((char)this[x, y]))
                     {
                         HeadCount--;
+                        this[x, y] = GameBoardBlock.Killed;
                     }
                     return this[x, y];
                 }

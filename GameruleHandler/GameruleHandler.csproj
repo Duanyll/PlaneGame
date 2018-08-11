@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="ClassicGamerule.AttackLogic.cs" />
     <Compile Include="ClassicGamerule.Communicating.cs" />
+    <Compile Include="ClassicGamerule.PlaceUnit.cs" />
     <Compile Include="ClassicGamerule.User.cs" />
     <Compile Include="FullPlayerGameBoard.cs" />
     <Compile Include="GameBoards.cs" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace GameruleHandler
 {
@@ -18,10 +19,7 @@ namespace GameruleHandler
                 throw new InvalidOperationException();
             }
 
-            for (int i = 0; i < Info.PlayerCount; i++)
-            {
-                GameBoards.Add(new GameBoard.FullPlayerGameBoard(Info.Mask.Width, Info.Mask.Height));
-            }
+            StartPUState();
 
             Server.MessageRecieved += Server_MessageRecieved;
             Server.UserLoggedIn += Server_UserLoggedIn;
@@ -39,6 +37,16 @@ namespace GameruleHandler
                 }
             }
             Server.StopService();
+        }
+
+        private void StartAttackState()
+        {
+            if (MainThread.IsAlive)
+            {
+                MainThread.Abort();
+            }
+            MainThread = new Thread(Work);
+            MainThread.Start();
         }
     }
 }

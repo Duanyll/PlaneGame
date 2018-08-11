@@ -11,22 +11,6 @@ namespace GameruleHandler
     /// </summary>
     partial class ClassicGamerule:GameruleBase
     {
-        /// <summary>
-        /// 当前所有在线玩家的用户名
-        /// </summary>
-        List<string> OnlinePlayers = new List<string>();
-        /// <summary>
-        /// 每个玩家及其分数
-        /// </summary>
-        Dictionary<string, int> Score = new Dictionary<string, int>();
-        /// <summary>
-        /// 每个队伍拥有的玩家
-        /// </summary>
-        List<List<string>> Teams = new List<List<string>>();
-        /// <summary>
-        /// 每个玩家所属的队伍
-        /// </summary>
-        Dictionary<string, int> TeamOf = new Dictionary<string, int>();
         List<GameBoard.FullPlayerGameBoard> GameBoards = new List<GameBoard.FullPlayerGameBoard>();
         /// <summary>
         /// 当前存活的队伍编号
@@ -36,7 +20,7 @@ namespace GameruleHandler
         /// <summary>
         /// 当各队伍都准备好棋盘后，新启线程调用这个开局
         /// </summary>
-        public override void Work()
+        private void Work()
         {
             switch (Info.RoundOrder)
             {
@@ -56,6 +40,12 @@ namespace GameruleHandler
                     }
                     Reshuffle(ref ShOrder);
                     StartByPlayerOrder(ShOrder);
+                    break;
+                case GameInfo.RoundOrderType.TeamTogether:
+                    StartByTeam();
+                    break;
+                case GameInfo.RoundOrderType.Battle:
+                    BroadcastMessage("还没有做这个游戏模式");
                     break;
             }
         }
@@ -142,6 +132,66 @@ namespace GameruleHandler
         }
 
         /// <summary>
+        /// 通过一个队伍所有成员同时走的方法走
+        /// </summary>
+        void StartByTeam()
+        {
+            AliveTeam.Clear();
+            for (int i = 0; i < Info.TeamCount; i++)
+            {
+                AliveTeam.Add(i);
+            }
+            TellGameStart();
+            int now = 0;
+            int DieOrder = 0;   //记录已经死了几个队伍
+            while (true)
+            {
+                if (!AliveTeam.Contains(now))  //跳过已经输了的队伍
+                {
+                    continue;
+                }
+                ShowRound(now);
+                List<FirePoints> points = GetPoints(Teams[now], GetFireCount(now));  //从客户端获取攻击目标
+                //依次处理攻击目标
+                foreach (FirePoints i in points)
+                {
+                    TellAttact(i);
+                    GameBoardBlock result = GameBoards[i.Team].Attack(i.X, i.Y);
+                    TellResult(now, result);
+                    if (GameBoards[i.Team].HeadCount == 0)
+                    {
+                        if (AliveTeam.Contains(i.Team))
+                        {
+                            //处理队伍挂了的情况
+                            DieOrder++;
+                            foreach (string name in Teams[i.Team])
+                            {
+                                Score[name] += DieOrder;
+                                UpdateScore(name);
+                            }
+                            TellFailure(i.Team);
+                            AliveTeam.Remove(i.Team);
+                        }
+                    }
+                }
+                //处理终局的计分情况
+                if (AliveTeam.Count <= 1)
+                {
+                    DieOrder++;
+                    foreach (string name in Teams[0])
+                    {
+                        Score[name] += DieOrder;
+                        UpdateScore(name);
+                    }
+                    break;
+                }
+                now++;
+                now %= Info.TeamCount;
+            }
+            TellGameEnd();
+        }
+
+        /// <summary>
         /// 返回now应该开火多少次
         /// </summary>
         /// <param name="now"></param>
@@ -156,6 +206,32 @@ namespace GameruleHandler
                     return Info.MaxFPR;
                 }
                 if(hcnt < Info.MinFPR)
+                {
+                    return Info.MinFPR;
+                }
+                return hcnt;
+            }
+            else
+            {
+                return Info.FirePerRound;
+            }
+        }
+
+        /// <summary>
+        /// 返回now应该开火多少次
+        /// </summary>
+        /// <param name="now"></param>
+        /// <returns></returns>
+        private int GetFireCount(int now)
+        {
+            if (Info.BindFPRWithHeadCount)
+            {
+                int hcnt = GameBoards[now].HeadCount;
+                if (hcnt > Info.MaxFPR)
+                {
+                    return Info.MaxFPR;
+                }
+                if (hcnt < Info.MinFPR)
                 {
                     return Info.MinFPR;
                 }
