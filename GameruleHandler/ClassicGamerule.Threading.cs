@@ -12,6 +12,11 @@ namespace GameruleHandler
     /// </summary>
     partial class ClassicGamerule
     { 
+        public ClassicGamerule(GameInfo Info)
+        {
+            this.Info = Info;
+        }
+
         public override void StartGame()
         {
             if (Info == null)

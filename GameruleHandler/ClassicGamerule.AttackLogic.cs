@@ -86,8 +86,10 @@ namespace GameruleHandler
             while (true)
             {
                 string Name = order[now];   //当前玩家的名字
-                if (!AliveTeam.Contains(TeamOf[Name]))  //跳过已经输了的队伍
+                bool ExistPlayer = TeamOf.Keys.Contains(Name) && AliveTeam.Contains(TeamOf[Name]);
+                if (!ExistPlayer)  //跳过已经输了的队伍
                 {
+                    order.Remove(Name);
                     continue;
                 }
                 ShowRound(Name, TeamOf[Name]);
@@ -125,8 +127,12 @@ namespace GameruleHandler
                     }
                     break;
                 }
+                if (order.Count <= 1)
+                {
+                    break;
+                }
                 now++;
-                now %= Info.PlayerCount;
+                now %= order.Count;
             }
             TellGameEnd();
         }
@@ -146,7 +152,8 @@ namespace GameruleHandler
             int DieOrder = 0;   //记录已经死了几个队伍
             while (true)
             {
-                if (!AliveTeam.Contains(now))  //跳过已经输了的队伍
+                bool ExistTeam = Teams[now].Count > 0 && AliveTeam.Contains(now);
+                if (!ExistTeam)  //跳过已经输了的队伍
                 {
                     continue;
                 }
@@ -183,6 +190,10 @@ namespace GameruleHandler
                         Score[name] += DieOrder;
                         UpdateScore(name);
                     }
+                    break;
+                }
+                if (TeamOf.Keys.Count < 1)
+                {
                     break;
                 }
                 now++;

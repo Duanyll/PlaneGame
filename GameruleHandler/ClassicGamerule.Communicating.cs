@@ -114,5 +114,23 @@ namespace GameruleHandler
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// 向指定玩家询问加入哪个队伍
+        /// </summary>
+        /// <param name="UserName"></param>
+        private int GetTeam(string UserName)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 广播新玩家加入的信息
+        /// </summary>
+        /// <param name="userName"></param>
+        private void TellNewUser(string userName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
