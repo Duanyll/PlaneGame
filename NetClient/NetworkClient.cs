@@ -25,7 +25,7 @@ namespace NetClient
         {
             if (String.IsNullOrWhiteSpace(msg.Trim()))
             {
-                FailureCaused("发送内容不能为空哦~");
+                FailureCaused?.Invoke("发送内容不能为空哦~");
                 return;
             }
             if (clientSocket != null && clientSocket.Connected)
@@ -35,7 +35,7 @@ namespace NetClient
             }
             else
             {
-                FailureCaused("未连接服务器或者服务器已停止，请联系管理员~");
+                FailureCaused?.Invoke("未连接服务器或者服务器已停止，请联系管理员~");
                 return;
             }
         }
@@ -46,12 +46,12 @@ namespace NetClient
         {
             if (String.IsNullOrWhiteSpace(UserName.Trim()))
             {
-                FailureCaused("请设置个用户名哦亲");
+                FailureCaused?.Invoke("请设置个用户名哦亲");
                 return false;
             }
             if (UserName.Length >= 17 && UserName.ToString().Trim().Substring(0, 17).Equals("Server has closed"))
             {
-                FailureCaused("该用户名中包含敏感词，请更换用户名后重试");
+                FailureCaused?.Invoke("该用户名中包含敏感词，请更换用户名后重试");
                 return false;
             }
 
@@ -77,7 +77,7 @@ namespace NetClient
                         }
                         catch
                         {
-                            FailureCaused("请输入正确的IP后重试");
+                            FailureCaused?.Invoke("请输入正确的IP后重试");
                             return false;
                         }
                     }
@@ -101,7 +101,7 @@ namespace NetClient
                             }
                             else
                             {
-                                FailureCaused("服务器已关闭");
+                                FailureCaused?.Invoke("服务器已关闭");
                             }
                         }
                     }, null);
@@ -109,13 +109,13 @@ namespace NetClient
                 }
                 catch (SocketException ex)
                 {
-                    FailureCaused(ex.ToString());
+                    FailureCaused?.Invoke(ex.ToString());
                     return false;
                 }
             }
             else
             {
-                FailureCaused("你已经连接上服务器了");
+                FailureCaused?.Invoke("你已经连接上服务器了");
                 return true;
             }
         }
@@ -123,7 +123,7 @@ namespace NetClient
         //获取服务器端的消息
         private void DataFromServer()
         {
-            MessageRecieved("SLOG|正在连接服务器");
+            MessageRecieved?.Invoke("SLOG|正在连接服务器");
             isListen = true;
             try
             {
@@ -141,8 +141,8 @@ namespace NetClient
                             clientSocket.Close();
                             clientSocket = null;
 
-                            MessageRecieved( "SLOG|服务器已关闭");
-                            MessageRecieved( "SMSG|服务器已关闭");
+                            MessageRecieved?.Invoke("SLOG|服务器已关闭");
+                            MessageRecieved?.Invoke("SMSG|服务器已关闭");
                             thDataFromServer.Abort();   //这一句必须放在最后，不然这个进程都关了后面的就不会执行了
 
                             return;
@@ -152,19 +152,19 @@ namespace NetClient
                         if (dataFromClient.StartsWith("#") && dataFromClient.EndsWith("#"))
                         {
                             String userName = dataFromClient.Substring(1, dataFromClient.Length - 2);
-                                FailureCaused("用户名：[" + userName + "]已经存在，请尝试其他用户名并重试");
+                            FailureCaused?.Invoke("用户名：[" + userName + "]已经存在，请尝试其他用户名并重试");
                             isListen = false;
-                                clientSocket.Send(Encoding.UTF8.GetBytes("$"));
-                                clientSocket.Close();
-                                clientSocket = null;
+                            clientSocket.Send(Encoding.UTF8.GetBytes("$"));
+                            clientSocket.Close();
+                            clientSocket = null;
                         }
                         else
                         {
                             //txtName.Enabled = false;    //当用户名唯一时才禁止再次输入用户名
                             string[] vs = dataFromClient.Split('*');
-                            foreach(string i in vs)
+                            foreach (string i in vs)
                             {
-                                MessageRecieved(i);
+                                MessageRecieved?.Invoke(i);
                             }
                         }
                     }
@@ -178,7 +178,7 @@ namespace NetClient
                     //没有在客户端关闭连接，而是给服务器发送一个消息，在服务器端关闭连接
                     //这样可以将异常的处理放到服务器。客户端关闭会让客户端和服务器都抛异常
                     clientSocket.Send(Encoding.UTF8.GetBytes("$"));
-                    FailureCaused(ex.ToString());
+                    FailureCaused?.Invoke(ex.ToString());
                 }
             }
         }
@@ -192,8 +192,8 @@ namespace NetClient
 
                 clientSocket.Close();
                 clientSocket = null;
-                    MessageRecieved( "SMSG|已断开与服务器的连接");
-                MessageRecieved("SLOG|已断开与服务器的连接");
+                MessageRecieved?.Invoke("SMSG|已断开与服务器的连接");
+                MessageRecieved?.Invoke("SLOG|已断开与服务器的连接");
             }
         }
     }

@@ -265,7 +265,7 @@ namespace NetServer
 
                                     //BroadCast是下面自己定义的一个类，是用来将消息对所有用户进行推送的
                                     //PushMessage(String msg, String uName, Boolean flag, Dictionary<String, Socket> clientList)
-                                    UserLoggedIn(dataFromClient);
+                                    UserLoggedIn?.Invoke(dataFromClient);
 
                                     //HandleClient也是一个自己定义的类，用来负责接收客户端发来的消息并转发给所有的客户端
                                     //StartClient(Socket inClientSocket, String clientNo, Dictionary<String, Socket> cList)
@@ -289,9 +289,6 @@ namespace NetServer
                     {
                         Log(ep.ToString() + "\t\t" + DateTime.Now.ToString() + "");
                     }
-
-
-
                 }
             }
 
@@ -299,12 +296,12 @@ namespace NetServer
 
         private void RecMsg(string clno,string msg)
         {
-            MessageRecieved(clno, msg);
+            MessageRecieved?.Invoke(clno, msg);
         }
 
         private void ULogout(string clno)
         {
-            UserLoggedOut(clno);
+            UserLoggedOut?.Invoke(clno);
         }
 
         public void StopService()
