@@ -79,7 +79,7 @@ namespace PlaneGameTest
                 Console.WriteLine(board.CheckName(board.Attack(w, h)) + ' ' + board.HeadCount);
             }
 
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }
