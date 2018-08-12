@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Threading;
 using System.Net.Sockets;
+using System.Diagnostics;
 
 namespace NetServer
 {
@@ -62,10 +63,16 @@ namespace NetServer
             }
         }
 
+        public NetworkServer(IPAddress ip)
+        {
+            ipadr = ip;
+            Log("本机ip：" + ipadr.ToString());
+        }
+
         public NetworkServer()
         {
-            ipadr = IPAddress.Parse( GetLocalIP());
-            Log("本机ip：" + ipadr.ToString());
+            ipadr = IPAddress.Any;
+            Log("将尝试使用本机所有IP地址");
         }
 
         public static void Log(string a)
@@ -137,8 +144,10 @@ namespace NetServer
                         serverSocket.Listen(MAX_CONNECTIONS);
 
 
-                        thStartListen = new Thread(StartListen);
-                        thStartListen.IsBackground = true;
+                        thStartListen = new Thread(StartListen)
+                        {
+                            IsBackground = true
+                        };
                         thStartListen.Start();
 
                         //这里有点不一样，原文用的是  txtMsg.Dispatcher.BeginInvoke
@@ -153,6 +162,7 @@ namespace NetServer
                     catch (Exception eg)
                     {
                         Log("服务启动失败，可能是IP地址有误");
+                        Log(eg.Message);
                         if (serverSocket != null)
                         {
                             serverSocket.Close();
@@ -184,7 +194,7 @@ namespace NetServer
 
 
         //线程函数，封装一个建立连接的通信套接字
-        public void StartListen()
+        private void StartListen()
         {
             isListen = true;
             //default()只是设置为一个初始值，这里应该为null  参考网址：https://stackoverflow.com/questions/28720717/why-default-in-c-sharp-tcpclient-clientsocket-defaulttcpclient
@@ -297,52 +307,6 @@ namespace NetServer
             UserLoggedOut(clno);
         }
 
-
-
-
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            if (serverSocket != null)
-            {
-                serverSocket.Close();
-                thStartListen.Abort();  //将监听进程关掉
-
-                BroadCast.PushMessage("Server has closed", "", false, clientList);
-                foreach (var socket in clientList.Values)
-                {
-                    socket.Close();
-                }
-                clientList.Clear();
-
-                serverSocket = null;
-                isListen = false;
-                Log("服务停止，断开所有客户端连接\t" + DateTime.Now.ToString());
-            }
-        }
-
-        private void Form1_Load()
-        {
-            try
-            {
-                clientList = new Dictionary<string, Socket>();
-                serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);//实例，监听套接字
-                                                                                                           //IPAddress ipadr = IPAddress.Parse("192.168.1.100");
-
-                endPoint = new IPEndPoint(ipadr, Port);//端点
-                serverSocket.Bind(endPoint);//绑定
-                serverSocket.Listen(MAX_CONNECTIONS);   //设置最大连接数
-                thStartListen = new Thread(StartListen);
-                thStartListen.IsBackground = true;
-                thStartListen.Start();
-                Log("服务启动成功");
-                Log("当前IP：" + endPoint.Address.ToString());
-            }
-            catch (SocketException ep)
-            {
-                Log(ep.ToString());
-            }
-        }
-
         public void StopService()
         {
             if (serverSocket != null)
@@ -361,60 +325,15 @@ namespace NetServer
 
         }
 
-        //重置监听的IP地址
-        private void ResetIP(string txtIP)
-        {
-
-            //如果txtIP里面有值，就选择填入的IP作为服务器IP，不填的话就默认是本机的
-            if (!String.IsNullOrWhiteSpace(txtIP.Trim()))
-            {
-                try
-                {
-                    ipadr = IPAddress.Parse(txtIP.Trim());
-                    StopService();
-                    Log("服务器重启中，请稍候...");
-                    StartService();
-
-
-                    Log("当前IP：" + endPoint.Address.ToString());
-                }
-                catch (Exception ep)
-                {
-                    Log("ip无效");
-                }
-            }
-            else
-            {
-                Log("ip无效");
-            }
-
-
-        }
-
-        public void Reset()
-        {
-            if (ipadr == IPAddress.Loopback)
-            {
-                Log("当前已经处于默认状态，无需修改");
-            }
-            else
-            {
-                ipadr = IPAddress.Loopback;
-                StopService();
-                Log("服务器重启中，请稍候...");
-
-                StartService();
-                Log("当前IP：" + endPoint.Address.ToString());
-            }
-        }
-
         public void BroadCastToAll(string msg)
         {
+            Debug.WriteLine("广播:" + msg);
             BroadCast.PushMessage(msg+"*", "", false, clientList);
         }
 
         public void SendTo(string clno,string msg)
         {
+            Debug.WriteLine("向" + clno + "发送:" + msg);
             clientList[clno].Send(Encoding.UTF8.GetBytes(msg+"*"));
         }
 
@@ -422,7 +341,7 @@ namespace NetServer
 
 
     //该类专门负责接收客户端发来的消息，并转发给所有的客户端
-    public class HandleClient
+    internal class HandleClient
     {
         Socket clientSocket;
         String clNo;
@@ -443,8 +362,10 @@ namespace NetServer
             clNo = clientNo;
             clientList = cList;
 
-            Thread th = new Thread(Chat);
-            th.IsBackground = true;
+            Thread th = new Thread(Chat)
+            {
+                IsBackground = true
+            };
             th.Start();
         }
 
@@ -452,7 +373,6 @@ namespace NetServer
         {
             Byte[] bytesFromClient = new Byte[4096];
             String dataFromClient;
-            String msgTemp = null;
             Byte[] bytesSend = new Byte[4096];
             Boolean isListen = true;
 
@@ -478,7 +398,7 @@ namespace NetServer
                                 //丧心病狂，只能把事件二级传出去
                                 MessageRecieved(clNo, dataFromClient);
                                 //BroadCast.PushMessage(dataFromClient, clNo, true, clientList);
-                                Console.WriteLine(clNo + ":" + dataFromClient);
+                                Debug.WriteLine(clNo + ":" + dataFromClient);
                             }
                             else
                             {
@@ -512,7 +432,7 @@ namespace NetServer
     }
 
     //向所有客户端发送信息
-    public class BroadCast
+    internal class BroadCast
     {
         //flag是用来判断传进来的msg前面是否需要加上uName:，也就是判断是不是系统信息，是系统信息的话就设置flag为false
         public static void PushMessage(String msg, String uName, Boolean flag, Dictionary<String, Socket> clientList)
@@ -540,7 +460,7 @@ namespace NetServer
                 {
                     brdcastSocket.Close();
                     brdcastSocket = null;
-                    Console.WriteLine(e.ToString() + "PushMessage" + DateTime.Now.ToString());
+                    Debug.WriteLine(e.ToString() + "PushMessage" + DateTime.Now.ToString());
                     continue;
                 }
             }

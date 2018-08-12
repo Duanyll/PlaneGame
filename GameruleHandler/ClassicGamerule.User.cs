@@ -29,6 +29,7 @@ namespace GameruleHandler
         Dictionary<string, int> TeamOf = new Dictionary<string, int>();
         private void Server_UserLoggedOut(string UserName)
         {
+            OnlinePlayers.Remove(UserName);
             if (TeamOf.Keys.Contains(UserName))
             {
                 //移除有关该玩家的信息
