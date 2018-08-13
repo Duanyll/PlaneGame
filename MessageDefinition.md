@@ -63,3 +63,13 @@
 |SNOW|UserName|TeamID|||现在轮到谁走
 |TLOS|TeamID||||某个队伍输了
 |SCOR|UserName|Score|||修改某个玩家的分数
+
+### 客户端向服务端
+
+|Part0|Part1|Part2|Part3|说明|
+|-|-|-|-|-|
+|CHAT|Content|||聊天
+|STEM|TeamID|||加入队伍
+|PUTU|Name|x|y|放置单位
+|ATCK|TeamID|x|y|攻击坐标
+|REFR||||客户端请求更新UI

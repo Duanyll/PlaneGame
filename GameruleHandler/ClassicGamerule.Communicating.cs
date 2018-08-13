@@ -97,6 +97,11 @@ namespace GameruleHandler
             throw new NotImplementedException();
         }
 
+        private List<FirePoints> GetPoints_Callback(string UserName, int TeamID, int x, int y)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// 广播现在由now队伍走
         /// </summary>
@@ -116,12 +121,22 @@ namespace GameruleHandler
         }
 
         /// <summary>
-        /// 向指定玩家询问加入哪个队伍
+        /// 向指定玩家询问加入哪个队伍，并自动添加到队伍中
         /// </summary>
         /// <param name="UserName"></param>
-        private int GetTeam(string UserName)
+        private void GetTeam(string UserName)
         {
             throw new NotImplementedException();
+        }
+
+        private void GetTeam_Callback(string UserName, int Team)
+        {
+            if (Teams[Team].Count < Info.MaxPersonInATeam)
+            {
+                TeamOf.Add(UserName, Team);
+                Teams[Team].Add(UserName);
+                AllowPU(UserName);
+            }
         }
 
         /// <summary>
@@ -131,6 +146,31 @@ namespace GameruleHandler
         private void TellNewUser(string userName)
         {
             throw new NotImplementedException();
+        }
+
+        private async void Server_MessageRecieved(string UserName, string msg)
+        {
+            await Task.Run(() =>
+            {
+                string[] Parameters = msg.Split('|');
+                switch (Parameters[0])
+                {
+                    case "CHAT":
+                        Server.BroadCastToAll("CHAT|" + UserName + '|' + Parameters[1]);
+                        break;
+                    case "STEM":
+                        GetTeam_Callback(UserName, int.Parse(Parameters[1]));
+                        break;
+                    case "PUTU":
+                        PlaceUnit(UserName, Parameters[1], int.Parse(Parameters[2]), int.Parse(Parameters[3]));
+                        break;
+                    case "ATCK":
+                        GetPoints_Callback(UserName, int.Parse(Parameters[1]), int.Parse(Parameters[2]), int.Parse(Parameters[3]));
+                        break;
+                    case "REFR":
+                        break;
+                }
+            });
         }
     }
 }

@@ -39,23 +39,13 @@ namespace GameruleHandler
             //throw new NotImplementedException();
         }
 
-        private async void Server_UserLoggedIn(string UserName)
+        private void Server_UserLoggedIn(string UserName)
         {
             OnlinePlayers.Add(UserName);
             Score.Add(UserName, 0);
             TellNewUser(UserName);
-            int Team = await Task.Run(() => GetTeam(UserName));
-            if (Team != -1)
-            {
-                TeamOf.Add(UserName, Team);
-                Teams[Team].Add(UserName);
-            }
+            GetTeam(UserName);
             //throw new NotImplementedException();
-        }
-
-        private void Server_MessageRecieved(string UserName, string msg)
-        {
-            throw new NotImplementedException();
         }
     }
 }
