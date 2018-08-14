@@ -71,5 +71,6 @@
 |CHAT|Content|||聊天
 |STEM|TeamID|||加入队伍
 |PUTU|Name|x|y|放置单位
+|PUCR||||重置游戏版
 |ATCK|TeamID|x|y|攻击坐标
 |REFR||||客户端请求更新UI

@@ -48,8 +48,8 @@ namespace GameruleHandler
                 }
             }
 
-            FullPlayerGameBoard GetFullPlayerGameBoard() => new FullPlayerGameBoard(ToStrings());
-            PlayerViewGameBoard GetPlayerViewGameBoard() => new PlayerViewGameBoard(ToStrings());
+            public FullPlayerGameBoard GetFullPlayerGameBoard() => new FullPlayerGameBoard(ToStrings());
+            public PlayerViewGameBoard GetPlayerViewGameBoard() => new PlayerViewGameBoard(ToStrings());
         }
     }
 }

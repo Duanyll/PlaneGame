@@ -29,6 +29,7 @@ namespace GameruleHandler
         Dictionary<string, int> TeamOf = new Dictionary<string, int>();
         private void Server_UserLoggedOut(string UserName)
         {
+            Server.BroadCastToAll("ULGO|" + UserName);
             OnlinePlayers.Remove(UserName);
             if (TeamOf.Keys.Contains(UserName))
             {
@@ -44,8 +45,41 @@ namespace GameruleHandler
             OnlinePlayers.Add(UserName);
             Score.Add(UserName, 0);
             TellNewUser(UserName);
+            Server.SendTo(UserName,"TCLR|");
+            foreach(var i in TeamOf)
+            {
+                Server.SendTo(UserName, "TMIF|" + i.Key + '|' + i.Value);
+            }
             GetTeam(UserName);
             //throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 向指定玩家询问加入哪个队伍，并自动添加到队伍中
+        /// </summary>
+        /// <param name="UserName"></param>
+        private void GetTeam(string UserName)
+        {
+            string AvaliableTeams = "";
+            for (int i = 0; i < Info.TeamCount; i++)
+            {
+                if (Teams[i].Count < Info.MaxPersonInATeam)
+                {
+                    AvaliableTeams += i;
+                }
+            }
+            Server.SendTo(UserName, "GTEM|" + AvaliableTeams);
+        }
+
+        private void GetTeam_Callback(string UserName, int Team)
+        {
+            if (Teams[Team].Count < Info.MaxPersonInATeam)
+            {
+                Server.BroadCastToAll("TMIF|" + UserName + '|' + Team);
+                TeamOf.Add(UserName, Team);
+                Teams[Team].Add(UserName);
+                AllowPU(UserName);
+            }
         }
     }
 }

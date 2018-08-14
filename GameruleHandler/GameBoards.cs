@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace GameruleHandler
 {
@@ -23,7 +26,8 @@ namespace GameruleHandler
     /// <summary>
     /// 表示普通的游戏版
     /// </summary>
-    public abstract partial class GameBoard
+    [Serializable]
+    public abstract partial class GameBoard:ICloneable
     {
         /// <summary>
         /// 除了在构造函数中，不应直接访问此字段
@@ -165,9 +169,32 @@ namespace GameruleHandler
             return vs;
         }
 
+        public override string ToString()
+        {
+            string[] vs = ToStrings();
+            string ret = "";
+            foreach(string i in vs)
+            {
+                ret += i + Environment.NewLine;
+            }
+            return ret.Trim();
+        }
+
         protected bool NotInRange(int x, int y)
         {
             return x >= Height || y >= Width || x < 0 || y < 0;
+        }
+
+        public object Clone()
+        {
+            using (Stream objectStream = new MemoryStream())
+            {
+                //利用 System.Runtime.Serialization序列化与反序列化完成引用对象的复制
+                IFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(objectStream, this);
+                objectStream.Seek(0, SeekOrigin.Begin);
+                return formatter.Deserialize(objectStream);
+            }
         }
 
         /// <summary>
@@ -189,5 +216,7 @@ namespace GameruleHandler
             /// </summary>
             NoCornor = 2
         }
+
+
     }
 }

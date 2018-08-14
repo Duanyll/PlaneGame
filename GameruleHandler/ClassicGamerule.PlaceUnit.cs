@@ -17,7 +17,8 @@ namespace GameruleHandler
             GameBoards.Clear();
             for (int i = 0; i < Info.PlayerCount; i++)
             {
-                GameBoards.Add(new GameBoard.FullPlayerGameBoard(Info.Mask.Width, Info.Mask.Height));
+                GameBoards.Add(Info.Mask.GetFullPlayerGameBoard());
+                
             }
             Teams.Clear();
             for (int i = 0; i < Info.TeamCount; i++)
@@ -32,7 +33,20 @@ namespace GameruleHandler
         /// <param name="UserName"></param>
         void AllowPU(string UserName)
         {
+            Server.SendTo(UserName, "SPUS|");
+        }
 
+        void ResetBoard(string UserName)
+        {
+            if (TeamOf.Keys.Contains(UserName))
+            {
+                GameBoards[TeamOf[UserName]] = Info.Mask.GetFullPlayerGameBoard();
+                foreach(string name in Teams[TeamOf[UserName]])
+                {
+                    Server.SendTo(name, "SBAR|已清空棋盘");
+                    Server.SendTo(name, "GBRD|" + GameBoards[TeamOf[UserName]].ToString());
+                }
+            }
         }
 
         /// <summary>
@@ -42,9 +56,19 @@ namespace GameruleHandler
         /// <param name="PatternName"></param>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        void PlaceUnit(string UserName,string PatternName,int x,int y)
+        void PlaceUnit(string UserName, string PatternName, int x, int y, GameBoard.PatternGameBoard.RoationMode roation = GameBoard.PatternGameBoard.RoationMode.None ,GameBoard.PatternGameBoard.FlipMode flip = GameBoard.PatternGameBoard.FlipMode.None)
         {
-
+            if (TeamOf.Keys.Contains(UserName))
+            {
+                Info.Patterns[PatternName].Roation = roation;
+                Info.Patterns[PatternName].Flip = flip;
+                GameBoards[TeamOf[UserName]].PutPatern(Info.Patterns[PatternName], x, y, Info.cornorMode);
+                foreach (string name in Teams[TeamOf[UserName]])
+                {
+                    Server.SendTo(name, "SBAR|已放置单位");
+                    Server.SendTo(name, "GBRD|" + GameBoards[TeamOf[UserName]].ToString());
+                }
+            }
         }
 
         /// <summary>

@@ -68,9 +68,9 @@ namespace GameruleHandler
             }
         }
         /// <summary>
-        /// 表示可用的单位种类与数量等
+        /// 表示可用的单位种类，按名称索引
         /// </summary>
-        public List<GameBoard.PatternGameBoard> Patterns = new List<GameBoard.PatternGameBoard>();
+        public Dictionary<string, GameBoard.PatternGameBoard> Patterns = new Dictionary<string, GameBoard.PatternGameBoard>();
         /// <summary>
         /// 表示每队玩家的基础游戏版
         /// </summary>
@@ -156,5 +156,8 @@ namespace GameruleHandler
         }
         public RoundOrderType RoundOrder { get; set; } = RoundOrderType.TeamTogether;
         public bool ShowKindWhileShoot { get; set; } = false;
+        public GameBoard.CornorMode cornorMode { get; set; } = GameBoard.CornorMode.All;
+        public GameBoard.PatternGameBoard.FlipMode flipMode { get; set; } = GameBoard.PatternGameBoard.FlipMode.None;
+        public bool AllowRoation { get; set; } = false;
     }
 }
