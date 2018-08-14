@@ -146,7 +146,10 @@ namespace GameruleHandler
                         PlaceUnit(UserName, Parameters[1], int.Parse(Parameters[2]), int.Parse(Parameters[3]));
                         break;
                     case "PUCR":
-
+                        ResetBoard(UserName);
+                        break;
+                    case "FPUS":
+                        FinishPUState(UserName);
                         break;
                     case "ATCK":
                         GetPoints_Callback(UserName, int.Parse(Parameters[1]), int.Parse(Parameters[2]), int.Parse(Parameters[3]));
