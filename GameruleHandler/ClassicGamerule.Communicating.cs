@@ -18,7 +18,7 @@ namespace GameruleHandler
         /// <param name="team"></param>
         private void ShowRound(string now, int team)
         {
-            throw new NotImplementedException();
+            Server.BroadCastToAll("SNOW|" + now + '|' + team);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace GameruleHandler
         /// <param name="name"></param>
         private void UpdateScore(string name)
         {
-            throw new NotImplementedException();
+            Server.BroadCastToAll("SCOR|" + name + '|' + Score[name]);
         }
 
         /// <summary>
@@ -35,7 +35,8 @@ namespace GameruleHandler
         /// </summary>
         private void TellGameEnd()
         {
-            throw new NotImplementedException();
+            Server.BroadCastToAll("SLOG|游戏结束");
+            Server.BroadCastToAll("SBAR|游戏结束");
         }
 
         /// <summary>
@@ -44,7 +45,8 @@ namespace GameruleHandler
         /// <param name="team"></param>
         private void TellFailure(int team)
         {
-            throw new NotImplementedException();
+            Server.BroadCastToAll("SLOG|"+team+"队失去了所有单位");
+            Server.BroadCastToAll("SBAR|"+team+"队失去了所有单位");
         }
 
         /// <summary>
@@ -52,9 +54,39 @@ namespace GameruleHandler
         /// </summary>
         /// <param name="v"></param>
         /// <param name="result"></param>
-        private void TellResult(int v, GameBoardBlock result)
+        private void TellResult(int Team, FirePoint point,GameBoardBlock result)
         {
-            throw new NotImplementedException();
+            if (Info.ShowKindWhileShoot)
+            {
+                string msg = "AUGB|" + point.Team + '|' + point.X + '|' + point.Y + '|' + GameBoards[point.Team].CheckName(result);
+                foreach (string name in Teams[Team])
+                {
+                    Server.SendTo(name, msg);
+                }
+            }
+            else
+            {
+                string msg = "AUGB|" + point.Team + '|' + point.X + '|' + point.Y + '|';
+                if (Enum.IsDefined(result.GetType(), result))
+                {
+                    msg += result.ToString();
+                }
+                else
+                {
+                    if (char.IsUpper((char)result))
+                    {
+                        msg += GameBoardBlock.Head.ToString();
+                    }
+                    else
+                    {
+                        msg += GameBoardBlock.Body.ToString();
+                    }
+                }
+                foreach (string name in Teams[Team])
+                {
+                    Server.SendTo(name, msg);
+                }
+            }
         }
 
         /// <summary>
@@ -62,16 +94,23 @@ namespace GameruleHandler
         /// </summary>
         private void TellGameStart()
         {
-            throw new NotImplementedException();
+            Server.BroadCastToAll("ASRT|");
+            for(int i = 0; i < Info.TeamCount; i++)
+            {
+                Server.BroadCastToAll("AGBR|" + i + '|' + Info.Mask.ToString());
+            }
         }
 
         /// <summary>
         /// 告知被攻击者攻击位置
         /// </summary>
         /// <param name="i"></param>
-        private void TellAttact(FirePoints i)
+        private void TellAttact(FirePoint i)
         {
-            throw new NotImplementedException();
+            foreach(string name in Teams[i.Team])
+            {
+                Server.SendTo(name, "SLOG|" + "您的(" + i.X + "," + i.Y + "格受到了攻击");
+            }
         }
 
         /// <summary>
@@ -80,7 +119,7 @@ namespace GameruleHandler
         /// <param name="name"></param>
         /// <param name="v"></param>
         /// <returns></returns>
-        private List<FirePoints> GetPoints(string name, int fc)
+        private List<FirePoint> GetPoints(string name, int fc)
         {
             throw new NotImplementedException();
         }
@@ -92,12 +131,12 @@ namespace GameruleHandler
         /// <param name="list"></param>
         /// <param name="v"></param>
         /// <returns></returns>
-        private List<FirePoints> GetPoints(List<string> list, int v)
+        private List<FirePoint> GetPoints(List<string> list, int v)
         {
             throw new NotImplementedException();
         }
 
-        private List<FirePoints> GetPoints_Callback(string UserName, int TeamID, int x, int y)
+        private List<FirePoint> GetPoints_Callback(string UserName, int TeamID, int x, int y)
         {
             throw new NotImplementedException();
         }

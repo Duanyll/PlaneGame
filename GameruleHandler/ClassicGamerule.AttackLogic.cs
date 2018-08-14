@@ -93,13 +93,13 @@ namespace GameruleHandler
                     continue;
                 }
                 ShowRound(Name, TeamOf[Name]);
-                List<FirePoints> points = GetPoints(Name, GetFireCount(Name));  //从客户端获取攻击目标
+                List<FirePoint> points = GetPoints(Name, GetFireCount(Name));  //从客户端获取攻击目标
                 //依次处理攻击目标
-                foreach(FirePoints i in points)
+                foreach(FirePoint i in points)
                 {
                     TellAttact(i);
                     GameBoardBlock result = GameBoards[i.Team].Attack(i.X, i.Y);
-                    TellResult(TeamOf[Name], result);
+                    TellResult(TeamOf[Name], i.Team ,result);
                     if (GameBoards[i.Team].HeadCount == 0)  
                     {
                         if (AliveTeam.Contains(i.Team))
@@ -158,13 +158,13 @@ namespace GameruleHandler
                     continue;
                 }
                 ShowRound(now);
-                List<FirePoints> points = GetPoints(Teams[now], GetFireCount(now));  //从客户端获取攻击目标
+                List<FirePoint> points = GetPoints(Teams[now], GetFireCount(now));  //从客户端获取攻击目标
                 //依次处理攻击目标
-                foreach (FirePoints i in points)
+                foreach (FirePoint i in points)
                 {
                     TellAttact(i);
                     GameBoardBlock result = GameBoards[i.Team].Attack(i.X, i.Y);
-                    TellResult(now, result);
+                    TellResult(now, i.Team,result);
                     if (GameBoards[i.Team].HeadCount == 0)
                     {
                         if (AliveTeam.Contains(i.Team))

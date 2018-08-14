@@ -53,7 +53,7 @@
     <Compile Include="MaskGameBoard.cs" />
     <Compile Include="PatternGameBoard.cs" />
     <Compile Include="PlayerViewGameBoard.cs" />
-    <Compile Include="FirePoints.cs" />
+    <Compile Include="FirePoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

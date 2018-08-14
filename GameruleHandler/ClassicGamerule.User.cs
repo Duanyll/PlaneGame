@@ -44,6 +44,10 @@ namespace GameruleHandler
         {
             OnlinePlayers.Add(UserName);
             Score.Add(UserName, 0);
+            foreach(var i in Score)
+            {
+                UpdateScore(i.Key);
+            }
             TellNewUser(UserName);
             Server.SendTo(UserName,"TCLR|");
             foreach(var i in TeamOf)

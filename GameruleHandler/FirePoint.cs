@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameruleHandler
 {
-    struct FirePoints
+    struct FirePoint
     {
         public int X;
         public int Y;
