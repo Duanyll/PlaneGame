@@ -99,7 +99,7 @@ namespace GameruleHandler
                 {
                     TellAttact(i);
                     GameBoardBlock result = GameBoards[i.Team].Attack(i.X, i.Y);
-                    TellResult(TeamOf[Name], i.Team ,result);
+                    TellResult(TeamOf[Name], i ,result);
                     if (GameBoards[i.Team].HeadCount == 0)  
                     {
                         if (AliveTeam.Contains(i.Team))
@@ -164,7 +164,7 @@ namespace GameruleHandler
                 {
                     TellAttact(i);
                     GameBoardBlock result = GameBoards[i.Team].Attack(i.X, i.Y);
-                    TellResult(now, i.Team,result);
+                    TellResult(now, i,result);
                     if (GameBoards[i.Team].HeadCount == 0)
                     {
                         if (AliveTeam.Contains(i.Team))

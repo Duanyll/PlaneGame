@@ -26,7 +26,7 @@
 |CHAT|UserName|Content|聊天
 |ULGI|UserName||用户登入
 |ULGO|UserName||用户登出
-|MSGB|Content||弹出对话框
+|MBOX|Content||弹出对话框
 |SBAR|Content||在SnackBar中显示内容
 |SLOG|Content||在日志窗口中显示内容
 
@@ -58,7 +58,7 @@
 |AGBR|TeamID|PlayerViewGameBoard|||整个设置某个队伍的棋盘
 |ASRT|||||开始攻击阶段
 |AUGB|TeamID|x|y|GameBoardBlock|单点更新某个队伍的棋盘
-|GPNT|Count||||允许开火Count次
+|GPNT|Count|TimeOut|||允许开火Count次,TimeOut单位为秒
 |SGPT|||||停止开火
 |SNOW|UserName|TeamID|||现在轮到谁走
 |TLOS|TeamID||||某个队伍输了

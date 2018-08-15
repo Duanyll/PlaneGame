@@ -94,6 +94,7 @@ namespace GameruleHandler
         /// </summary>
         private void TellGameStart()
         {
+            Server.BroadCastToAll("SGTM|");
             Server.BroadCastToAll("ASRT|");
             for(int i = 0; i < Info.TeamCount; i++)
             {
@@ -113,15 +114,36 @@ namespace GameruleHandler
             }
         }
 
+        readonly TimeSpan TimeForEachRecieve = new TimeSpan(0, 0, 0, 0, 100);
+        (string Name, FirePoint Point)? LastAttack = null;
         /// <summary>
         /// 获取name玩家的攻击目标
         /// </summary>
         /// <param name="name"></param>
-        /// <param name="v"></param>
+        /// <param name="fc"></param>
         /// <returns></returns>
         private List<FirePoint> GetPoints(string name, int fc)
         {
-            throw new NotImplementedException();
+            List<FirePoint> ret = new List<FirePoint>();
+            for(int i = 0; i < fc; i++)
+            {
+                Server.SendTo(name, "GPNT|" + (fc - i).ToString() + '|' + (int)Info.TimeOut.TotalSeconds);
+                TimeSpan timePast = new TimeSpan(0);
+                while (timePast < Info.TimeOut)
+                {
+                    if (LastAttack.HasValue)
+                    {
+                        if (LastAttack.Value.Name == name)
+                        {
+                            ret.Add(LastAttack.Value.Point);
+                            LastAttack = null;
+                            break;
+                        }
+                    }
+                }
+                Server.SendTo(name, "SGPT|");
+            }
+            return ret;
         }
 
 
@@ -129,16 +151,37 @@ namespace GameruleHandler
         /// 从list中的玩家处获得v条开火信息
         /// </summary>
         /// <param name="list"></param>
-        /// <param name="v"></param>
+        /// <param name="fc"></param>
         /// <returns></returns>
-        private List<FirePoint> GetPoints(List<string> list, int v)
+        private List<FirePoint> GetPoints(List<string> list, int fc)
         {
-            throw new NotImplementedException();
+            List<FirePoint> ret = new List<FirePoint>();
+            for (int i = 0; i < fc; i++)
+            {
+                foreach(var name in list)
+                    Server.SendTo(name, "GPNT|" + (fc - i).ToString() + '|' + (int)Info.TimeOut.TotalSeconds);
+                TimeSpan timePast = new TimeSpan(0);
+                while (timePast < Info.TimeOut)
+                {
+                    if (LastAttack.HasValue)
+                    {
+                        if (list.Contains(LastAttack.Value.Name))
+                        {
+                            ret.Add(LastAttack.Value.Point);
+                            LastAttack = null;
+                            break;
+                        }
+                    }
+                }
+                foreach(var name in list)
+                    Server.SendTo(name, "SGPT|");
+            }
+            return ret;
         }
 
-        private List<FirePoint> GetPoints_Callback(string UserName, int TeamID, int x, int y)
+        private void GetPoints_Callback(string UserName, int TeamID, int x, int y)
         {
-            throw new NotImplementedException();
+            LastAttack = (UserName, new FirePoint() { Team = TeamID, X = x, Y = y });
         }
 
         /// <summary>
@@ -147,7 +190,7 @@ namespace GameruleHandler
         /// <param name="now"></param>
         private void ShowRound(int now)
         {
-            throw new NotImplementedException();
+            Server.BroadCastToAll("SNOW||" + now);
         }
 
         /// <summary>
@@ -156,7 +199,7 @@ namespace GameruleHandler
         /// <param name="msg"></param>
         private void BroadcastMessage(string msg)
         {
-            throw new NotImplementedException();
+            Server.BroadCastToAll("SBAR|" + msg);
         }
 
         /// <summary>

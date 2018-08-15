@@ -18,7 +18,9 @@ namespace GameruleHandler
         /// </summary>
         const int MAX_TEAM_COUNT = 8;
         int _pcnt = 2;
-        //要求的玩家数量。
+        /// <summary>
+        /// 要求的玩家数量。设为0表示任意
+        /// </summary>
         public int PlayerCount
         {
             get
@@ -27,7 +29,7 @@ namespace GameruleHandler
             }
             set
             {
-                if (value >= 2&&value<=MAX_PLAYER_COUNT)
+                if ((value >= 2&&value<=MAX_PLAYER_COUNT)||value==0)
                 {
                     _pcnt = value;
                 }
@@ -159,5 +161,9 @@ namespace GameruleHandler
         public GameBoard.CornorMode cornorMode { get; set; } = GameBoard.CornorMode.All;
         public GameBoard.PatternGameBoard.FlipMode flipMode { get; set; } = GameBoard.PatternGameBoard.FlipMode.None;
         public bool AllowRoation { get; set; } = false;
+        /// <summary>
+        /// 等待时的超时
+        /// </summary>
+        public TimeSpan TimeOut { get; set; } = new TimeSpan(0, 1, 0);
     }
 }
