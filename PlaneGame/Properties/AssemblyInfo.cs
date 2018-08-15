@@ -8,9 +8,20 @@ using System.Windows;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("PlaneGame")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription(@"
+晚自习打发时间飞机游戏，有些人也称之为海战
+Copyright (C) 2018 Duanyll
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+主要用户界面使用了 MaterialDesignInXamlToolkit 界面库，采用MIT协议授权，链接：http://materialdesigninxaml.net/
+网络通信组件参考了来自 https://github.com/yinyoupoet/chatRoomTest 的代码")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Duanyll")]
 [assembly: AssemblyProduct("PlaneGame")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]

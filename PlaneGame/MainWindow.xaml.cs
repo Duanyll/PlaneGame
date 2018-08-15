@@ -26,17 +26,10 @@ namespace PlaneGame
             InitializeComponent();
         }
 
-        Thread TestThread;
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-#if DEBUG
-            if (TestThread != null && !TestThread.IsAlive)
-            {
-                TestThread = new Thread(PlaneGameTest.Program.DoTest);
-                TestThread.Start();
-            }
-#else
-#endif
+            AboutWindow window = new AboutWindow();
+            window.ShowDialog();
         }
     }
 }
