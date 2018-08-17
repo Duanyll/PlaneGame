@@ -1,15 +1,100 @@
-﻿<Page x:Class="PlaneGame.NewGamePage1"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PlaneGame"
+      xmlns:Converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf" xmlns:Converters1="clr-namespace:Dragablz.Converters;assembly=Dragablz" x:Class="PlaneGame.NewGamePage1"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Background="{DynamicResource MaterialDesignPaper}"
       Title="NewGamePage1">
 
+    <Page.Resources>
+        <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <local:BooleanToVisibilityReversedConverter x:Key="BooleanToVisibilityReversedConverter"/>
+    </Page.Resources>
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Margin="5" Style="{StaticResource MaterialDesignDisplay1TextBlock}"><Run Text="新游戏"/></TextBlock>
+                <GroupBox Margin="5" Style="{DynamicResource MaterialDesignCardGroupBox}" Header="地图信息">
+                    <StackPanel Margin="5">
+                        <WrapPanel>
+                            <TextBlock FontWeight="Bold"><Run Text="宽度"/></TextBlock>
+                            <TextBlock Text="{Binding Value, ElementName=slider}"/>
+                        </WrapPanel>
+                        <Slider x:Name="slider" Minimum="10" Maximum="50"  Value="20" SmallChange="1" IsSnapToTickEnabled="True"/>
+                        <WrapPanel>
+                            <TextBlock FontWeight="Bold"><Run Text="高度"/></TextBlock>
+                            <TextBlock Text="{Binding Value, ElementName=slider1}"/>
+                        </WrapPanel>
+                        <Slider x:Name="slider1" Minimum="10" Maximum="50"  Value="20" SmallChange="1" IsSnapToTickEnabled="True"/>
+                        <TextBlock><Run Text="在右侧地图上点击以放置障碍物"/></TextBlock>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Margin="5" Header="人数设置" Style="{DynamicResource MaterialDesignCardGroupBox}">
+                    <StackPanel Margin="5">
+                        <WrapPanel>
+                            <TextBlock FontWeight="Bold"><Run Text="人数"/></TextBlock>
+                            <TextBlock Text="{Binding Value, ElementName=slider2}"/>
+                        </WrapPanel>
+                        <Slider x:Name="slider2" Minimum="0" Maximum="100"  Value="{Binding Info.PlayerCount, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
+                        <WrapPanel>
+                            <TextBlock FontWeight="Bold"><Run Text="队伍数"/></TextBlock>
+                            <TextBlock Text="{Binding Value, ElementName=slider3}"/>
+                        </WrapPanel>
+                        <Slider x:Name="slider3" Minimum="2" Maximum="8"  Value="{Binding Info.TeamCount, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
+                        <WrapPanel>
+                            <TextBlock FontWeight="Bold"><Run Text="每个队伍最多人数"/></TextBlock>
+                            <TextBlock Text="{Binding Value, ElementName=slider4}"/>
+                        </WrapPanel>
+                        <Slider x:Name="slider4" Minimum="0" Maximum="100"  Value="{Binding Info.MaxPersonInATeam, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Margin="5" Header="游戏设置" Style="{DynamicResource MaterialDesignCardGroupBox}">
+                    <StackPanel Margin="5">
+                        <WrapPanel>
+                            <ToggleButton x:Name="toggleButton" IsChecked="{Binding Info.BindFPRWithHeadCount, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}"/>
+                            <TextBlock><Run Text="开火次数与剩余生命相关联"/></TextBlock>
+                        </WrapPanel>
+                        <StackPanel Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=toggleButton}">
+                            <WrapPanel>
+                                <TextBlock FontWeight="Bold"><Run Text="最少开火次数"/></TextBlock>
+                                <TextBlock Text="{Binding Value, ElementName=slider5}"/>
+                            </WrapPanel>
+                            <Slider x:Name="slider5" Minimum="0" Maximum="20"  Value="{Binding Info.MinFPR, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
+                            <WrapPanel>
+                                <TextBlock FontWeight="Bold"><Run Text="最多开火次数"/></TextBlock>
+                                <TextBlock Text="{Binding Value, ElementName=slider6}"/>
+                            </WrapPanel>
+                            <Slider x:Name="slider6" Minimum="0" Maximum="20"  Value="{Binding Info.MaxFPR, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
+                        </StackPanel>
+                        <StackPanel Visibility="{Binding IsChecked,Converter={StaticResource BooleanToVisibilityReversedConverter}, ElementName=toggleButton}">
+                            <WrapPanel>
+                                <TextBlock FontWeight="Bold"><Run Text="开火次数"/></TextBlock>
+                                <TextBlock Text="{Binding Value, ElementName=slider7}"/>
+                            </WrapPanel>
+                            <Slider x:Name="slider7" Minimum="1" Maximum="20"  Value="{Binding Info.FirePerRound, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
+                        </StackPanel>
+                        <WrapPanel>
+                            <ToggleButton x:Name="toggleButton1" IsChecked="{Binding Info.ShowKindWhileShoot, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}"/>
+                            <TextBlock><Run Text="击中时显示目标种类"/></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock FontWeight="Bold"><Run Text="等待时间"/></TextBlock>
+                            <TextBlock Text="{Binding Value, ElementName=slider8}"/>
+                            <TextBlock>秒</TextBlock>
+                        </WrapPanel>
+                        <Slider x:Name="slider8" Minimum="10" Maximum="200"  Value="{Binding Info.TimeOut, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

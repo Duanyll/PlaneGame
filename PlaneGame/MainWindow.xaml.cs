@@ -28,7 +28,12 @@ namespace PlaneGame
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new HomePage();
+            HomePage page = new HomePage();
+            page.BtnNewGame.Click += (object s,RoutedEventArgs args) =>
+            {
+                MainFrame.Content = new NewGamePage1();
+            };
+            MainFrame.Content = page;
         }
     }
 }

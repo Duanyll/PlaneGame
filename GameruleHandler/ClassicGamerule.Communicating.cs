@@ -127,9 +127,10 @@ namespace GameruleHandler
             List<FirePoint> ret = new List<FirePoint>();
             for(int i = 0; i < fc; i++)
             {
-                Server.SendTo(name, "GPNT|" + (fc - i).ToString() + '|' + (int)Info.TimeOut.TotalSeconds);
+                Server.SendTo(name, "GPNT|" + (fc - i).ToString() + '|' + (int)Info.TimeOut);
                 TimeSpan timePast = new TimeSpan(0);
-                while (timePast < Info.TimeOut)
+                TimeSpan timeOut = new TimeSpan(0, 0, Info.TimeOut);
+                while (timePast < timeOut)
                 {
                     if (LastAttack.HasValue)
                     {
@@ -159,9 +160,10 @@ namespace GameruleHandler
             for (int i = 0; i < fc; i++)
             {
                 foreach(var name in list)
-                    Server.SendTo(name, "GPNT|" + (fc - i).ToString() + '|' + (int)Info.TimeOut.TotalSeconds);
+                    Server.SendTo(name, "GPNT|" + (fc - i).ToString() + '|' + (int)Info.TimeOut);
                 TimeSpan timePast = new TimeSpan(0);
-                while (timePast < Info.TimeOut)
+                TimeSpan timeOut = new TimeSpan(0, 0, Info.TimeOut);
+                while (timePast < timeOut)
                 {
                     if (LastAttack.HasValue)
                     {

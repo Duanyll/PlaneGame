@@ -15,11 +15,14 @@
         </materialDesign:Card>
         <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}" Header="开始游戏" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Width="200">
             <StackPanel>
-                <Button Content="我要开服" Margin="0,5"></Button>
-                <Button Content="我要加入服务器" Margin="0,5"></Button>
+                <Button x:Name="BtnNewGame" Content="新游戏" Margin="0,5"/>
+                <Button Content="加入游戏" Margin="0,5"></Button>
                 <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="设置" Margin="0,5"></Button>
-                <Button x:Name="AboutButton" Style="{StaticResource MaterialDesignFlatButton}" Margin="0,5" Content="关于" Click="AboutButton_Click"/>
+                <Button x:Name="BtnAbout" Style="{StaticResource MaterialDesignFlatButton}" Margin="0,5" Content="关于" Click="AboutButton_Click"/>
             </StackPanel>
         </GroupBox>
+        <Button Style="{StaticResource MaterialDesignFloatingActionButton}" Margin="0,0,10,9.6" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <materialDesign:PackIcon Kind="HelpCircle" Width="30" Height="30"></materialDesign:PackIcon>
+        </Button>
     </Grid>
 </Page>

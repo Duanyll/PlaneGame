@@ -54,7 +54,7 @@ namespace GameruleHandler
                 }
             }
         }
-        int _mxpint = 1;
+        int _mxpint = 8;
         public int MaxPersonInATeam
         {
             get
@@ -63,7 +63,7 @@ namespace GameruleHandler
             }
             set
             {
-                if (value >= 1 && value <= PlayerCount)
+                if (value >= 1 && value <= NetworkServer.MAX_CONNECTIONS)
                 {
                     _mxpint = value;
                 }
@@ -162,8 +162,8 @@ namespace GameruleHandler
         public GameBoard.PatternGameBoard.FlipMode flipMode { get; set; } = GameBoard.PatternGameBoard.FlipMode.None;
         public bool AllowRoation { get; set; } = false;
         /// <summary>
-        /// 等待时的超时
+        /// 等待时的超时(秒)
         /// </summary>
-        public TimeSpan TimeOut { get; set; } = new TimeSpan(0, 1, 0);
+        public int TimeOut { get; set; } = 60;
     }
 }
