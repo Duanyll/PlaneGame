@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,22 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GameruleHandler;
 
 namespace PlaneGame
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// NewGamePage1.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class NewGamePage1 : Page
     {
-        public MainWindow()
+        public NewGamePage1()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Content = new HomePage();
-        }
+        public GameInfo Info { get; set; } = new GameInfo();
     }
 }

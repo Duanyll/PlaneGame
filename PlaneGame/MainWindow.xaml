@@ -11,18 +11,10 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450">
+        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450" Loaded="Window_Loaded">
     <Grid>
-        <materialDesign:Card Margin="80,20,80,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="120" Width="644">
-            <TextBlock Style="{StaticResource MaterialDesignDisplay4TextBlock}" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="PlaneGame" VerticalAlignment="Center"/>
-        </materialDesign:Card>
-        <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}" Header="开始游戏" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Width="200">
-            <StackPanel>
-                <Button Content="我要开服" Margin="0,5"></Button>
-                <Button Content="我要加入服务器" Margin="0,5"></Button>
-                <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="设置" Margin="0,5"></Button>
-                <Button x:Name="AboutButton" Style="{StaticResource MaterialDesignFlatButton}" Margin="0,5" Content="关于" Click="AboutButton_Click"/>
-            </StackPanel>
-        </GroupBox>
+        <Frame x:Name="MainFrame">
+            
+        </Frame>
     </Grid>
 </Window>

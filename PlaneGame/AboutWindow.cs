@@ -101,5 +101,10 @@ namespace PlaneGame
             }
         }
         #endregion
+
+        private void AboutWindow_Load(object sender, EventArgs e)
+        {
+            Application.EnableVisualStyles();
+        }
     }
 }

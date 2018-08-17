@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,18 +16,19 @@ using System.Windows.Shapes;
 namespace PlaneGame
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// HomePage.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class HomePage : Page
     {
-        public MainWindow()
+        public HomePage()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = new HomePage();
+            AboutWindow window = new AboutWindow();
+            window.ShowDialog();
         }
     }
 }
