@@ -158,9 +158,26 @@ namespace GameruleHandler
         }
         public RoundOrderType RoundOrder { get; set; } = RoundOrderType.TeamTogether;
         public bool ShowKindWhileShoot { get; set; } = false;
-        public GameBoard.CornorMode cornorMode { get; set; } = GameBoard.CornorMode.All;
-        public GameBoard.PatternGameBoard.FlipMode flipMode { get; set; } = GameBoard.PatternGameBoard.FlipMode.None;
+        public GameBoard.CornorMode cornorMode
+        {
+            get
+            {
+                var mode = GameBoard.CornorMode.All;
+                if (NoCornor)
+                {
+                    mode |= GameBoard.CornorMode.NoCornor;
+                }
+                if (NoEdge)
+                {
+                    mode |= GameBoard.CornorMode.NoEdge;
+                }
+                return mode;
+            }
+        }
+        public bool AllowFlip { get; set; } = false;
         public bool AllowRoation { get; set; } = false;
+        public bool NoCornor { get; set; } = true;
+        public bool NoEdge { get; set; } = false;
         /// <summary>
         /// 等待时的超时(秒)
         /// </summary>

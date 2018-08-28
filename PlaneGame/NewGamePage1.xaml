@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PlaneGame"
-      xmlns:Converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf" xmlns:Converters1="clr-namespace:Dragablz.Converters;assembly=Dragablz" x:Class="PlaneGame.NewGamePage1"
+      xmlns:Converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf" xmlns:Converters1="clr-namespace:Dragablz.Converters;assembly=Dragablz"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="PlaneGame.NewGamePage1"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Background="{DynamicResource MaterialDesignPaper}"
@@ -16,13 +17,31 @@
     </Page.Resources>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <materialDesign:ColorZone
+  Mode="PrimaryDark"
+  CornerRadius="3"
+  materialDesign:ShadowAssist.ShadowDepth="Depth3"
+  Margin="5,5,5,5.4" Grid.ColumnSpan="3" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
+            <StackPanel
+    Orientation="Horizontal">
+                <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}"
+      VerticalAlignment="Center"
+      Margin="16 0 0 0">
+                    新游戏
+                </TextBlock>
+            </StackPanel>
+        </materialDesign:ColorZone>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,70,0,-0.4" Grid.RowSpan="2">
             <StackPanel>
-                <TextBlock Margin="5" Style="{StaticResource MaterialDesignDisplay1TextBlock}"><Run Text="新游戏"/></TextBlock>
                 <GroupBox Margin="5" Style="{DynamicResource MaterialDesignCardGroupBox}" Header="地图信息">
                     <StackPanel Margin="5">
                         <WrapPanel>
@@ -35,7 +54,7 @@
                             <TextBlock Text="{Binding Value, ElementName=slider1}"/>
                         </WrapPanel>
                         <Slider x:Name="slider1" Minimum="10" Maximum="50"  Value="20" SmallChange="1" IsSnapToTickEnabled="True"/>
-                        <TextBlock><Run Text="在右侧地图上点击以放置障碍物"/></TextBlock>
+                        <Button HorizontalAlignment="Right" Style="{DynamicResource MaterialDesignRaisedAccentButton}">确定修改</Button>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Margin="5" Header="人数设置" Style="{DynamicResource MaterialDesignCardGroupBox}">
@@ -92,6 +111,30 @@
                             <TextBlock>秒</TextBlock>
                         </WrapPanel>
                         <Slider x:Name="slider8" Minimum="10" Maximum="200"  Value="{Binding Info.TimeOut, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+        <ScrollViewer Grid.Column="2" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch">
+            <StackPanel>
+                <GroupBox Margin="5" Style="{DynamicResource MaterialDesignCardGroupBox}" Header="单位放置选项">
+                    <StackPanel Margin="5">
+                        <WrapPanel>
+                            <ToggleButton IsChecked="{Binding Info.AllowRoation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}"/>
+                            <TextBlock>允许旋转单位</TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Margin="0,5,0,0">
+                            <ToggleButton IsChecked="{Binding Info.AllowFlip, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}"/>
+                            <TextBlock>允许翻转单位</TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Margin="0,5,0,0">
+                            <ToggleButton IsChecked="{Binding Info.NoEdge, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}"/>
+                            <TextBlock>禁止单位边相连</TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Margin="0,5,0,0">
+                            <ToggleButton IsChecked="{Binding Info.AllowFlip, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}"/>
+                            <TextBlock>禁止单位角相连</TextBlock>
+                        </WrapPanel>
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
