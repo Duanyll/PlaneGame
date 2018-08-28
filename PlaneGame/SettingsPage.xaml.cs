@@ -12,25 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GameruleHandler;
 
 namespace PlaneGame
 {
     /// <summary>
-    /// NewGamePage1.xaml 的交互逻辑
+    /// SettingsPage.xaml 的交互逻辑
     /// </summary>
-    public partial class NewGamePage1 : Page
+    public partial class SettingsPage : Page
     {
-        public NewGamePage1()
+        public SettingsPage()
         {
             InitializeComponent();
         }
 
-        public GameInfo Info { get; set; } = new GameInfo();
-
-        private void LBUnits_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void TgBDarkMode_Click(object sender, RoutedEventArgs e)
         {
-            
+            new MaterialDesignThemes.Wpf.PaletteHelper().SetLightDark(TgBDarkMode.IsChecked.Value);
         }
     }
 }

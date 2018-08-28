@@ -33,6 +33,10 @@ namespace PlaneGame
             {
                 MainFrame.Content = new NewGamePage1();
             };
+            page.BtnSettings.Click += (object s, RoutedEventArgs args) =>
+            {
+                MainFrame.Content = new SettingsPage();
+            };
             MainFrame.Content = page;
         }
     }
