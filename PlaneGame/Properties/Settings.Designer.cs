@@ -48,7 +48,7 @@ namespace PlaneGame.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
         public double GBGridHeight {
             get {
                 return ((double)(this["GBGridHeight"]));
@@ -60,7 +60,7 @@ namespace PlaneGame.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
         public double GBGridWidth {
             get {
                 return ((double)(this["GBGridWidth"]));

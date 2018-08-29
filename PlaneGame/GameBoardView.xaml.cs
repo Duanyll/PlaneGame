@@ -37,6 +37,8 @@ namespace PlaneGame
             }
         }
 
+        double BlockHeight = Properties.Settings.Default.GBGridHeight;
+        double BlockWidth = Properties.Settings.Default.GBGridWidth;
         /// <summary>
         /// 清空并重新加载内容
         /// </summary>
@@ -48,7 +50,7 @@ namespace PlaneGame
             {
                 GridMain.RowDefinitions.Add(new RowDefinition()
                 {
-                    Height = new GridLength(Properties.Settings.Default.GBGridHeight)
+                    Height = new GridLength(BlockHeight)
                 });
             }
             GridMain.ColumnDefinitions.Clear();
@@ -56,7 +58,7 @@ namespace PlaneGame
             {
                 GridMain.ColumnDefinitions.Add(new ColumnDefinition()
                 {
-                    Width = new GridLength(Properties.Settings.Default.GBGridWidth)
+                    Width = new GridLength(BlockWidth)
                 });
             }
             for(int i = 0; i < board.Height; i++)
@@ -81,7 +83,7 @@ namespace PlaneGame
             InitializeComponent();
         }
 
-        public GameBoardView(GameBoard.MaskedGameBoard a)
+        public GameBoardView(GameBoard a)
         {
             InitializeComponent();
             Board = a;

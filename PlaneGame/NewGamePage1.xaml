@@ -26,8 +26,7 @@
             <ColumnDefinition Width="250"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer Name="SVGameBoard" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0" Grid.Row="1" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
-        </ScrollViewer>
+        <ScrollViewer Name="SVGameBoard" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0.4,56.4,0,0" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1"/>
         <materialDesign:ColorZone
   Mode="PrimaryDark"
   CornerRadius="3"
@@ -122,14 +121,14 @@
                 <GroupBox Margin="5" Style="{DynamicResource MaterialDesignCardGroupBox}" Header="单位">
                     <StackPanel Margin="5">
                         <ListBox x:Name="LBUnits" SelectionChanged="LBUnits_SelectionChanged" SelectionMode="Single">
-                            <ListBoxItem Content="基础棋盘"/>
+                            
                         </ListBox>
                         <Button x:Name="BtnAddUnit" HorizontalAlignment="Right" Click="BtnAddUnit_Click" Content="添加单位"/>
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
         </ScrollViewer>
-        <ToolBarTray Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+        <ToolBarTray Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Stretch">
             <ToolBar ClipToBounds="False" Style="{DynamicResource MaterialDesignToolBar}">
                 <Button x:Name="BtnDeleteUnit">
                     <materialDesign:PackIcon Kind="Delete"/>
@@ -151,7 +150,8 @@
   Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="20"/>
                 <Button x:Name="BtnSaveSizeChange" Content="保存尺寸更改" Click="BtnSaveSizeChange_Click"/>
                 <Separator/>
-                <TextBox x:Name="TBUnitName" materialDesign:HintAssist.Hint="名称" IsEnabled="{Binding SelectedIndex, Converter={StaticResource NotZeroConverter}, ElementName=LBUnits}" TextChanged="TBUnitName_TextChanged"/>
+                <TextBox x:Name="TBUnitName" materialDesign:HintAssist.Hint="名称" materialDesign:HintAssist.IsFloating="True" IsEnabled="{Binding SelectedIndex, Converter={StaticResource NotZeroConverter}, ElementName=LBUnits}" TextChanged="TBUnitName_TextChanged" Width="100"/>
+                <TextBox x:Name="TBUnitCount" materialDesign:HintAssist.Hint="数量" materialDesign:HintAssist.IsFloating="True" IsEnabled="{Binding SelectedIndex, Converter={StaticResource NotZeroConverter}, ElementName=LBUnits}" Width="50" TextChanged="TBUnitCount_TextChanged"></TextBox>
             </ToolBar>
         </ToolBarTray>
     </Grid>

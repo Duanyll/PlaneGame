@@ -24,6 +24,9 @@ namespace PlaneGame
         public NewGamePage1()
         {
             InitializeComponent();
+            Info.Mask = new GameBoard.MaskedGameBoard(20, 20);
+            LBUnits.Items.Add("基础棋盘");
+            LBUnits.SelectedIndex = 0;
         }
 
         public GameInfo Info { get; set; } = new GameInfo();
@@ -42,7 +45,18 @@ namespace PlaneGame
                 {
                     BtnDeleteUnit.IsEnabled = true;
                 }
-                TBUnitName.Text = LBUnits.SelectedItem.ToString();
+                if (LBUnits.SelectedIndex == 0)
+                {
+                    SVGameBoard.Content = new GameBoardView(Info.Mask);
+                    TBUnitName.Text = LBUnits.SelectedItem.ToString();
+                    TBUnitCount.Clear();
+                }
+                else
+                {
+                    SVGameBoard.Content = new GameBoardView(Info.Patterns[LBUnits.SelectedItem.ToString()]);
+                    TBUnitName.Text = LBUnits.SelectedItem.ToString();
+                    TBUnitCount.Text = Info.Patterns[LBUnits.SelectedItem.ToString()].CountPerTeam.ToString();
+                }
             }
         }
 
@@ -65,8 +79,17 @@ namespace PlaneGame
         int NewUnitID = 0;
         private void BtnAddUnit_Click(object sender, RoutedEventArgs e)
         {
-            LBUnits.Items.Add("单位" + ++NewUnitID);
-            Info.Patterns.Add("单位" + NewUnitID, new GameBoard.PatternGameBoard(5, 5));
+            string NewUnitName = "单位" + ++NewUnitID;
+            while (Info.Patterns.Keys.Contains(NewUnitName))
+            {
+                NewUnitName = "单位" + ++NewUnitID;
+            }
+            LBUnits.Items.Add(NewUnitName);
+            Info.Patterns.Add(NewUnitName, new GameBoard.PatternGameBoard(5, 5)
+            {
+                Name = NewUnitName,
+                CountPerTeam = 1
+            });
             LBUnits.SelectedIndex = LBUnits.Items.Count - 1;
         }
 
@@ -74,8 +97,22 @@ namespace PlaneGame
         {
             if(int.TryParse(TBWidth.Text,out int w)&&int.TryParse(TBHeight.Text,out int h))
             {
-                Info.Mask = new GameBoard.MaskedGameBoard(w, h);
-                SVGameBoard.Content = new GameBoardView(Info.Mask);
+                Dispatcher.Invoke(() =>
+                {
+                    Info.Mask = new GameBoard.MaskedGameBoard(w, h);
+                    SVGameBoard.Content = new GameBoardView(Info.Mask);
+                });
+            }
+        }
+
+        private void TBUnitCount_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (LBUnits.SelectedIndex != 0 && LBUnits.SelectedIndex != -1)
+            {
+                if (Info.Patterns.Keys.Contains(LBUnits.SelectedItem.ToString()) && int.TryParse(TBUnitCount.Text,out int cnt))
+                {
+                    Info.Patterns[LBUnits.SelectedItem.ToString()].CountPerTeam = cnt;
+                }
             }
         }
     }
