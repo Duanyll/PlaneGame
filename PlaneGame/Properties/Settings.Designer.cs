@@ -33,5 +33,41 @@ namespace PlaneGame.Properties {
                 this["LastGameMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseDarkMode {
+            get {
+                return ((bool)(this["UseDarkMode"]));
+            }
+            set {
+                this["UseDarkMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public double GBGridHeight {
+            get {
+                return ((double)(this["GBGridHeight"]));
+            }
+            set {
+                this["GBGridHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public double GBGridWidth {
+            get {
+                return ((double)(this["GBGridWidth"]));
+            }
+            set {
+                this["GBGridWidth"] = value;
+            }
+        }
     }
 }

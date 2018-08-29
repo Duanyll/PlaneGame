@@ -5,5 +5,14 @@
     <Setting Name="LastGameMode" Type="GameruleHandler.GameInfo" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="UseDarkMode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="GBGridHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="GBGridWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

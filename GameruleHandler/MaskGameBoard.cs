@@ -13,7 +13,7 @@ namespace GameruleHandler
         /// </summary>
         public class MaskedGameBoard : GameBoard
         {
-            MaskedGameBoard(int w, int h) : base(w, h)
+            public MaskedGameBoard(int w, int h) : base(w, h)
             {
                 for (int i = 0; i < Height; i++)
                 {

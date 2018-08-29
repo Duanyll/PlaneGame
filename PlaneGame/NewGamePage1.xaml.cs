@@ -69,5 +69,14 @@ namespace PlaneGame
             Info.Patterns.Add("单位" + NewUnitID, new GameBoard.PatternGameBoard(5, 5));
             LBUnits.SelectedIndex = LBUnits.Items.Count - 1;
         }
+
+        private void BtnSaveSizeChange_Click(object sender, RoutedEventArgs e)
+        {
+            if(int.TryParse(TBWidth.Text,out int w)&&int.TryParse(TBHeight.Text,out int h))
+            {
+                Info.Mask = new GameBoard.MaskedGameBoard(w, h);
+                SVGameBoard.Content = new GameBoardView(Info.Mask);
+            }
+        }
     }
 }

@@ -26,6 +26,8 @@
             <ColumnDefinition Width="250"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <ScrollViewer Name="SVGameBoard" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0" Grid.Row="1" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+        </ScrollViewer>
         <materialDesign:ColorZone
   Mode="PrimaryDark"
   CornerRadius="3"
@@ -35,12 +37,8 @@
             <Grid>
                 <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}"
       VerticalAlignment="Center"
-      Margin="16 0 0 0">
-                    新游戏
-                </TextBlock>
-                <Button HorizontalAlignment="Right" Style="{DynamicResource MaterialDesignRaisedAccentButton}">
-                    开始游戏
-                </Button>
+      Margin="16 0 0 0"><Run Text="新游戏"/></TextBlock>
+                <Button HorizontalAlignment="Right" Style="{DynamicResource MaterialDesignRaisedAccentButton}" Content="开始游戏"/>
             </Grid>
         </materialDesign:ColorZone>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0"  Grid.Row="1">
@@ -82,7 +80,7 @@
                             </WrapPanel>
                             <Slider x:Name="slider6" Minimum="0" Maximum="20"  Value="{Binding Info.MaxFPR, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
                         </StackPanel>
-                        <StackPanel Visibility="{Binding IsChecked,Converter={StaticResource BooleanToVisibilityReversedConverter}, ElementName=toggleButton}">
+                        <StackPanel Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityReversedConverter}, ElementName=toggleButton}">
                             <WrapPanel>
                                 <TextBlock FontWeight="Bold"><Run Text="开火次数"/></TextBlock>
                                 <TextBlock Text="{Binding Value, ElementName=slider7}"/>
@@ -96,7 +94,7 @@
                         <WrapPanel>
                             <TextBlock FontWeight="Bold"><Run Text="等待时间"/></TextBlock>
                             <TextBlock Text="{Binding Value, ElementName=slider8}"/>
-                            <TextBlock>秒</TextBlock>
+                            <TextBlock><Run Text="秒"/></TextBlock>
                         </WrapPanel>
                         <Slider x:Name="slider8" Minimum="10" Maximum="200"  Value="{Binding Info.TimeOut, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
                     </StackPanel>
@@ -105,55 +103,55 @@
                     <StackPanel Margin="5">
                         <WrapPanel>
                             <ToggleButton IsChecked="{Binding Info.AllowRoation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}"/>
-                            <TextBlock>允许旋转单位</TextBlock>
+                            <TextBlock><Run Text="允许旋转单位"/></TextBlock>
                         </WrapPanel>
                         <WrapPanel Margin="0,5,0,0">
                             <ToggleButton IsChecked="{Binding Info.AllowFlip, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}"/>
-                            <TextBlock>允许翻转单位</TextBlock>
+                            <TextBlock><Run Text="允许翻转单位"/></TextBlock>
                         </WrapPanel>
                         <WrapPanel Margin="0,5,0,0">
                             <ToggleButton IsChecked="{Binding Info.NoEdge, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}"/>
-                            <TextBlock>禁止单位边相连</TextBlock>
+                            <TextBlock><Run Text="禁止单位边相连"/></TextBlock>
                         </WrapPanel>
                         <WrapPanel Margin="0,5,0,0">
                             <ToggleButton IsChecked="{Binding Info.NoCornor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}"/>
-                            <TextBlock>禁止单位角相连</TextBlock>
+                            <TextBlock><Run Text="禁止单位角相连"/></TextBlock>
                         </WrapPanel>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Margin="5" Style="{DynamicResource MaterialDesignCardGroupBox}" Header="单位">
                     <StackPanel Margin="5">
-                        <ListBox Name="LBUnits" SelectionChanged="LBUnits_SelectionChanged" SelectionMode="Single">
-                            <ListBoxItem>基础棋盘</ListBoxItem>
+                        <ListBox x:Name="LBUnits" SelectionChanged="LBUnits_SelectionChanged" SelectionMode="Single">
+                            <ListBoxItem Content="基础棋盘"/>
                         </ListBox>
-                        <Button Name="BtnAddUnit" HorizontalAlignment="Right" Click="BtnAddUnit_Click">添加单位</Button>
+                        <Button x:Name="BtnAddUnit" HorizontalAlignment="Right" Click="BtnAddUnit_Click" Content="添加单位"/>
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
         </ScrollViewer>
         <ToolBarTray Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
             <ToolBar ClipToBounds="False" Style="{DynamicResource MaterialDesignToolBar}">
-                <Button Name="BtnDeleteUnit">
-                    <materialDesign:PackIcon Kind="Delete"></materialDesign:PackIcon>
+                <Button x:Name="BtnDeleteUnit">
+                    <materialDesign:PackIcon Kind="Delete"/>
                 </Button>
-                <Separator></Separator>
+                <Separator/>
                 <Button>
-                    <materialDesign:PackIcon Kind="Pencil"></materialDesign:PackIcon>
-                </Button>
-                <Button>
-                    <materialDesign:PackIcon Kind="Target"></materialDesign:PackIcon>
+                    <materialDesign:PackIcon Kind="Pencil"/>
                 </Button>
                 <Button>
-                    <materialDesign:PackIcon Kind="Eraser"></materialDesign:PackIcon>
+                    <materialDesign:PackIcon Kind="Target"/>
                 </Button>
-                <Separator></Separator>
-                <TextBox materialDesign:HintAssist.Hint="宽度"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="50">20</TextBox>
-                <TextBox materialDesign:HintAssist.Hint="高度" Width="50"
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}">20</TextBox>
-                <Button>保存尺寸更改</Button>
-                <Separator></Separator>
-                <TextBox Name="TBUnitName" materialDesign:HintAssist.Hint="名称" IsEnabled="{Binding SelectedIndex, Converter={StaticResource NotZeroConverter}, ElementName=LBUnits}" TextChanged="TBUnitName_TextChanged"></TextBox>
+                <Button>
+                    <materialDesign:PackIcon Kind="Eraser"/>
+                </Button>
+                <Separator/>
+                <TextBox x:Name="TBWidth" materialDesign:HintAssist.Hint="宽度"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="50" Text="20"/>
+                <TextBox x:Name="TBHeight" materialDesign:HintAssist.Hint="高度" Width="50"
+  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="20"/>
+                <Button x:Name="BtnSaveSizeChange" Content="保存尺寸更改" Click="BtnSaveSizeChange_Click"/>
+                <Separator/>
+                <TextBox x:Name="TBUnitName" materialDesign:HintAssist.Hint="名称" IsEnabled="{Binding SelectedIndex, Converter={StaticResource NotZeroConverter}, ElementName=LBUnits}" TextChanged="TBUnitName_TextChanged"/>
             </ToolBar>
         </ToolBarTray>
     </Grid>
