@@ -30,5 +30,10 @@ namespace PlaneGame
             AboutWindow window = new AboutWindow();
             window.ShowDialog();
         }
+
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Duanyll/PlaneGame");
+        }
     }
 }

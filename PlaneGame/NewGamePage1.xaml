@@ -12,6 +12,7 @@
       Title="NewGamePage1">
 
     <Page.Resources>
+        <Converters:NotZeroConverter x:Key="NotZeroConverter"/>
         <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:BooleanToVisibilityReversedConverter x:Key="BooleanToVisibilityReversedConverter"/>
     </Page.Resources>
@@ -122,26 +123,25 @@
                 </GroupBox>
                 <GroupBox Margin="5" Style="{DynamicResource MaterialDesignCardGroupBox}" Header="单位">
                     <StackPanel Margin="5">
-                        <ListBox Name="LBUnits" SelectionChanged="LBUnits_SelectionChanged">
+                        <ListBox Name="LBUnits" SelectionChanged="LBUnits_SelectionChanged" SelectionMode="Single">
                             <ListBoxItem>基础棋盘</ListBoxItem>
-                            <ListBoxItem>单位1</ListBoxItem>
-                            <ListBoxItem>
-                                <materialDesign:PackIcon Kind="Plus">
-                                </materialDesign:PackIcon>
-                            </ListBoxItem>
                         </ListBox>
+                        <Button Name="BtnAddUnit" HorizontalAlignment="Right" Click="BtnAddUnit_Click">添加单位</Button>
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
         </ScrollViewer>
         <ToolBarTray Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center">
             <ToolBar ClipToBounds="False" Style="{DynamicResource MaterialDesignToolBar}">
-                <Button>
+                <Button Name="BtnDeleteUnit">
                     <materialDesign:PackIcon Kind="Delete"></materialDesign:PackIcon>
                 </Button>
                 <Separator></Separator>
                 <Button>
                     <materialDesign:PackIcon Kind="Pencil"></materialDesign:PackIcon>
+                </Button>
+                <Button>
+                    <materialDesign:PackIcon Kind="Target"></materialDesign:PackIcon>
                 </Button>
                 <Button>
                     <materialDesign:PackIcon Kind="Eraser"></materialDesign:PackIcon>
@@ -152,6 +152,8 @@
                 <TextBox materialDesign:HintAssist.Hint="高度" Width="50"
   Style="{StaticResource MaterialDesignFloatingHintTextBox}">20</TextBox>
                 <Button>保存尺寸更改</Button>
+                <Separator></Separator>
+                <TextBox Name="TBUnitName" materialDesign:HintAssist.Hint="名称" IsEnabled="{Binding SelectedIndex, Converter={StaticResource NotZeroConverter}, ElementName=LBUnits}" TextChanged="TBUnitName_TextChanged"></TextBox>
             </ToolBar>
         </ToolBarTray>
     </Grid>
