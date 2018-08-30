@@ -28,7 +28,9 @@
                 <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" VerticalAlignment="Center" Margin="16 0 0 0">
                     <Run Text="新游戏"/>
                 </TextBlock>
-                <Button HorizontalAlignment="Right" Style="{DynamicResource MaterialDesignRaisedAccentButton}" Content="开始游戏"/>
+                <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Style="{DynamicResource MaterialDesignRaisedAccentButton}" Content="开始游戏"/>
+                </WrapPanel>
             </Grid>
         </materialDesign:ColorZone>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="1">
@@ -153,14 +155,14 @@
                     <materialDesign:PackIcon Kind="Delete"/>
                 </Button>
                 <Separator/>
-                <Button>
+                <Button Name="BtnSetBody" Click="BtnSetBody_Click">
                     <materialDesign:PackIcon Kind="Pencil"/>
                 </Button>
-                <Button>
+                <Button Name="BtnSetHead" Click="BtnSetHead_Click">
                     <materialDesign:PackIcon Kind="Target"/>
                 </Button>
-                <Button>
-                    <materialDesign:PackIcon Kind="Eraser"/>
+                <Button Name="BtnSetBarrier" Click="BtnSetBarrier_Click">
+                    <materialDesign:PackIcon Kind="BlockHelper"/>
                 </Button>
                 <Separator/>
                 <TextBox x:Name="TBWidth" materialDesign:HintAssist.Hint="宽度" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="50" Text="10"/>

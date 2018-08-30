@@ -221,7 +221,7 @@ namespace GameruleHandler
             /// </summary>
             /// <param name="x"></param>
             /// <param name="y"></param>
-            public void SetBody(int x, int y)
+            public void SwitchBody(int x, int y)
             {
                 if (NotInRange(x, y))
                 {

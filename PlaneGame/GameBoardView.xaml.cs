@@ -31,6 +31,7 @@ namespace PlaneGame
             PutUnit,
             Attack
         }
+        public GameBoardClickMode ClickMode { get; set; }
 
         GameBoard board;
         public GameBoard Board
@@ -93,7 +94,33 @@ namespace PlaneGame
 
         private void Block_Click(int x, int y, object sender)
         {
-            throw new NotImplementedException();
+            switch (ClickMode)
+            {
+                case GameBoardClickMode.DoNothing:
+                    break;
+                case GameBoardClickMode.SwitchHead:
+                    if(Board is GameBoard.PatternGameBoard pattern)
+                    {
+                        pattern.SwitchHead(x, y);
+                    }
+                    break;
+                case GameBoardClickMode.SwitchBody:
+                    if(Board is GameBoard.PatternGameBoard patter)
+                    {
+                        patter.SwitchBody(x, y);
+                    }
+                    break;
+                case GameBoardClickMode.SwitchBarrier:
+                    if(Board is GameBoard.MaskedGameBoard mask)
+                    {
+                        mask.SwitchBarrier(x, y);
+                    }
+                    break;
+                case GameBoardClickMode.Attack:
+                    throw new NotImplementedException();
+                case GameBoardClickMode.PutUnit:
+                    throw new NotImplementedException();
+            }
         }
 
         private void Board_BlockChanged(int x1, int y1)

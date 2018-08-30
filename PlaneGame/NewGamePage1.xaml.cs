@@ -26,6 +26,7 @@ namespace PlaneGame
             InitializeComponent();
             Info.Mask = new GameBoard.MaskedGameBoard(10,10);
             LBUnits.Items.Add("基础棋盘");
+            BtnAddUnit_Click(null, null);
             LBUnits.SelectedIndex = 0;
         }
 
@@ -47,15 +48,27 @@ namespace PlaneGame
                 }
                 if (LBUnits.SelectedIndex == 0)
                 {
-                    SVGameBoard.Content = new GameBoardView(Info.Mask);
+                    SVGameBoard.Content = new GameBoardView(Info.Mask)
+                    {
+                        ClickMode = GameBoardView.GameBoardClickMode.SwitchBarrier
+                    };
                     TBUnitName.Text = LBUnits.SelectedItem.ToString();
+                    BtnSetBarrier.IsEnabled = true;
+                    BtnSetBody.IsEnabled = false;
+                    BtnSetHead.IsEnabled = false;
                     TBUnitCount.Clear();
                 }
                 else
                 {
-                    SVGameBoard.Content = new GameBoardView(Info.Patterns[LBUnits.SelectedItem.ToString()]);
+                    SVGameBoard.Content = new GameBoardView(Info.Patterns[LBUnits.SelectedItem.ToString()])
+                    {
+                        ClickMode = GameBoardView.GameBoardClickMode.SwitchBody
+                    };
                     TBUnitName.Text = LBUnits.SelectedItem.ToString();
                     TBUnitCount.Text = Info.Patterns[LBUnits.SelectedItem.ToString()].CountPerTeam.ToString();
+                    BtnSetBarrier.IsEnabled = false;
+                    BtnSetBody.IsEnabled = true;
+                    BtnSetHead.IsEnabled = true;
                 }
             }
         }
@@ -109,7 +122,7 @@ namespace PlaneGame
         {
             if (LBUnits.SelectedIndex != 0 && LBUnits.SelectedIndex != -1)
             {
-                if (Info.Patterns.Keys.Contains(LBUnits.SelectedItem.ToString()) && int.TryParse(TBUnitCount.Text,out int cnt))
+                if (Info.Patterns.Keys.Contains(LBUnits.SelectedItem.ToString()) && int.TryParse(TBUnitCount.Text,out int cnt) && cnt > 0)
                 {
                     Info.Patterns[LBUnits.SelectedItem.ToString()].CountPerTeam = cnt;
                 }
@@ -122,6 +135,30 @@ namespace PlaneGame
             object now = LBUnits.SelectedItem;
             LBUnits.SelectedIndex = 0;
             LBUnits.Items.Remove(now);
+        }
+
+        private void BtnSetBody_Click(object sender, RoutedEventArgs e)
+        {
+            if(SVGameBoard.Content is GameBoardView view)
+            {
+                view.ClickMode = GameBoardView.GameBoardClickMode.SwitchBody;
+            }
+        }
+
+        private void BtnSetHead_Click(object sender, RoutedEventArgs e)
+        {
+            if (SVGameBoard.Content is GameBoardView view)
+            {
+                view.ClickMode = GameBoardView.GameBoardClickMode.SwitchHead;
+            }
+        }
+
+        private void BtnSetBarrier_Click(object sender, RoutedEventArgs e)
+        {
+            if (SVGameBoard.Content is GameBoardView view)
+            {
+                view.ClickMode = GameBoardView.GameBoardClickMode.SwitchBarrier;
+            }
         }
     }
 }
