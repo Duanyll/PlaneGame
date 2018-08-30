@@ -28,16 +28,42 @@ namespace PlaneGame
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            ToHomePage();
+        }
+
+        private void ToHomePage()
+        {
             HomePage page = new HomePage();
-            page.BtnNewGame.Click += (object s,RoutedEventArgs args) =>
+            page.BtnNewGame.Click += (s, args) =>
             {
-                MainFrame.Content = new NewGamePage1();
+                ToNewGamePage();
             };
-            page.BtnSettings.Click += (object s, RoutedEventArgs args) =>
+            page.BtnSettings.Click += (s, args) =>
             {
-                MainFrame.Content = new SettingsPage();
+                ToSettingsPage();
             };
-            MainFrame.Content = page;
+            Content = page;
+        }
+
+        private void ToNewGamePage()
+        {
+            NewGamePage1 page = new NewGamePage1();
+            page.BtnStartGame.Click += (s, args) =>
+            {
+                ToServerPage(page.Info);
+            };
+            Content = page;
+        }
+
+        private void ToServerPage(GameruleHandler.GameInfo info)
+        {
+
+        }
+
+        private void ToSettingsPage()
+        {
+            SettingsPage page = new SettingsPage();
+            Content = page;
         }
     }
 }

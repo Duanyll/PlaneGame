@@ -25,17 +25,6 @@ namespace PlaneGame.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::GameruleHandler.GameInfo LastGameMode {
-            get {
-                return ((global::GameruleHandler.GameInfo)(this["LastGameMode"]));
-            }
-            set {
-                this["LastGameMode"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool UseDarkMode {
             get {
