@@ -24,7 +24,7 @@ namespace PlaneGame
         public NewGamePage1()
         {
             InitializeComponent();
-            Info.Mask = new GameBoard.MaskedGameBoard(20, 20);
+            Info.Mask = new GameBoard.MaskedGameBoard(10,10);
             LBUnits.Items.Add("基础棋盘");
             LBUnits.SelectedIndex = 0;
         }
@@ -93,11 +93,11 @@ namespace PlaneGame
             LBUnits.SelectedIndex = LBUnits.Items.Count - 1;
         }
 
-        private void BtnSaveSizeChange_Click(object sender, RoutedEventArgs e)
+        private async void BtnSaveSizeChange_Click(object sender, RoutedEventArgs e)
         {
             if(int.TryParse(TBWidth.Text,out int w)&&int.TryParse(TBHeight.Text,out int h))
             {
-                Dispatcher.Invoke(() =>
+                await Dispatcher.InvokeAsync(() =>
                 {
                     Info.Mask = new GameBoard.MaskedGameBoard(w, h);
                     SVGameBoard.Content = new GameBoardView(Info.Mask);
@@ -114,6 +114,14 @@ namespace PlaneGame
                     Info.Patterns[LBUnits.SelectedItem.ToString()].CountPerTeam = cnt;
                 }
             }
+        }
+
+        private void BtnDeleteUnit_Click(object sender, RoutedEventArgs e)
+        {
+            Info.Patterns.Remove(LBUnits.SelectedItem.ToString());
+            object now = LBUnits.SelectedItem;
+            LBUnits.SelectedIndex = 0;
+            LBUnits.Items.Remove(now);
         }
     }
 }

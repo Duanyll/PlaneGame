@@ -22,6 +22,10 @@ namespace PlaneGame
     /// </summary>
     public partial class GameBoardBlockView : UserControl
     {
+        public delegate void GBBlockClickEventHandler(int x, int y, object sender);
+        public event GBBlockClickEventHandler Click; 
+        public int XPos { get; set; }
+        public int YPos { get; set; }
         GameBoardBlock _block;
         public GameBoardBlock Block
         {
@@ -77,6 +81,24 @@ namespace PlaneGame
         {
             InitializeComponent();
             Block = block;
+        }
+
+        [System.Diagnostics.DebuggerStepThrough]
+        private void CZBackGround_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Click(XPos, YPos, this);
+        }
+
+        [System.Diagnostics.DebuggerStepThrough]
+        private void CZBackGround_TouchUp(object sender, TouchEventArgs e)
+        {
+            Click(XPos, YPos, this);
+        }
+
+        [System.Diagnostics.DebuggerStepThrough]
+        private void CZBackGround_StylusUp(object sender, StylusEventArgs e)
+        {
+            Click(XPos, YPos, this);
         }
     }
 }

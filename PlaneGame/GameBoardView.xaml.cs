@@ -22,6 +22,16 @@ namespace PlaneGame
     /// </summary>
     public partial class GameBoardView : UserControl
     {
+        public enum GameBoardClickMode
+        {
+            DoNothing,
+            SwitchHead,
+            SwitchBody,
+            SwitchBarrier,
+            PutUnit,
+            Attack
+        }
+
         GameBoard board;
         public GameBoard Board
         {
@@ -37,6 +47,8 @@ namespace PlaneGame
             }
         }
 
+        List<List<GameBoardBlockView>> BlockViews = new List<List<GameBoardBlockView>>();
+
         double BlockHeight = Properties.Settings.Default.GBGridHeight;
         double BlockWidth = Properties.Settings.Default.GBGridWidth;
         /// <summary>
@@ -46,6 +58,7 @@ namespace PlaneGame
         {
             GridMain.Children.Clear();
             GridMain.RowDefinitions.Clear();
+            BlockViews.Clear();
             for(int i = 0; i < board.Height; i++)
             {
                 GridMain.RowDefinitions.Add(new RowDefinition()
@@ -63,19 +76,29 @@ namespace PlaneGame
             }
             for(int i = 0; i < board.Height; i++)
             {
+                BlockViews.Add(new List<GameBoardBlockView>());
                 for(int j = 0; j < board.Width; j++)
                 {
                     GameBoardBlockView block = new GameBoardBlockView(Board[i,j]);
                     block.SetValue(Grid.RowProperty, i);
                     block.SetValue(Grid.ColumnProperty, j);
+                    block.XPos = i;
+                    block.YPos = j;
+                    block.Click += Block_Click;
+                    BlockViews[i].Add(block);
                     GridMain.Children.Add(block);
                 }
             }
         }
 
-        private void Board_BlockChanged(int x1, int y1)
+        private void Block_Click(int x, int y, object sender)
         {
             throw new NotImplementedException();
+        }
+
+        private void Board_BlockChanged(int x1, int y1)
+        {
+            BlockViews[x1][y1].Block = board[x1,y1];
         }
 
         public GameBoardView()

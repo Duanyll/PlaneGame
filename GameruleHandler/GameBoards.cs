@@ -53,7 +53,9 @@ namespace GameruleHandler
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
+        [Obsolete]
         public delegate void BlockRangeChangedDel(int x1, int y1, int x2, int y2);
+        [Obsolete]
         public event BlockRangeChangedDel BlockRangeChanged;
 
         /// <summary>
