@@ -23,11 +23,14 @@ namespace PlaneGame
         public SettingsPage()
         {
             InitializeComponent();
+            TgBDarkMode.IsChecked = Properties.Settings.Default.UseDarkMode;
         }
 
         private void TgBDarkMode_Click(object sender, RoutedEventArgs e)
         {
             new MaterialDesignThemes.Wpf.PaletteHelper().SetLightDark(TgBDarkMode.IsChecked.Value);
+            Properties.Settings.Default.UseDarkMode = TgBDarkMode.IsChecked.Value;
+            Properties.Settings.Default.Save();
         }
     }
 }

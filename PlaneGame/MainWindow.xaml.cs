@@ -63,6 +63,10 @@ namespace PlaneGame
         private void ToSettingsPage()
         {
             SettingsPage page = new SettingsPage();
+            page.BtnBack.Click += (s, args) =>
+            {
+                ToHomePage();
+            };
             Content = page;
         }
     }

@@ -3,17 +3,32 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:PlaneGame"
       xmlns:settings="clr-namespace:PlaneGame.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPage">
     <Grid>
-        <StackPanel>
-            <WrapPanel>
-                <ToggleButton Name="TgBDarkMode" Click="TgBDarkMode_Click"></ToggleButton>
-                <TextBlock>使用黑色主题</TextBlock>
-            </WrapPanel>
-        </StackPanel>
+        <ScrollViewer>
+            <md:Card HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="120,40" >
+                <StackPanel>
+                    <md:ColorZone Mode="PrimaryMid" Padding="5">
+                        <WrapPanel>
+                            <Button Name="BtnBack" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                                <md:PackIcon Kind="ChevronLeft"></md:PackIcon>
+                            </Button>
+                            <TextBlock VerticalAlignment="Center" Style="{StaticResource MaterialDesignHeadlineTextBlock}">设置</TextBlock>
+                        </WrapPanel>
+                    </md:ColorZone>
+                    <ListView>
+                        <WrapPanel>
+                            <TextBlock>夜间模式</TextBlock>
+                            <ToggleButton Name="TgBDarkMode" Click="TgBDarkMode_Click"></ToggleButton>
+                        </WrapPanel>
+                    </ListView>
+                </StackPanel>
+            </md:Card>
+        </ScrollViewer>
     </Grid>
 </Page>
