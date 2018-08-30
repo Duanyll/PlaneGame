@@ -29,6 +29,12 @@
                     <Run Text="新游戏"/>
                 </TextBlock>
                 <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Name="BtnLoadConfig" ToolTip="加载配置" Click="BtnLoadConfig_Click" >
+                        <materialDesign:PackIcon Kind="OpenInApp"></materialDesign:PackIcon>
+                    </Button>
+                    <Button Name="BtnSaveConfig" ToolTip="保存配置" Click="BtnSaveConfig_Click">
+                        <materialDesign:PackIcon Kind="ContentSaveSettings"></materialDesign:PackIcon>
+                    </Button>
                     <Button Style="{DynamicResource MaterialDesignRaisedAccentButton}" Content="开始游戏"/>
                 </WrapPanel>
             </Grid>

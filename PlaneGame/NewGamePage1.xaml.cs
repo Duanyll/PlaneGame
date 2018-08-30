@@ -160,5 +160,16 @@ namespace PlaneGame
                 view.ClickMode = GameBoardView.GameBoardClickMode.SwitchBarrier;
             }
         }
+
+        private void BtnLoadConfig_Click(object sender, RoutedEventArgs e)
+        {
+            Info = Properties.Settings.Default.LastGameMode;
+        }
+
+        private void BtnSaveConfig_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.LastGameMode = Info;
+            Properties.Settings.Default.Save();
+        }
     }
 }

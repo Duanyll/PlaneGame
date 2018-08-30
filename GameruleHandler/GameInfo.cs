@@ -10,6 +10,7 @@ namespace GameruleHandler
     /// <summary>
     /// 存储一局游戏的公开信息与选项
     /// </summary>
+    [Serializable]
     public class GameInfo
     {
         const int MAX_PLAYER_COUNT = NetworkServer.MAX_CONNECTIONS;
