@@ -25,9 +25,14 @@
         <ScrollViewer Name="SVGameBoard" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0.4,56.4,0,0" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1"/>
         <materialDesign:ColorZone Mode="PrimaryDark" CornerRadius="3" materialDesign:ShadowAssist.ShadowDepth="Depth3" Padding="16" Margin="5,5,5,5.4" Grid.ColumnSpan="3" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
             <Grid>
-                <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" VerticalAlignment="Center" Margin="16 0 0 0">
-                    <Run Text="新游戏"/>
-                </TextBlock>
+                <WrapPanel>
+                    <Button Name="BtnBack" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+                        <materialDesign:PackIcon Kind="ChevronLeft"></materialDesign:PackIcon>
+                    </Button>
+                    <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" VerticalAlignment="Center" Margin="16 0 0 0">
+                        <Run Text="新游戏"/>
+                    </TextBlock>
+                </WrapPanel>
                 <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button Name="BtnStartGame" Style="{DynamicResource MaterialDesignRaisedAccentButton}" Content="开始游戏"/>
                 </WrapPanel>
@@ -43,7 +48,7 @@
                             </TextBlock>
                             <TextBlock Text="{Binding Value, ElementName=slider2}"/>
                         </WrapPanel>
-                        <Slider x:Name="slider2" Minimum="0" Maximum="100" Value="{Binding Info.PlayerCount, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
+                        <Slider x:Name="slider2" Minimum="0" Maximum="20" Value="{Binding Info.PlayerCount, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
                         <WrapPanel>
                             <TextBlock FontWeight="Bold">
                                 <Run Text="队伍数"/>

@@ -33,7 +33,7 @@ namespace PlaneGame
 
         private void HelpButton_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/Duanyll/PlaneGame");
+            System.Diagnostics.Process.Start(Properties.Resources.OnineHelpURL);
         }
     }
 }

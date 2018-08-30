@@ -24,6 +24,7 @@ namespace PlaneGame
         public MainWindow()
         {
             InitializeComponent();
+            new MaterialDesignThemes.Wpf.PaletteHelper().SetLightDark(Properties.Settings.Default.UseDarkMode);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -51,6 +52,10 @@ namespace PlaneGame
             page.BtnStartGame.Click += (s, args) =>
             {
                 ToServerPage(page.Info);
+            };
+            page.BtnBack.Click += (s, args) =>
+            {
+                ToHomePage();
             };
             Content = page;
         }
