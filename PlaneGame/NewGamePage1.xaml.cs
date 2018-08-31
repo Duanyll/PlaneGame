@@ -98,11 +98,30 @@ namespace PlaneGame
                 NewUnitName = "单位" + ++NewUnitID;
             }
             LBUnits.Items.Add(NewUnitName);
-            Info.Patterns.Add(NewUnitName, new GameBoard.PatternGameBoard(5, 5)
+            if (sender != null)
             {
-                Name = NewUnitName,
-                CountPerTeam = 1
-            });
+                Info.Patterns.Add(NewUnitName, new GameBoard.PatternGameBoard(5, 5)
+                {
+                    Name = NewUnitName,
+                    CountPerTeam = 1
+                });
+            }
+            else
+            {
+                Info.Patterns.Add(NewUnitName, new GameBoard.PatternGameBoard(new string[]
+                {
+                    "  A  ",
+                    "  a  ",
+                    "aaaaa",
+                    "  a  ",
+                    " aaa "
+                })
+                {
+                    Name = NewUnitName,
+                    CountPerTeam = 3
+                });
+            }
+            
             LBUnits.SelectedIndex = LBUnits.Items.Count - 1;
         }
 

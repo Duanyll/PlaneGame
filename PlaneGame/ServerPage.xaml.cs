@@ -30,11 +30,6 @@ namespace PlaneGame
             LBUser.ItemsSource = Gamerule.OnlinePlayers;
         }
 
-        ClassicGamerule Gamerule;
-
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
-        {
-            Gamerule.AbortGame();
-        }
+        public ClassicGamerule Gamerule;
     }
 }

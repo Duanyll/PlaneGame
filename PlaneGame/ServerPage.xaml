@@ -18,7 +18,7 @@
             <md:ColorZone Mode="PrimaryDark" DockPanel.Dock="Top" Padding="16" CornerRadius="3" md:ShadowAssist.ShadowDepth="Depth3" Margin="5,5,5,0" Grid.ColumnSpan="2">
                 <Grid>
                     <WrapPanel>
-                        <Button Name="BtnBack" Click="BtnBack_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                        <Button Name="BtnBack" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
                             <md:PackIcon Kind="ChevronLeft"></md:PackIcon>
                         </Button>
                         <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" VerticalAlignment="Center" Margin="16 0 0 0">服务器正在运行</TextBlock>

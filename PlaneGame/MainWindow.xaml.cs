@@ -65,6 +65,7 @@ namespace PlaneGame
             ServerPage page = new ServerPage(info);
             page.BtnBack.Click += (s, args) =>
             {
+                page.Gamerule.AbortGame();
                 ToHomePage();
             };
             Content = page;
@@ -78,6 +79,21 @@ namespace PlaneGame
                 ToHomePage();
             };
             Content = page;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(Content is ServerPage page)
+            {
+                if(MessageBox.Show("是否要关闭运行中的服务器？","提示",MessageBoxButton.OKCancel,MessageBoxImage.Question,MessageBoxResult.Cancel) == MessageBoxResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    page.Gamerule.AbortGame();
+                }
+            }
         }
     }
 }
