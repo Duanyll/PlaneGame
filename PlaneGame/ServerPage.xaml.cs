@@ -27,7 +27,7 @@ namespace PlaneGame
             InitializeComponent();
             Gamerule = new ClassicGamerule(info);
             Gamerule.StartGame();
-            LVUser.ItemsSource = Gamerule.OnlinePlayers;
+            LBUser.ItemsSource = Gamerule.OnlinePlayers;
         }
 
         ClassicGamerule Gamerule;

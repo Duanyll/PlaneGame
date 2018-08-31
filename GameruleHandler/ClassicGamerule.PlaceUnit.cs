@@ -41,7 +41,7 @@ namespace GameruleHandler
             Server.SendTo(UserName, "SPUS|");
             foreach (var Unit in RemainUnits[TeamOf[UserName]])
             {
-                Server.SendTo(UserName, "UCNT|" + Unit.Key + '|' + Unit.Value);
+                Server.SendTo(UserName, "UNIT|" + Unit.Key + '|' + Unit.Value +'|' + Info.Patterns[Unit.Key].ToString());
             }
             Server.SendTo(UserName, "GBRD|" + GameBoards[TeamOf[UserName]].ToString());
         }

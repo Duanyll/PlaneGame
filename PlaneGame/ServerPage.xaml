@@ -27,9 +27,9 @@
             </md:ColorZone>
             <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}" Margin="0,85,0,0" VerticalAlignment="Top">日志信息</TextBlock>
             <ItemsControl Margin="0,120,0,-0.4" Name="ICLog"></ItemsControl>
-            <ListView Name="LVUser" Grid.Column="1" Margin="0,85,0,0">
+            <ListBox Name="LBUser" Grid.Column="1" Margin="0,85,0,0">
                 
-            </ListView>
+            </ListBox>
         </Grid>
     </md:DialogHost>
 </Page>

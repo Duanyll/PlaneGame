@@ -177,11 +177,16 @@ namespace GameruleHandler
         {
             string[] vs = ToStrings();
             string ret = "";
-            foreach(string i in vs)
+            //foreach(string i in vs)
+            //{
+            //    ret += i + Environment.NewLine;
+            //}
+            for(int i = 0; i < vs.Length - 1; i++)
             {
-                ret += i + Environment.NewLine;
+                ret += vs[i] + Environment.NewLine;
             }
-            return ret.Trim();
+            ret += vs[vs.Length - 1];
+            return ret;
         }
 
         protected bool NotInRange(int x, int y)
