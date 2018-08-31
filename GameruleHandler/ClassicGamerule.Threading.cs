@@ -21,7 +21,7 @@ namespace GameruleHandler
             this.Info = Info;
             Server.Log += (str) =>
             {
-                Log?.Invoke(str);
+                Log?.Invoke("(网络服务)"+str);
             };
         }
 
@@ -31,6 +31,8 @@ namespace GameruleHandler
             {
                 throw new InvalidOperationException();
             }
+
+            Log?.Invoke("游戏已开始运行");
 
             StartPUState();
 
@@ -42,6 +44,7 @@ namespace GameruleHandler
 
         public override void AbortGame()
         {
+            Log?.Invoke("已强制结束游戏");
             if (MainThread != null)
             {
                 if (MainThread.IsAlive == true)

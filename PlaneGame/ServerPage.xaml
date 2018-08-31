@@ -12,7 +12,7 @@
     <md:DialogHost>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <md:ColorZone Mode="PrimaryDark" DockPanel.Dock="Top" Padding="16" CornerRadius="3" md:ShadowAssist.ShadowDepth="Depth3" Margin="5,5,5,0" Grid.ColumnSpan="2">
@@ -26,10 +26,14 @@
                 </Grid>
             </md:ColorZone>
             <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}" Margin="0,85,0,0" VerticalAlignment="Top">日志信息</TextBlock>
-            <ItemsControl Margin="0,120,0,-0.4" Name="ICLog"></ItemsControl>
-            <ListBox Name="LBUser" Grid.Column="1" Margin="0,85,0,0">
+            <ItemsControl Margin="0,120,0,0" Name="ICLog"></ItemsControl>
+            <TextBlock Grid.Column="1" Margin="0,85,0,0" Style="{DynamicResource MaterialDesignHeadlineTextBlock}" VerticalAlignment="Top">
+                在线玩家列表
+            </TextBlock>
+            <ListBox Name="LBUser" Grid.Column="1" Margin="0,120,0,0">
                 
             </ListBox>
+            <Line Grid.Column="1" HorizontalAlignment="Left" Margin="0.4,85,0,0"></Line>
         </Grid>
     </md:DialogHost>
 </Page>

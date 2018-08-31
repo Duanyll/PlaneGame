@@ -43,7 +43,10 @@ namespace GameruleHandler
         private void Server_UserLoggedIn(string UserName)
         {
             OnlinePlayers.Add(UserName);
-            Score.Add(UserName, 0);
+            if (!Score.Keys.Contains(UserName))
+            {
+                Score.Add(UserName, 0);
+            } 
             foreach(var i in Score)
             {
                 UpdateScore(i.Key);
