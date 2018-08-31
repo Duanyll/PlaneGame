@@ -14,7 +14,7 @@ namespace GameruleHandler
         /// <summary>
         /// 当前所有在线玩家的用户名
         /// </summary>
-        List<string> OnlinePlayers = new List<string>();
+        public List<string> OnlinePlayers = new List<string>();
         /// <summary>
         /// 每个玩家及其分数
         /// </summary>

@@ -62,7 +62,12 @@ namespace PlaneGame
 
         private void ToServerPage(GameruleHandler.GameInfo info)
         {
-
+            ServerPage page = new ServerPage(info);
+            page.BtnBack.Click += (s, args) =>
+            {
+                ToHomePage();
+            };
+            Content = page;
         }
 
         private void ToSettingsPage()

@@ -10,7 +10,7 @@ namespace GameruleHandler
 	/// <summary>
     /// 这一部分包含多线程处理的方法
     /// </summary>
-    partial class ClassicGamerule
+    public partial class ClassicGamerule
     { 
         public ClassicGamerule(GameInfo Info)
         {
