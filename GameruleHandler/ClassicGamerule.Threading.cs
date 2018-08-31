@@ -11,10 +11,18 @@ namespace GameruleHandler
     /// 这一部分包含多线程处理的方法
     /// </summary>
     public partial class ClassicGamerule
-    { 
+    {
+        public delegate void LogEventHandler(string Content);
+
+        public event LogEventHandler Log;
+
         public ClassicGamerule(GameInfo Info)
         {
             this.Info = Info;
+            Server.Log += (str) =>
+            {
+                Log?.Invoke(str);
+            };
         }
 
         public override void StartGame()

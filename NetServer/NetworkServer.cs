@@ -13,7 +13,7 @@ namespace NetServer
     public class NetworkServer
     {
         public const int MAX_CONNECTIONS = 100;
-        public int Port { get; } = 8080;
+        public int Port { get; set; } = 8080;
 
         static Dictionary<String, Socket> clientList = null;
         //申明一个监听套接字 
@@ -30,16 +30,18 @@ namespace NetServer
         public delegate void UserLogin(string UserName);
         public delegate void UserLogout(string UserName);
         public delegate void RecievedMessage(string UserName, string msg);
+        public delegate void LogEventHandler(string LogContent);
 
         public event UserLogin UserLoggedIn;
         public event UserLogout UserLoggedOut;
         public event RecievedMessage MessageRecieved;
+        public event LogEventHandler Log;
 
         /// <summary>
         /// 获取本机IP地址
         /// </summary>
         /// <returns>本机IP地址</returns>
-        public static string GetLocalIP()
+        public string GetLocalIP()
         {
             try
             {
@@ -59,6 +61,7 @@ namespace NetServer
             }
             catch (Exception ex)
             {
+                Log?.Invoke("自动获取IP地址失败");
                 return ex.Message;
             }
         }
@@ -66,18 +69,13 @@ namespace NetServer
         public NetworkServer(IPAddress ip)
         {
             ipadr = ip;
-            Log("本机ip：" + ipadr.ToString());
+            Log?.Invoke("本机ip：" + ipadr.ToString());
         }
 
         public NetworkServer()
         {
             ipadr = IPAddress.Any;
-            Log("将尝试使用本机所有IP地址");
-        }
-
-        public static void Log(string a)
-        {
-            Console.WriteLine(DateTime.Now + " " + a);
+            Log?.Invoke("将尝试使用本机所有IP地址");
         }
 
         public void StartService()
@@ -157,12 +155,12 @@ namespace NetServer
                          * 参考网址： https://zhidao.baidu.com/question/1175146013330422099.html?qbl=relate_question_1&word=Dispatcher.BeginInvoke%B5%C4%CF%E0%CD%AC%BA%AF%CA%FD
                          * 更好的参考网址：http://www.cnblogs.com/lsgsanxiao/p/5523282.html
                         **/
-                        Log("网络服务启动成功");
+                        Log?.Invoke("网络服务启动成功");
                     }
                     catch (Exception eg)
                     {
-                        Log("服务启动失败，可能是IP地址有误");
-                        Log(eg.Message);
+                        Log?.Invoke("服务启动失败，可能是IP地址有误");
+                        Log?.Invoke(eg.Message);
                         if (serverSocket != null)
                         {
                             serverSocket.Close();
@@ -185,7 +183,7 @@ namespace NetServer
                 }
                 catch (SocketException ex)
                 {
-                    Log(ex.ToString());
+                    Log?.Invoke(ex.ToString());
                 }
             }
 
@@ -218,7 +216,7 @@ namespace NetServer
                 }
                 catch (SocketException e)
                 {
-                    Log(e.ToString() + "StartListen" + DateTime.Now.ToString() + "");
+                    Log?.Invoke(e.ToString() + "StartListen" + DateTime.Now.ToString() + "");
                 }
 
                 //TCP是面向字节流的
@@ -275,7 +273,7 @@ namespace NetServer
 
                                     client.StartClient(clientSocket, dataFromClient, clientList);
 
-                                    Log(dataFromClient + "连接上了服务器");
+                                    Log?.Invoke(dataFromClient + "连接上了服务器");
                                 }
                                 else
                                 {
@@ -287,7 +285,7 @@ namespace NetServer
                     }
                     catch (Exception ep)
                     {
-                        Log(ep.ToString() + "\t\t" + DateTime.Now.ToString() + "");
+                        Log?.Invoke(ep.ToString() + "\t\t" + DateTime.Now.ToString() + "");
                     }
                 }
             }
@@ -317,7 +315,7 @@ namespace NetServer
                 serverSocket.Close();
                 serverSocket = null;
                 isListen = false;
-                Log("服务停止");
+                Log?.Invoke("服务停止");
             }
 
         }

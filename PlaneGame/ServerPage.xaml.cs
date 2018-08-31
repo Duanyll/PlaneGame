@@ -26,6 +26,24 @@ namespace PlaneGame
         {
             InitializeComponent();
             Gamerule = new ClassicGamerule(info);
+            Gamerule.Log += (str) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    StackPanel stack = new StackPanel();
+                    stack.Children.Add(new TextBlock()
+                    {
+                        Text = DateTime.Now.ToString(),
+                        Style = (Style)Resources["MaterialDesignBody2TextBlock"]
+                    });
+                    stack.Children.Add(new TextBlock()
+                    {
+                        Text = str,
+                        Style = (Style)Resources["MaterialDesignBody1TextBlock"]
+                    });
+                    ICLog.Items.Add(stack);
+                });
+            };
             Gamerule.StartGame();
             LBUser.ItemsSource = Gamerule.OnlinePlayers;
         }
