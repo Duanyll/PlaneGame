@@ -12,7 +12,7 @@ namespace NetClient
     public class NetworkClient
     {
         Socket clientSocket = null;
-        static Boolean isListen = true;
+        public bool isListen = true;
         Thread thDataFromServer;
         IPAddress ipadr;
 

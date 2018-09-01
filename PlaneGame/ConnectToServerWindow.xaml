@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:PlaneGame"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="PlaneGame" Width="300" ShowInTaskbar="False" WindowStyle="None" Height="180" ResizeMode="NoResize">
+        Title="PlaneGame" Width="300" ShowInTaskbar="False" WindowStyle="None" Height="180" ResizeMode="NoResize" Background="{x:Null}" AllowsTransparency="True">
     <Grid>
-        <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Header="连接到服务器">
+        <GroupBox Margin="4" Style="{StaticResource MaterialDesignCardGroupBox}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Header="连接到服务器">
             <StackPanel>
                 <TextBox Name="TBIPAddress" md:HintAssist.Hint="IP地址" md:HintAssist.IsFloating="True"></TextBox>
                 <TextBox Name="TBUserName" md:HintAssist.Hint="用户名" md:HintAssist.IsFloating="True"></TextBox>

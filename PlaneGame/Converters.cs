@@ -30,4 +30,26 @@ namespace PlaneGame
             return value as Visibility? == TrueValue;
         }
     }
+
+    class BooleanToConnectionTextConverter : IValueConverter
+    {
+        public string TrueValue { get; set; } = "已连接";
+        public string FalseValue { get; set; } = "未连接";
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool bValue = false;
+            if (value is bool)
+            {
+                bValue = (bool)value;
+            }
+
+            return (bValue) ? TrueValue : FalseValue;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value as string == TrueValue;
+        }
+    }
 }

@@ -4,14 +4,28 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:dr="http://dragablz.net/winfx/xaml/dragablz"
+      xmlns:dk="http://dragablz.net/winfx/xaml/dockablz"
       xmlns:local="clr-namespace:PlaneGame"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Background="{DynamicResource MaterialDesignPaper}"
       Title="ClientPage">
+    <Page.Resources>
+        <local:BooleanToConnectionTextConverter x:Key="BooleanToConnectionTextConverter"/>
+    </Page.Resources>
 
     <Grid>
-        <md:ColorZone Mode="PrimaryDark" Padding="16" CornerRadius="3" md:ShadowAssist.ShadowDepth="Depth3" Margin="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <md:ColorZone Mode="PrimaryDark" Padding="16" CornerRadius="3" md:ShadowAssist.ShadowDepth="Depth3" Margin="4" VerticalAlignment="Stretch" Grid.ColumnSpan="2">
             <WrapPanel>
                 <Button HorizontalAlignment="Left" Name="BtnBack" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Click="BtnBack_Click">
                     <md:PackIcon Kind="ChevronLeft"></md:PackIcon>
@@ -19,10 +33,19 @@
                 <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="4">已连接到服务器</TextBlock>
             </WrapPanel>
         </md:ColorZone>
-        <StatusBar VerticalAlignment="Bottom">
-            <TextBlock>已连接</TextBlock>
+        <dk:Layout Grid.Column="0" Grid.Row="1" Margin="0,0,0,-0.4">
+            <dr:TabablzControl>
+                <dr:TabablzControl.InterTabController>
+                    <dr:InterTabController></dr:InterTabController>
+                </dr:TabablzControl.InterTabController>
+                <TabItem Header="Team 0"></TabItem>
+                <TabItem Header="Team 1"></TabItem>
+            </dr:TabablzControl>
+        </dk:Layout>
+        <StatusBar Grid.Row="2" Grid.ColumnSpan="2" Margin="0">
+            <TextBlock Text="{Binding client.isListen, Converter={StaticResource BooleanToConnectionTextConverter}, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ClientPage}}}">已连接</TextBlock>
             <Separator>
-                
+
             </Separator>
             <TextBlock>
                 就绪
