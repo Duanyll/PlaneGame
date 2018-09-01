@@ -11,6 +11,7 @@ namespace GameruleHandler
         /// <summary>
         /// 表示玩家看对方的游戏版(有迷雾什么的)
         /// </summary>
+        [Serializable]
         public class PlayerViewGameBoard : GameBoard
         {
             public PlayerViewGameBoard(string[] vs) : base(vs)

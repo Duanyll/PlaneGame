@@ -71,6 +71,10 @@
     <Compile Include="GameBoardView.xaml.cs">
       <DependentUpon>GameBoardView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LongTextDisplayWindow.xaml.cs">
+      <DependentUpon>LongTextDisplayWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SerializeHelper.cs" />
     <Compile Include="ServerPage.xaml.cs">
       <DependentUpon>ServerPage.xaml</DependentUpon>
     </Compile>
@@ -86,6 +90,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LongTextDisplayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

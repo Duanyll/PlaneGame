@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GameruleHandler;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace PlaneGame
 {
@@ -178,6 +180,16 @@ namespace PlaneGame
             {
                 view.ClickMode = GameBoardView.GameBoardClickMode.SwitchBarrier;
             }
+        }
+
+        private void BtnSaveConfig_Click(object sender, RoutedEventArgs e)
+        {
+            MemoryStream ms = new MemoryStream();
+            //创建序列化的实例
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(ms, Info);//序列化对象，写入ms流中
+            byte[] bytes = ms.GetBuffer();
+            new LongTextDisplayWindow(Convert.ToBase64String(bytes)).Show();
         }
     }
 }

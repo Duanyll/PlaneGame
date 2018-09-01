@@ -11,6 +11,7 @@ namespace GameruleHandler
         /// <summary>
         /// 表示GameBoard模板
         /// </summary>
+        [Serializable]
         public class MaskedGameBoard : GameBoard
         {
             public MaskedGameBoard(int w, int h) : base(w, h)

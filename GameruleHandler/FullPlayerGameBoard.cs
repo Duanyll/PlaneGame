@@ -11,6 +11,7 @@ namespace GameruleHandler
         /// <summary>
         /// 表示一队玩家的完整游戏版，特色是可以判断与放置PatternGameBoard
         /// </summary>
+        [Serializable]
         public class FullPlayerGameBoard : GameBoard
         {
             public FullPlayerGameBoard(int w, int h) : base(w, h)

@@ -12,6 +12,7 @@ namespace GameruleHandler
         /// 表示某个特定单位模板，特色功能是可以任意设置某个格子
         /// 机身默认是a，机头默认是A
         /// </summary>
+        [Serializable]
         public class PatternGameBoard : GameBoard
         {
             /// <summary>
