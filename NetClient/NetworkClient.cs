@@ -18,8 +18,12 @@ namespace NetClient
 
         public delegate void MessageRecievedHandler(string msg);
         public delegate void FailureHandler(string msg);
+        public delegate void InfoEventHandler(string msg);
+        public delegate void ConnectedHandler();
+        public event InfoEventHandler Info;
         public event MessageRecievedHandler MessageRecieved;
         public event FailureHandler FailureCaused;
+        public event ConnectedHandler Connected;
 
         public void SendMessage(string msg)
         {
@@ -98,6 +102,7 @@ namespace NetClient
                                 thDataFromServer = new Thread(DataFromServer);
                                 thDataFromServer.IsBackground = true;
                                 thDataFromServer.Start();
+                                Connected?.Invoke();
                             }
                             else
                             {
@@ -123,7 +128,7 @@ namespace NetClient
         //获取服务器端的消息
         private void DataFromServer()
         {
-            MessageRecieved?.Invoke("SLOG|正在连接服务器");
+            Info?.Invoke("正在连接服务器");
             isListen = true;
             try
             {
@@ -141,8 +146,7 @@ namespace NetClient
                             clientSocket.Close();
                             clientSocket = null;
 
-                            MessageRecieved?.Invoke("SLOG|服务器已关闭");
-                            MessageRecieved?.Invoke("SMSG|服务器已关闭");
+                            Info?.Invoke("服务器已关闭");
                             thDataFromServer.Abort();   //这一句必须放在最后，不然这个进程都关了后面的就不会执行了
 
                             return;
@@ -192,8 +196,7 @@ namespace NetClient
 
                 clientSocket.Close();
                 clientSocket = null;
-                MessageRecieved?.Invoke("SMSG|已断开与服务器的连接");
-                MessageRecieved?.Invoke("SLOG|已断开与服务器的连接");
+                Info?.Invoke("已断开与服务器的连接");
             }
         }
     }

@@ -34,10 +34,10 @@
                     </TextBlock>
                 </WrapPanel>
                 <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Name="BtnSaveConfig" Click="BtnSaveConfig_Click">
+                    <!--<Button Name="BtnSaveConfig" Click="BtnSaveConfig_Click">
                         <materialDesign:PackIcon Kind="ContentSave">
                         </materialDesign:PackIcon>
-                    </Button>
+                    </Button>-->
                     <Button Name="BtnStartGame" Style="{DynamicResource MaterialDesignRaisedAccentButton}" Content="开始游戏"/>
                     
                 </WrapPanel>

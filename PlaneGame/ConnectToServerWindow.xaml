@@ -1,0 +1,23 @@
+﻿<Window x:Class="PlaneGame.ConnectToServerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PlaneGame"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="PlaneGame" Width="300" ShowInTaskbar="False" WindowStyle="None" Height="180">
+    <Grid>
+        <GroupBox Style="{StaticResource MaterialDesignCardGroupBox}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Header="连接到服务器">
+            <StackPanel>
+                <TextBox Name="TBIPAddress" md:HintAssist.Hint="IP地址" md:HintAssist.IsFloating="True"></TextBox>
+                <TextBox Name="TBUserName" md:HintAssist.Hint="用户名" md:HintAssist.IsFloating="True"></TextBox>
+                <TextBlock Name="TBResult"></TextBlock>
+                <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <Button Margin="4" Padding="4" Name="BtnCancel" Style="{StaticResource MaterialDesignFlatButton}" Click="BtnCancel_Click">取消</Button>
+                    <Button Margin="4" Padding="4" Name="BtnOK" Style="{StaticResource MaterialDesignFlatButton}" Click="BtnOK_Click">连接</Button>
+                </WrapPanel>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>

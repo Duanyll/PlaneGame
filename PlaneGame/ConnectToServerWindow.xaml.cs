@@ -1,0 +1,63 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using NetClient;
+
+namespace PlaneGame
+{
+    /// <summary>
+    /// ConnectToServerWindow.xaml 的交互逻辑
+    /// </summary>
+    public partial class ConnectToServerWindow : Window
+    {
+        NetworkClient client;
+        bool IsConnected = false;
+        public ConnectToServerWindow(NetworkClient client)
+        {
+            InitializeComponent();
+            this.client = client;
+            client.Connected += () =>
+            {
+                IsConnected = true;
+                Close();
+            };
+            client.FailureCaused += (msg) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    TBResult.Text = msg;
+                });
+            };
+        }
+
+        /// <summary>
+        /// 展示为对话框
+        /// </summary>
+        /// <returns>连接是否成功</returns>
+        public new bool ShowDialog()
+        {
+            base.ShowDialog();
+            return IsConnected;
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void BtnOK_Click(object sender, RoutedEventArgs e)
+        {
+            client.Connect(TBUserName.Text, TBIPAddress.Text);
+        }
+    }
+}

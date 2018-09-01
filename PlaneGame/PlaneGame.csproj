@@ -65,6 +65,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClientPage.xaml.cs">
+      <DependentUpon>ClientPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConnectToServerWindow.xaml.cs">
+      <DependentUpon>ConnectToServerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameBoardBlockView.xaml.cs">
       <DependentUpon>GameBoardBlockView.xaml</DependentUpon>
     </Compile>
@@ -81,6 +87,14 @@
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="ClientPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConnectToServerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GameBoardBlockView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -169,6 +183,10 @@
     <ProjectReference Include="..\GameruleHandler\GameruleHandler.csproj">
       <Project>{50e7c48e-6cd3-4538-9440-a2f5ecf5aaff}</Project>
       <Name>GameruleHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetClient\NetClient.csproj">
+      <Project>{4e1d4f94-72a9-4d93-9de0-d2303262e3fa}</Project>
+      <Name>NetClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlaneGameTest\PlaneGameTest.csproj">
       <Project>{1c2cebc1-99fb-4ab1-8757-6d4441be765e}</Project>
