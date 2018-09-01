@@ -58,5 +58,29 @@ namespace PlaneGame.Properties {
                 this["GBGridWidth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastIPAddress {
+            get {
+                return ((string)(this["LastIPAddress"]));
+            }
+            set {
+                this["LastIPAddress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastUserName {
+            get {
+                return ((string)(this["LastUserName"]));
+            }
+            set {
+                this["LastUserName"] = value;
+            }
+        }
     }
 }

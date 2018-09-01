@@ -25,11 +25,19 @@ namespace PlaneGame
         public ConnectToServerWindow(NetworkClient client)
         {
             InitializeComponent();
+            TBIPAddress.Text = Properties.Settings.Default.LastIPAddress;
+            TBUserName.Text = Properties.Settings.Default.LastUserName;
             this.client = client;
             client.Connected += () =>
             {
-                IsConnected = true;
-                Close();
+                Dispatcher.Invoke(() =>
+                {
+                    Properties.Settings.Default.LastIPAddress = TBIPAddress.Text;
+                    Properties.Settings.Default.LastUserName = TBUserName.Text;
+                    Properties.Settings.Default.Save();
+                    IsConnected = true;
+                    Close();
+                });
             };
             client.FailureCaused += (msg) =>
             {

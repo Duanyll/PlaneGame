@@ -26,6 +26,13 @@
                             <TextBlock>夜间模式</TextBlock>
                             <ToggleButton Name="TgBDarkMode" Click="TgBDarkMode_Click"></ToggleButton>
                         </WrapPanel>
+                        <StackPanel>
+                            <TextBlock>游戏方格大小</TextBlock>
+                            <WrapPanel>
+                                <Slider Name="SlBlockSize" Width="100" Minimum="20" Maximum="60"></Slider>
+                                <Button Name="BtnSaveBlockSize" Style="{StaticResource MaterialDesignFlatButton}" Click="BtnSaveBlockSize_Click">保存</Button>
+                            </WrapPanel>
+                        </StackPanel>
                     </ListView>
                 </StackPanel>
             </md:Card>

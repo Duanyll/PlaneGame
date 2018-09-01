@@ -23,7 +23,7 @@ namespace PlaneGame
     /// </summary>
     public partial class ClientPage : Page
     {
-        NetworkClient client = new NetworkClient();
+        public NetworkClient client { get; private set; } = new NetworkClient();
         public event RoutedEventHandler PageExitEvent;
         public ClientPage()
         {
@@ -55,6 +55,11 @@ namespace PlaneGame
         private void Client_FailureCaused(string msg)
         {
             //throw new NotImplementedException();
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            client.Stop();
         }
     }
 }

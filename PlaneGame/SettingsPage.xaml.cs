@@ -24,12 +24,19 @@ namespace PlaneGame
         {
             InitializeComponent();
             TgBDarkMode.IsChecked = Properties.Settings.Default.UseDarkMode;
+            SlBlockSize.Value = Properties.Settings.Default.GBGridHeight;
         }
 
         private void TgBDarkMode_Click(object sender, RoutedEventArgs e)
         {
             new MaterialDesignThemes.Wpf.PaletteHelper().SetLightDark(TgBDarkMode.IsChecked.Value);
             Properties.Settings.Default.UseDarkMode = TgBDarkMode.IsChecked.Value;
+            Properties.Settings.Default.Save();
+        }
+
+        private void BtnSaveBlockSize_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.GBGridHeight = Properties.Settings.Default.GBGridWidth = SlBlockSize.Value;
             Properties.Settings.Default.Save();
         }
     }

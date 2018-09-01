@@ -7,9 +7,26 @@
       xmlns:local="clr-namespace:PlaneGame"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Background="{DynamicResource MaterialDesignPaper}"
       Title="ClientPage">
 
     <Grid>
-        
+        <md:ColorZone Mode="PrimaryDark" Padding="16" CornerRadius="3" md:ShadowAssist.ShadowDepth="Depth3" Margin="4">
+            <WrapPanel>
+                <Button HorizontalAlignment="Left" Name="BtnBack" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Click="BtnBack_Click">
+                    <md:PackIcon Kind="ChevronLeft"></md:PackIcon>
+                </Button>
+                <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="4">已连接到服务器</TextBlock>
+            </WrapPanel>
+        </md:ColorZone>
+        <StatusBar VerticalAlignment="Bottom">
+            <TextBlock>已连接</TextBlock>
+            <Separator>
+                
+            </Separator>
+            <TextBlock>
+                就绪
+            </TextBlock>
+        </StatusBar>
     </Grid>
 </Page>

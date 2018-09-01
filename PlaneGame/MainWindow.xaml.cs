@@ -43,6 +43,10 @@ namespace PlaneGame
             {
                 ToSettingsPage();
             };
+            page.BtnJoinGame.Click += (s, args) =>
+            {
+                ToJoinGamePage();
+            };
             Content = page;
         }
 
@@ -81,6 +85,20 @@ namespace PlaneGame
             Content = page;
         }
 
+        private void ToJoinGamePage()
+        {
+            ClientPage page = new ClientPage();
+            page.BtnBack.Click += (s, args) =>
+            {
+                ToHomePage();
+            };
+            page.PageExitEvent += (s, args) =>
+            {
+                ToHomePage();
+            };
+            Content = page;
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if(Content is ServerPage page)
@@ -92,6 +110,20 @@ namespace PlaneGame
                 else
                 {
                     page.Gamerule.AbortGame();
+                }
+            }
+            else
+            {
+                if(Content is ClientPage p)
+                {
+                    if (MessageBox.Show("是否要退出游戏？", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) == MessageBoxResult.Cancel)
+                    {
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        p.client.Stop();
+                    }
                 }
             }
         }

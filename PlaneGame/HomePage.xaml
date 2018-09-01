@@ -16,7 +16,7 @@
         <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}" Header="开始游戏" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Width="200">
             <StackPanel>
                 <Button x:Name="BtnNewGame" Content="新游戏" Margin="0,5"/>
-                <Button Content="加入游戏" Margin="0,5"></Button>
+                <Button x:Name="BtnJoinGame" Content="加入游戏" Margin="0,5"></Button>
                 <Button x:Name="BtnSettings" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="设置" Margin="0,5"/>
                 <Button x:Name="BtnAbout" Style="{StaticResource MaterialDesignFlatButton}" Margin="0,5" Content="关于" Click="AboutButton_Click"/>
             </StackPanel>
