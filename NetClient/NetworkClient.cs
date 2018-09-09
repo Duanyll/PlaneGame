@@ -12,7 +12,8 @@ namespace NetClient
     public class NetworkClient
     {
         Socket clientSocket = null;
-        public bool isListen = true;
+        public bool isListen { get; private set; } = true;
+        public string UserName { get; private set; }
         Thread thDataFromServer;
         IPAddress ipadr;
 
@@ -48,6 +49,7 @@ namespace NetClient
         //每一个连接的客户端必须设置一个唯一的用户名，在服务器端是把用户名和套接字保存在Dictionary<userName,ClientSocket>中
         public bool Connect(string UserName, string ip)
         {
+            this.UserName = UserName;
             if (String.IsNullOrWhiteSpace(UserName.Trim()))
             {
                 FailureCaused?.Invoke("请设置个用户名哦亲");

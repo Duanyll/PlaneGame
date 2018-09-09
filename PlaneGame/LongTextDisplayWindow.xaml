@@ -10,7 +10,7 @@
         Title="" Height="450" Width="800">
     <Grid>
         <Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="16" Click="Button_Click">确定</Button>
-        <TextBlock VerticalAlignment="Top" Margin="16" Style="{StaticResource MaterialDesignHeadlineTextBlock}">请复制以下内容并保存</TextBlock>
+        <TextBlock VerticalAlignment="Top" Margin="16" Style="{StaticResource MaterialDesignHeadlineTextBlock}">信息</TextBlock>
         <TextBox Name="TBMain" Margin="16,64,15.6,16" AcceptsReturn="True" Style="{StaticResource MaterialDesignTextAreaTextBox}" TextWrapping="Wrap" IsReadOnly="True"></TextBox>
     </Grid>
 </Window>
