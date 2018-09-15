@@ -43,6 +43,8 @@ namespace PlaneGame
             };
         }
 
+        Dictionary<string, Chip> NameCards = new Dictionary<string, Chip>();
+
         private void Client_Info(string msg)
         {
             Dispatcher.Invoke(() =>
@@ -71,26 +73,34 @@ namespace PlaneGame
                             SnbMain.MessageQueue.Enqueue(vs[1]);
                             break;
                         case "ULGI":
-                            WrPUsers.Children.Add(new Chip()
+                            NameCards.Add(vs[1], new Chip()
                             {
                                 Content = vs[1]
                             });
+                            WrPUsers.Children.Add(NameCards[vs[1]]);
                             break;
                         case "ULGO":
-                            foreach (UIElement i in WrPUsers.Children)
+                            WrPUsers.Children.Remove(NameCards[vs[1]]);
+                            NameCards.Remove(vs[1]);
+                            break;
+                        case "TMIF":
+                            if(NameCards.TryGetValue(vs[1],out Chip chip))
                             {
-                                if (i is Chip ch)
-                                {
-                                    if (ch.Content is string str)
-                                    {
-                                        if (str == vs[1])
-                                        {
-                                            WrPUsers.Children.Remove(i);
-                                            break;
-                                        }
-                                    }
-                                }
+                                chip.Icon = vs[2];
                             }
+                            else
+                            {
+                                NameCards.Add(vs[1], new Chip()
+                                {
+                                    Content = vs[1],
+                                    Icon = vs[2]
+                                });
+                                WrPUsers.Children.Add(NameCards[vs[1]]);
+                            }
+                            break;
+                        case "TCLR":
+                            WrPUsers.Children.Clear();
+                            NameCards.Clear();
                             break;
                         case "MBOX":
                             MessageBox.Show(vs[1], "PlaneGame", MessageBoxButton.OK);
