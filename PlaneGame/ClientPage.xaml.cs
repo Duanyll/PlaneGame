@@ -29,6 +29,7 @@ namespace PlaneGame
         {
             InitializeComponent();
             SnbMain.MessageQueue = new SnackbarMessageQueue(Properties.Settings.Default.SnakeBarMessageDuration);
+            FrmMain.Content = new GameDefaultPage();
             client.FailureCaused += Client_FailureCaused;
             client.MessageRecieved += Client_MessageRecieved;
             client.Info += Client_Info;

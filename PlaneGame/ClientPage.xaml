@@ -31,9 +31,7 @@
                 <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="4">已连接到服务器</TextBlock>
             </WrapPanel>
         </md:ColorZone>
-        <Frame Name="FrmMain" Grid.Row="1" Margin="8" NavigationUIVisibility="Hidden">
-            
-        </Frame>
+        <Frame Name="FrmMain" Grid.Row="1" Margin="8" NavigationUIVisibility="Hidden"></Frame>
         <md:Snackbar Name="SnbMain" Grid.Row="1"></md:Snackbar>
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -49,17 +47,11 @@
             <ScrollViewer Grid.Row="1">
                 <StackPanel Name="SPChat"></StackPanel>
             </ScrollViewer>
-            
-            <TextBox Name="TBSendMessage" Grid.Row="2" Style="{StaticResource MaterialDesignTextFieldBoxTextBox}" Height="Auto" Margin="5,5,71,4.8" md:HintAssist.Hint="Chat Here" AcceptsReturn="True"></TextBox>
+
+            <CheckBox Grid.Row="2" VerticalAlignment="Top" Margin="5,0.2,71,0">仅队伍内部可见</CheckBox>
+            <TextBox Name="TBSendMessage" Grid.Row="2" Style="{StaticResource MaterialDesignTextFieldBoxTextBox}" Height="Auto" Margin="5,22.2,71,4.8" md:HintAssist.Hint="Chat Here" AcceptsReturn="True"></TextBox>
             <Button Name="BtnClearChat" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Style="{StaticResource MaterialDesignFlatButton}" Click="BtnClearChat_Click">清除</Button>
             <Button Name="BtnSendChat" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Style="{StaticResource MaterialDesignRaisedAccentButton}" Click="BtnSendChat_Click">发送</Button>
         </Grid>
-        <StatusBar Grid.Row="2" Grid.ColumnSpan="2" Margin="0">
-            <TextBlock Text="{Binding client.UserName, Mode=Default, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ClientPage}}}">已连接</TextBlock>
-            <Separator></Separator>
-            <TextBlock>
-                就绪
-            </TextBlock>
-        </StatusBar>
     </Grid>
 </Page>

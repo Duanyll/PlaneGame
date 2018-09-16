@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PlaneGame"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="PlaneGame" Width="300" ShowInTaskbar="False" WindowStyle="None" Height="180" ResizeMode="NoResize" Background="{x:Null}" AllowsTransparency="True">
+        Title="PlaneGame" Width="300" ShowInTaskbar="False" WindowStyle="None" Height="180" ResizeMode="NoResize" Background="{x:Null}" AllowsTransparency="True" WindowStartupLocation="CenterOwner">
     <Grid>
         <GroupBox Margin="4" Style="{StaticResource MaterialDesignCardGroupBox}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Header="连接到服务器">
             <StackPanel>

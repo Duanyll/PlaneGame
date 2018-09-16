@@ -13,7 +13,7 @@
         <ScrollViewer>
             <md:Card HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="120,40" >
                 <StackPanel>
-                    <md:ColorZone Mode="PrimaryMid" Padding="5">
+                    <md:ColorZone Mode="PrimaryMid" Padding="8">
                         <WrapPanel>
                             <Button Name="BtnBack" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
                                 <md:PackIcon Kind="ChevronLeft"></md:PackIcon>

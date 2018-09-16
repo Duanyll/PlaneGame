@@ -33,7 +33,9 @@
             <ListBox Name="LBUser" Grid.Column="1" Margin="0,120,0,0">
                 
             </ListBox>
-            <Line Grid.Column="1" HorizontalAlignment="Left" Margin="0.4,85,0,0"></Line>
+            <Button Name="BtnOpenClient" ToolTip="新游戏窗口" Grid.Column="2" Margin="8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Click="BtnOpenClient_Click">
+                <md:PackIcon Width="32" Height="32" Kind="GamepadVariant"></md:PackIcon>
+            </Button>
         </Grid>
     </md:DialogHost>
 </Page>

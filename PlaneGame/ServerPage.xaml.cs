@@ -49,5 +49,32 @@ namespace PlaneGame
         }
 
         public ClassicGamerule Gamerule;
+
+        private void BtnOpenClient_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new Window()
+            {
+                MinHeight = 450,
+                MinWidth = 600,
+            };
+            ClientPage page = new ClientPage();
+            page.BtnBack.Visibility = Visibility.Collapsed;
+            window.Content = page;
+            window.Closing += (s, args) =>
+            {
+                if (window.Content is ClientPage p)
+                {
+                    if (MaterialDesignMessageBox.Show("是否要退出游戏？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
+                    {
+                        args.Cancel = true;
+                    }
+                    else
+                    {
+                        p.client.Stop();
+                    }
+                }
+            };
+            window.Show();
+        }
     }
 }
