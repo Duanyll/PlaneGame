@@ -103,7 +103,7 @@ namespace PlaneGame
         {
             if(Content is ServerPage page)
             {
-                if(MessageBox.Show("是否要关闭运行中的服务器？","提示",MessageBoxButton.OKCancel,MessageBoxImage.Question,MessageBoxResult.Cancel) == MessageBoxResult.Cancel)
+                if(MaterialDesignMessageBox.Show("是否要关闭运行中的服务器？","提示",MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
                 {
                     e.Cancel = true;
                 }
@@ -116,7 +116,7 @@ namespace PlaneGame
             {
                 if(Content is ClientPage p)
                 {
-                    if (MessageBox.Show("是否要退出游戏？", "提示", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) == MessageBoxResult.Cancel)
+                    if (MaterialDesignMessageBox.Show("是否要退出游戏？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
                     {
                         e.Cancel = true;
                     }

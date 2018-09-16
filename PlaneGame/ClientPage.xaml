@@ -31,7 +31,7 @@
                 <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="4">已连接到服务器</TextBlock>
             </WrapPanel>
         </md:ColorZone>
-        <Frame Grid.Row="1" Margin="8" NavigationUIVisibility="Hidden">
+        <Frame Name="FrmMain" Grid.Row="1" Margin="8" NavigationUIVisibility="Hidden">
             
         </Frame>
         <md:Snackbar Name="SnbMain" Grid.Row="1"></md:Snackbar>
