@@ -17,7 +17,7 @@
         <Button x:Name="HelpButton" ToolTip="打开在线帮助文档" Style="{StaticResource MaterialDesignFloatingActionButton}" Margin="0,0,10,9.6" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="HelpButton_Click">
             <materialDesign:PackIcon Kind="HelpCircle" Width="30" Height="30"></materialDesign:PackIcon>
         </Button>
-        <materialDesign:ColorZone Padding="30" materialDesign:ShadowAssist.ShadowDepth="Depth5" HorizontalAlignment="Center" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5" Margin="215,-364,437,-304.4">
+        <materialDesign:ColorZone materialDesign:RippleAssist.IsDisabled="False" Padding="30" materialDesign:ShadowAssist.ShadowDepth="Depth5" HorizontalAlignment="Center" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5" Margin="215,-364,437,-304.4">
             <materialDesign:ColorZone.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

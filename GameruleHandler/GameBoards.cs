@@ -183,7 +183,7 @@ namespace GameruleHandler
             //}
             for(int i = 0; i < vs.Length - 1; i++)
             {
-                ret += vs[i] + Environment.NewLine;
+                ret += vs[i] + '\n';
             }
             ret += vs[vs.Length - 1];
             return ret;

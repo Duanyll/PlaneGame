@@ -19,7 +19,8 @@ This program is distributed in the hope that it will be useful,but WITHOUT ANY W
 You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 主要用户界面使用了 MaterialDesignInXamlToolkit 界面库，采用MIT协议授权，链接：http://materialdesigninxaml.net/
-网络通信组件参考了来自 https://github.com/yinyoupoet/chatRoomTest 的代码")]
+网络通信组件参考了来自 https://github.com/yinyoupoet/chatRoomTest 的代码
+主界面图片来自 https://pixabay.com/zh/%E6%9D%82%E5%BF%97-%E5%86%99-%E7%A9%BA%E7%99%BD-%E9%A1%B5%E9%9D%A2-%E6%B3%A8%E9%87%8A-%E7%AC%94%E8%AE%B0%E6%9C%AC-%E6%97%A5%E8%AE%B0-%E8%83%8C%E6%99%AF-%E5%A4%B4%E8%84%91%E9%A3%8E%E6%9A%B4-2850091/ 采用CC0协议")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Duanyll")]
 [assembly: AssemblyProduct("PlaneGame")]

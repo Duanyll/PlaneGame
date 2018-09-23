@@ -77,11 +77,14 @@ namespace PlaneGame
                             SnbMain.MessageQueue.Enqueue(vs[1]);
                             break;
                         case "ULGI":
-                            NameCards.Add(vs[1], new Chip()
+                            if (!NameCards.Keys.Contains(vs[1]))
                             {
-                                Content = vs[1]
-                            });
-                            WrPUsers.Children.Add(NameCards[vs[1]]);
+                                NameCards.Add(vs[1], new Chip()
+                                {
+                                    Content = vs[1]
+                                });
+                                WrPUsers.Children.Add(NameCards[vs[1]]);
+                            }                            
                             break;
                         case "ULGO":
                             WrPUsers.Children.Remove(NameCards[vs[1]]);
@@ -147,6 +150,46 @@ namespace PlaneGame
                                     ToolTip = vs[2]?.Trim()
                                 });
                                 WrPUsers.Children.Add(NameCards[vs[1]]);
+                            }
+                            break;
+                        case "SPUS":
+                            PutUnitPage p = new PutUnitPage();
+                            p.BtnClear.Click += (s, args) =>
+                            {
+                                if (MaterialDesignMessageBox.Show("是否清空棋盘？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                                {
+                                    client.SendMessage("PUCR|");
+                                }
+                            };
+                            p.BtnOK.Click += (s, args) =>
+                            {
+                                if (MaterialDesignMessageBox.Show("是否确定方案？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                                {
+                                    client.SendMessage("FPUS|");
+                                }
+                            };
+                            p.Click += (x, y, name) =>
+                            {
+                                client.SendMessage("PUTU|" + name + '|' + x + '|' + y);
+                            };
+                            FrmMain.Content = p;
+                            break;
+                        case "UNIT":
+                            if(FrmMain.Content is PutUnitPage pg)
+                            {
+                                pg.UpdateUnit(vs[1], int.Parse(vs[2]));
+                            }
+                            break;
+                        case "UCNT":
+                            if (FrmMain.Content is PutUnitPage pag)
+                            {
+                                pag.UpdateUnit(vs[1], int.Parse(vs[2]));
+                            }
+                            break;
+                        case "GBRD":
+                            if (FrmMain.Content is PutUnitPage pge)
+                            {
+                                pge.board = new GameBoard.FullPlayerGameBoard(vs[1].Split('\n'));
                             }
                             break;
                     }

@@ -33,6 +33,8 @@ namespace PlaneGame
         }
         public GameBoardClickMode ClickMode { get; set; }
 
+        public event Action<int, int> Click;
+
         GameBoard board;
         public GameBoard Board
         {
@@ -43,8 +45,16 @@ namespace PlaneGame
             set
             {
                 board = value;
-                board.BlockChanged += Board_BlockChanged;
-                Refresh();
+                if (board == null)
+                {
+                    GridMain.Children.Clear();
+                    BlockViews.Clear();
+                }
+                else
+                {
+                    board.BlockChanged += Board_BlockChanged;
+                    Refresh();
+                }
             }
         }
 
@@ -117,9 +127,11 @@ namespace PlaneGame
                     }
                     break;
                 case GameBoardClickMode.Attack:
-                    throw new NotImplementedException();
+                    Click?.Invoke(x, y);
+                    break;
                 case GameBoardClickMode.PutUnit:
-                    throw new NotImplementedException();
+                    Click?.Invoke(x, y);
+                    break;
             }
         }
 
