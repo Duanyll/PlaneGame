@@ -85,7 +85,15 @@ namespace GameruleHandler
                 Server.BroadCastToAll("TMIF|" + UserName + '|' + Team);
                 TeamOf.Add(UserName, Team);
                 Teams[Team].Add(UserName);
+                foreach(var i in from user in OnlinePlayers where !TeamOf.Keys.Contains(user) select user)
+                {
+                    GetTeam(i);
+                }
                 AllowPU(UserName);
+            }
+            else
+            {
+                GetTeam(UserName);
             }
         }
     }

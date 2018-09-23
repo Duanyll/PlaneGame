@@ -93,6 +93,9 @@
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TeamSelectPage.xaml.cs">
+      <DependentUpon>TeamSelectPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="ClientPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -156,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TeamSelectPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

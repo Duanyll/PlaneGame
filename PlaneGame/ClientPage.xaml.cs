@@ -59,6 +59,9 @@ namespace PlaneGame
             //throw new NotImplementedException();
             Dispatcher.Invoke(() =>
             {
+#if DEBUG
+                HandleChat("(Original Message)", msg);
+#endif
                 string[] vs = msg.Split('|');
                 try
                 {
@@ -106,6 +109,17 @@ namespace PlaneGame
                         case "MBOX":
                             MessageBox.Show(vs[1], "PlaneGame", MessageBoxButton.OK);
                             break;
+                        case "GTEM":
+                            TeamSelectPage page = new TeamSelectPage(vs[1]);
+                            page.Selected += (ch) =>
+                            {
+                                client.SendMessage("STEM|" + ch);
+                            };
+                            FrmMain.Content = page;
+                            break;
+                        case "SGTM":
+                            FrmMain.Content = new GameDefaultPage();
+                            break;
                     }
                 }
                 catch (IndexOutOfRangeException e)
@@ -114,7 +128,7 @@ namespace PlaneGame
                     {
                         LongTextDisplayWindow window = new LongTextDisplayWindow(msg + Environment.NewLine + e.Message);
                         window.Show();
-                    }, false);
+                    }, true);
                 }
             });
         }
