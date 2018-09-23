@@ -53,9 +53,14 @@ namespace GameruleHandler
             }
             TellNewUser(UserName);
             Server.SendTo(UserName,"TCLR|");
-            foreach(var i in TeamOf)
+            foreach(var i in OnlinePlayers)
             {
-                Server.SendTo(UserName, "TMIF|" + i.Key + '|' + i.Value);
+                if(TeamOf.TryGetValue(i,out int team))
+                    Server.SendTo(UserName, "TMIF|" + i + '|' + team);
+                else
+                {
+                    Server.SendTo(UserName, "TMIF|" + i + '|');
+                }
             }
             GetTeam(UserName);
             //throw new NotImplementedException();

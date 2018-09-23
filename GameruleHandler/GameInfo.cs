@@ -18,10 +18,11 @@ namespace GameruleHandler
         /// 表示最大队伍数。为什么是这个值？因为我喜欢。
         /// </summary>
         const int MAX_TEAM_COUNT = 8;
-        int _pcnt = 2;
+        int _pcnt = 0;
         /// <summary>
         /// 要求的玩家数量。设为0表示任意
         /// </summary>
+        [Obsolete]
         public int PlayerCount
         {
             get

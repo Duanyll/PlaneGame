@@ -90,14 +90,21 @@ namespace PlaneGame
                         case "TMIF":
                             if(NameCards.TryGetValue(vs[1],out Chip chip))
                             {
-                                chip.Icon = vs[2];
+                                if (vs.Length == 3)
+                                {
+                                    chip.Icon = vs[2];
+                                }
+                                else
+                                {
+                                    chip.Icon = null;
+                                }
                             }
                             else
                             {
                                 NameCards.Add(vs[1], new Chip()
                                 {
                                     Content = vs[1],
-                                    Icon = vs[2]
+                                    Icon = vs[2]?.Trim()
                                 });
                                 WrPUsers.Children.Add(NameCards[vs[1]]);
                             }

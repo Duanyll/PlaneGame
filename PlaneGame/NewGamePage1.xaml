@@ -49,13 +49,6 @@
                     <StackPanel Margin="5">
                         <WrapPanel>
                             <TextBlock FontWeight="Bold">
-                                <Run Text="人数"/>
-                            </TextBlock>
-                            <TextBlock Text="{Binding Value, ElementName=slider2}"/>
-                        </WrapPanel>
-                        <Slider x:Name="slider2" Minimum="0" Maximum="20" Value="{Binding Info.PlayerCount, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}" SmallChange="1" IsSnapToTickEnabled="True"/>
-                        <WrapPanel>
-                            <TextBlock FontWeight="Bold">
                                 <Run Text="队伍数"/>
                             </TextBlock>
                             <TextBlock Text="{Binding Value, ElementName=slider3}"/>

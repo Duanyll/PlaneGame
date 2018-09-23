@@ -144,8 +144,7 @@ namespace GameruleHandler
                 {
                     TeamsOKToAttack.Add(TeamOf[UserName]);
                     Server.BroadCastToAll("SLOG|" + TeamOf[UserName] + "队已准备好棋盘");
-                    bool PlayerCountOK = (Info.PlayerCount == 0) || TeamOf.Keys.Count == Info.PlayerCount;
-                    if(TeamsOKToAttack.Count == Info.TeamCount && PlayerCountOK)
+                    if(TeamsOKToAttack.Count == Info.TeamCount)
                     {
                         StartAttackState();
                     }
