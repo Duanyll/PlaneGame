@@ -86,6 +86,9 @@
     <Compile Include="MaterialDesignMessageBox.xaml.cs">
       <DependentUpon>MaterialDesignMessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PutUnitPage.xaml.cs">
+      <DependentUpon>PutUnitPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SerializeHelper.cs" />
     <Compile Include="ServerPage.xaml.cs">
       <DependentUpon>ServerPage.xaml</DependentUpon>
@@ -151,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NewGamePage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PutUnitPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
