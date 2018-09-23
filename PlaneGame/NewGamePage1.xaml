@@ -28,24 +28,6 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <ScrollViewer x:Name="SVGameBoard" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0.4,56.4,0,0" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1"/>
-        <materialDesign:ColorZone Mode="PrimaryDark" CornerRadius="3" materialDesign:ShadowAssist.ShadowDepth="Depth3" Padding="16" Margin="5,5,5,5.4" Grid.ColumnSpan="3" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
-            <Grid>
-                <WrapPanel>
-                    <Button x:Name="BtnBack" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
-                        <materialDesign:PackIcon Kind="ChevronLeft"/>
-                    </Button>
-                    <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" VerticalAlignment="Center" Margin="16 0 0 0"><Run Text="新游戏"/></TextBlock>
-                </WrapPanel>
-                <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <!--<Button Name="BtnSaveConfig" Click="BtnSaveConfig_Click">
-                        <materialDesign:PackIcon Kind="ContentSave">
-                        </materialDesign:PackIcon>
-                    </Button>-->
-                    <Button x:Name="BtnStartGame" Style="{DynamicResource MaterialDesignRaisedAccentButton}" Content="开始游戏"/>
-
-                </WrapPanel>
-            </Grid>
-        </materialDesign:ColorZone>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="1">
             <StackPanel>
                 <GroupBox Margin="5" Header="人数设置" Style="{DynamicResource MaterialDesignCardGroupBox}">
@@ -157,5 +139,23 @@
                 <TextBox x:Name="TBUnitCount" materialDesign:HintAssist.Hint="数量" materialDesign:HintAssist.IsFloating="True" IsEnabled="{Binding SelectedIndex, Converter={StaticResource NotZeroConverter}, ElementName=LBUnits}" Width="50" TextChanged="TBUnitCount_TextChanged"/>
             </ToolBar>
         </ToolBarTray>
+        <materialDesign:ColorZone Mode="PrimaryDark" materialDesign:ShadowAssist.ShadowDepth="Depth4" Padding="16" Margin="0" Grid.ColumnSpan="3" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
+            <Grid>
+                <WrapPanel>
+                    <Button x:Name="BtnBack" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+                        <materialDesign:PackIcon Kind="ChevronLeft"/>
+                    </Button>
+                    <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" VerticalAlignment="Center" Margin="16 0 0 0"><Run Text="新游戏"/></TextBlock>
+                </WrapPanel>
+                <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <!--<Button Name="BtnSaveConfig" Click="BtnSaveConfig_Click">
+                        <materialDesign:PackIcon Kind="ContentSave">
+                        </materialDesign:PackIcon>
+                    </Button>-->
+                    <Button x:Name="BtnStartGame" Style="{DynamicResource MaterialDesignRaisedAccentButton}" Content="开始游戏"/>
+
+                </WrapPanel>
+            </Grid>
+        </materialDesign:ColorZone>
     </Grid>
 </Page>

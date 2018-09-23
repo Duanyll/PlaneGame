@@ -7,22 +7,34 @@
       xmlns:local="clr-namespace:PlaneGame"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="HomePage">
+      Title="HomePage" RenderTransformOrigin="0.5,0.5">
+    <Page.Background>
+        <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/HomePageBG.jpg" TileMode="None" Stretch="UniformToFill">
+        </ImageBrush>
+    </Page.Background>
 
     <Grid>
-        <materialDesign:Card Margin="80,20,80,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="120" Width="644">
-            <TextBlock Style="{StaticResource MaterialDesignDisplay4TextBlock}" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="PlaneGame" VerticalAlignment="Center"/>
-        </materialDesign:Card>
-        <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}" Header="开始游戏" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center" Width="200">
-            <StackPanel>
-                <Button x:Name="BtnNewGame" Content="新游戏" Margin="0,5"/>
-                <Button x:Name="BtnJoinGame" Content="加入游戏" Margin="0,5"></Button>
-                <Button x:Name="BtnSettings" Style="{StaticResource MaterialDesignRaisedAccentButton}" Content="设置" Margin="0,5"/>
-                <Button x:Name="BtnAbout" Style="{StaticResource MaterialDesignFlatButton}" Margin="0,5" Content="关于" Click="AboutButton_Click"/>
-            </StackPanel>
-        </GroupBox>
         <Button x:Name="HelpButton" ToolTip="打开在线帮助文档" Style="{StaticResource MaterialDesignFloatingActionButton}" Margin="0,0,10,9.6" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="HelpButton_Click">
             <materialDesign:PackIcon Kind="HelpCircle" Width="30" Height="30"></materialDesign:PackIcon>
         </Button>
+        <materialDesign:ColorZone Padding="30" materialDesign:ShadowAssist.ShadowDepth="Depth5" HorizontalAlignment="Center" VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5" Margin="215,-364,437,-304.4">
+            <materialDesign:ColorZone.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-18.463"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </materialDesign:ColorZone.RenderTransform>
+            <StackPanel VerticalAlignment="Center" Margin="0,200,0,0">
+                <Button x:Name="BtnNewGame" Style="{StaticResource MaterialDesignFlatButton}" Content="新游戏" Margin="0,5"/>
+                <Button x:Name="BtnJoinGame" Style="{StaticResource MaterialDesignFlatButton}" Content="加入游戏" Margin="0,5"/>
+                <Button x:Name="BtnSettings" Style="{StaticResource MaterialDesignFlatAccentButton}" Content="设置" Margin="0,5"/>
+                <Button x:Name="BtnAbout" Style="{StaticResource MaterialDesignFlatButton}" Margin="0,5" Content="关于" Click="AboutButton_Click"/>
+            </StackPanel>
+        </materialDesign:ColorZone>
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="80,50,80,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="120" Width="644">
+            <TextBlock Style="{StaticResource MaterialDesignDisplay4TextBlock}" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="PlaneGame" VerticalAlignment="Center"/>
+        </materialDesign:Card>
     </Grid>
 </Page>
