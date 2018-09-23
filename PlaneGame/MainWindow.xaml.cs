@@ -55,6 +55,13 @@ namespace PlaneGame
             NewGamePage1 page = new NewGamePage1();
             page.BtnStartGame.Click += (s, args) =>
             {
+                foreach(var i in page.SPRoundOrder.Children)
+                {
+                    if(i is FrameworkElement e)
+                    {
+                        page.Info.RoundOrder = (GameruleHandler.GameInfo.RoundOrderType)Enum.Parse(page.Info.RoundOrder.GetType(), e.Tag as string);
+                    }
+                }
                 ToServerPage(page.Info);
             };
             page.BtnBack.Click += (s, args) =>

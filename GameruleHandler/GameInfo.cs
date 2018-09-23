@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 using NetServer;
 
 namespace GameruleHandler
@@ -11,8 +12,14 @@ namespace GameruleHandler
     /// 存储一局游戏的公开信息与选项
     /// </summary>
     [Serializable]
-    public class GameInfo
+    public class GameInfo:INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         const int MAX_PLAYER_COUNT = NetworkServer.MAX_CONNECTIONS;
         /// <summary>
         /// 表示最大队伍数。为什么是这个值？因为我喜欢。
@@ -104,6 +111,7 @@ namespace GameruleHandler
         public bool BindFPRWithHeadCount { get; set; } = false;
         int _mxfpr = 1;
         int _mnfpr = 1;
+
         /// <summary>
         /// 最多开火次数
         /// </summary>
@@ -158,7 +166,19 @@ namespace GameruleHandler
             /// </summary>
             Battle
         }
-        public RoundOrderType RoundOrder { get; set; } = RoundOrderType.TeamTogether;
+        RoundOrderType _rt = RoundOrderType.TeamTogether;
+        public RoundOrderType RoundOrder
+        {
+            get
+            {
+                return _rt;
+            }
+            set
+            {
+                _rt = value;
+                OnPropertyChanged("RoundOrder");
+            }
+        }
         public bool ShowKindWhileShoot { get; set; } = false;
         public GameBoard.CornorMode cornorMode
         {

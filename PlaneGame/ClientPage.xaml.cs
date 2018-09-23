@@ -127,6 +127,28 @@ namespace PlaneGame
                         case "SGTM":
                             FrmMain.Content = new GameDefaultPage();
                             break;
+                        case "SCOR":
+                            if (NameCards.TryGetValue(vs[1], out chip))
+                            {
+                                if (vs.Length == 3)
+                                {
+                                    chip.ToolTip = vs[2];
+                                }
+                                else
+                                {
+                                    chip.ToolTip = null;
+                                }
+                            }
+                            else
+                            {
+                                NameCards.Add(vs[1], new Chip()
+                                {
+                                    Content = vs[1],
+                                    ToolTip = vs[2]?.Trim()
+                                });
+                                WrPUsers.Children.Add(NameCards[vs[1]]);
+                            }
+                            break;
                     }
                 }
                 catch (IndexOutOfRangeException e)

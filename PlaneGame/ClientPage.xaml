@@ -36,7 +36,7 @@
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="3*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
                 <RowDefinition Height="100"></RowDefinition>
             </Grid.RowDefinitions>
             <md:Card VerticalAlignment="Stretch" Margin="5">
