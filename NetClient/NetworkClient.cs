@@ -170,7 +170,10 @@ namespace NetClient
                             string[] vs = dataFromClient.Split('*');
                             foreach (string i in vs)
                             {
-                                MessageRecieved?.Invoke(i);
+                                if (!string.IsNullOrWhiteSpace(i))
+                                {
+                                    MessageRecieved?.Invoke(i);
+                                }                                
                             }
                         }
                     }

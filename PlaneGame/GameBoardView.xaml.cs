@@ -62,10 +62,20 @@ namespace PlaneGame
 
         double BlockHeight = Properties.Settings.Default.GBGridHeight;
         double BlockWidth = Properties.Settings.Default.GBGridWidth;
+
+        public double BlockSize
+        {
+            set
+            {
+                BlockHeight = value;
+                BlockWidth = value;
+            }
+        }
+
         /// <summary>
         /// 清空并重新加载内容
         /// </summary>
-        private void Refresh()
+        public void Refresh()
         {
             GridMain.Children.Clear();
             GridMain.RowDefinitions.Clear();

@@ -39,19 +39,32 @@ namespace PlaneGame
                 window.Owner = Application.Current.MainWindow;
                 if (!window.ShowDialog())
                 {
-                    PageExitEvent?.Invoke(this,null);
+                    PageExitEvent?.Invoke(this, null);
                 }
             };
         }
 
         Dictionary<string, Chip> NameCards = new Dictionary<string, Chip>();
+        Page _pge;
+        Page NowPage
+        {
+            get
+            {
+                return _pge;
+            }
+            set
+            {
+                _pge = value;
+                FrmMain.Content = value;
+            }
+        }
 
         private void Client_Info(string msg)
         {
             Dispatcher.Invoke(() =>
             {
                 SnbMain.MessageQueue.Enqueue(msg);
-            });            
+            });
         }
 
         private void Client_MessageRecieved(string msg)
@@ -84,14 +97,14 @@ namespace PlaneGame
                                     Content = vs[1]
                                 });
                                 WrPUsers.Children.Add(NameCards[vs[1]]);
-                            }                            
+                            }
                             break;
                         case "ULGO":
                             WrPUsers.Children.Remove(NameCards[vs[1]]);
                             NameCards.Remove(vs[1]);
                             break;
                         case "TMIF":
-                            if(NameCards.TryGetValue(vs[1],out Chip chip))
+                            if (NameCards.TryGetValue(vs[1], out Chip chip))
                             {
                                 if (vs.Length == 3)
                                 {
@@ -125,10 +138,10 @@ namespace PlaneGame
                             {
                                 client.SendMessage("STEM|" + ch);
                             };
-                            FrmMain.Content = page;
+                            NowPage = page;
                             break;
                         case "SGTM":
-                            FrmMain.Content = new GameDefaultPage();
+                            NowPage = new GameDefaultPage();
                             break;
                         case "SCOR":
                             if (NameCards.TryGetValue(vs[1], out chip))
@@ -172,22 +185,22 @@ namespace PlaneGame
                             {
                                 client.SendMessage("PUTU|" + name + '|' + x + '|' + y);
                             };
-                            FrmMain.Content = p;
+                            NowPage = p;
                             break;
                         case "UNIT":
-                            if(FrmMain.Content is PutUnitPage pg)
+                            if (NowPage is PutUnitPage pg)
                             {
-                                pg.UpdateUnit(vs[1], int.Parse(vs[2]));
+                                pg.UpdateUnit(vs[1], int.Parse(vs[2]), vs[3]);
                             }
                             break;
                         case "UCNT":
-                            if (FrmMain.Content is PutUnitPage pag)
+                            if (NowPage is PutUnitPage pag)
                             {
                                 pag.UpdateUnit(vs[1], int.Parse(vs[2]));
                             }
                             break;
                         case "GBRD":
-                            if (FrmMain.Content is PutUnitPage pge)
+                            if (NowPage is PutUnitPage pge)
                             {
                                 pge.board = new GameBoard.FullPlayerGameBoard(vs[1].Split('\n'));
                             }

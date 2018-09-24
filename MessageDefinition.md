@@ -46,7 +46,7 @@
 |MPSZ|Width|Height||描述地图的大小
 |UCLR|Count|||重置可用单位，可用单位列表大小
 |UNIT|Name|Count|PatternGameBoard|新增一种可用单位
-|SPUS||||开始放置单位
+|SPUS|allowflip|allowrotate||开始放置单位
 |UCNT|UnitName|Count||设置指定单位的数量
 |GBRD|FullPlayerGameBoard|||整个设置当前棋盘
 |UPOS|x|y|GameBoardBlock|单点更新棋盘
@@ -70,7 +70,7 @@
 |-|-|-|-|-|
 |CHAT|Content|||聊天
 |STEM|TeamID|||加入队伍
-|PUTU|Name|x|y|放置单位
+|PUTU|Name|x|y|flip|rotate|放置单位
 |PUCR||||重置游戏版
 |FPUS||||完成单位放置阶段
 |ATCK|TeamID|x|y|攻击坐标

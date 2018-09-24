@@ -23,7 +23,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Frame Name="FrmMain" Grid.Row="1" Margin="8" NavigationUIVisibility="Hidden"></Frame>
+        <Frame Name="FrmMain" Grid.Row="1" NavigationUIVisibility="Hidden"></Frame>
         <md:Snackbar Name="SnbMain" Grid.Row="1"></md:Snackbar>
         <md:ColorZone Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" md:ShadowAssist.ShadowDepth="Depth3">
             <Grid Grid.Column="1" Grid.Row="1">

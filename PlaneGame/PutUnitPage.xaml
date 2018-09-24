@@ -7,18 +7,46 @@
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PutUnitPage">
+      Title="PutUnitPage" Background="{StaticResource MaterialDesignPaper}">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <local:GameBoardView x:Name="GVMain" Grid.Column="1"></local:GameBoardView>
+        <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto">
+            <local:GameBoardView x:Name="GVMain"></local:GameBoardView>
+        </ScrollViewer>
         <md:ColorZone Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" md:ShadowAssist.ShadowDepth="Depth3">
-            <ScrollViewer>
-                <ListBox Name="LBSelectUnit" Margin="16"></ListBox>
-            </ScrollViewer>            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <md:ColorZone md:ShadowAssist.ShadowDepth="Depth2" md:ShadowAssist.ShadowEdges="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Mode="PrimaryLight">
+                    <local:GameBoardView x:Name="GVUnit" BlockSize="12"></local:GameBoardView>
+                </md:ColorZone>
+                <ScrollViewer Grid.Row="1">
+                    <ListBox SelectionChanged="LBSelectUnit_SelectionChanged" x:Name="LBSelectUnit" Margin="16"/>
+                </ScrollViewer>
+                <StackPanel md:RippleAssist.RippleSizeMultiplier="0.5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Button Style="{StaticResource MaterialDesignToolButton}">
+                        <md:PackIcon Kind="RotateRight"></md:PackIcon>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignToolButton}">
+                        <md:PackIcon Kind="Send"></md:PackIcon>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignToolButton}">
+                        <md:PackIcon Kind="Send" RenderTransformOrigin="0.5,0.5">
+                            <md:PackIcon.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="90"/>
+                                </TransformGroup>
+                            </md:PackIcon.RenderTransform>
+                        </md:PackIcon>
+                    </Button>
+                </StackPanel>
+            </Grid>
         </md:ColorZone>
         <Button Name="BtnClear" Style="{StaticResource MaterialDesignFloatingActionButton}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="16">
             <md:PackIcon Height="32" Width="32" Kind="Delete"></md:PackIcon>

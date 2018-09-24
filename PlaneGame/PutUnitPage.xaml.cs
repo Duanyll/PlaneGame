@@ -44,6 +44,7 @@ namespace PlaneGame
         }
         public event Action<int, int,string> Click;
         Dictionary<string, Badged> UnitLabels = new Dictionary<string, Badged>();
+        Dictionary<string, GameBoard.PatternGameBoard> UnitPreview = new Dictionary<string, GameBoard.PatternGameBoard>();
 
         public void UpdateUnit(string unit,int count)
         {
@@ -60,6 +61,23 @@ namespace PlaneGame
                 };
                 UnitLabels.Add(unit, badged);
                 LBSelectUnit.Items.Add(badged);
+            }
+        }
+
+        public void UpdateUnit(string unit,int count,string unitDetail)
+        {
+            UpdateUnit(unit, count);
+            if (!UnitPreview.Keys.Contains(unit))
+            {
+                UnitPreview.Add(unit, new GameBoard.PatternGameBoard(unitDetail.Split('\n')));
+            }
+        }
+
+        private void LBSelectUnit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (LBSelectUnit.SelectedItem != null)
+            {
+                GVUnit.Board = UnitPreview[(LBSelectUnit.SelectedItem as Badged).Content as string];
             }
         }
     }
