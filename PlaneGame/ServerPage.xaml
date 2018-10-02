@@ -12,30 +12,42 @@
     <md:DialogHost>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <md:ColorZone Mode="PrimaryDark" DockPanel.Dock="Top" Padding="16" CornerRadius="3" md:ShadowAssist.ShadowDepth="Depth3" Margin="5,5,5,0" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ScrollViewer Grid.Column="1"  Grid.Row="1">
+                <StackPanel>
+                    <md:Card Margin="4">
+                        <StackPanel>
+                            <TextBlock Margin="8" Style="{DynamicResource MaterialDesignHeadlineTextBlock}">Log</TextBlock>
+                            <ItemsControl Name="ICLog" Margin="16"></ItemsControl>
+                        </StackPanel>
+                    </md:Card>
+                    <md:Card Margin="4">
+                        <ListBox Name="LBUser" Margin="16">
+                            
+                        </ListBox>
+                    </md:Card>
+                </StackPanel>
+            </ScrollViewer>
+            <Button Name="BtnOpenClient" ToolTip="新游戏窗口" Grid.Row="1" Margin="0,0,8,8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Click="BtnOpenClient_Click" Grid.Column="2">
+                <md:PackIcon Width="32" Height="32" Kind="GamepadVariant"></md:PackIcon>
+            </Button>
+            <md:ColorZone Mode="PrimaryDark" Padding="16" md:ShadowAssist.ShadowDepth="Depth3" Grid.ColumnSpan="3">
                 <Grid>
                     <WrapPanel>
-                        <Button Name="BtnBack" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                            <md:PackIcon Kind="ChevronLeft"></md:PackIcon>
+                        <Button x:Name="BtnBack" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                            <md:PackIcon Kind="ChevronLeft"/>
                         </Button>
-                        <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" VerticalAlignment="Center" Margin="16 0 0 0">服务器正在运行</TextBlock>
+                        <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" VerticalAlignment="Center" Margin="16 0 0 0"><Run Text="服务器正在运行"/></TextBlock>
                     </WrapPanel>
                 </Grid>
             </md:ColorZone>
-            <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}" Margin="0,85,0,0" VerticalAlignment="Top">日志信息</TextBlock>
-            <ItemsControl Margin="0,120,0,0" Name="ICLog"></ItemsControl>
-            <TextBlock Grid.Column="1" Margin="0,85,0,0" Style="{DynamicResource MaterialDesignHeadlineTextBlock}" VerticalAlignment="Top">
-                在线玩家列表
-            </TextBlock>
-            <ListBox Name="LBUser" Grid.Column="1" Margin="0,120,0,0">
-                
-            </ListBox>
-            <Button Name="BtnOpenClient" ToolTip="新游戏窗口" Grid.Column="2" Margin="8" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Click="BtnOpenClient_Click">
-                <md:PackIcon Width="32" Height="32" Kind="GamepadVariant"></md:PackIcon>
-            </Button>
         </Grid>
     </md:DialogHost>
 </Page>

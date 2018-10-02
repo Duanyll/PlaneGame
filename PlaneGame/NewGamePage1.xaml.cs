@@ -133,8 +133,16 @@ namespace PlaneGame
             {
                 await Dispatcher.InvokeAsync(() =>
                 {
-                    Info.Mask = new GameBoard.MaskedGameBoard(w, h);
-                    SVGameBoard.Content = new GameBoardView(Info.Mask);
+                    if(LBUnits.SelectedIndex == 0)
+                    {
+                        Info.Mask = new GameBoard.MaskedGameBoard(w, h);
+                        SVGameBoard.Content = new GameBoardView(Info.Mask);
+                    }
+                    else
+                    {
+                        Info.Patterns[LBUnits.SelectedItem.ToString()] = new GameBoard.PatternGameBoard(w, h);
+                        SVGameBoard.Content = new GameBoardView(Info.Patterns[LBUnits.SelectedItem.ToString()]);
+                    }                    
                 });
             }
         }

@@ -31,7 +31,7 @@
                 </ScrollViewer>
                 <StackPanel md:RippleAssist.RippleSizeMultiplier="0.5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Button Name="BtnRotate" Click="BtnRotate_Click" Style="{StaticResource MaterialDesignToolButton}">
-                        <md:PackIcon Kind="RotateRight"></md:PackIcon>
+                        <md:PackIcon Kind="RotateLeft"></md:PackIcon>
                     </Button>
                     <Button Name="BtnXFlip" Click="BtnXFlip_Click" Style="{StaticResource MaterialDesignToolButton}">
                         <md:PackIcon Kind="Send"></md:PackIcon>
