@@ -58,6 +58,10 @@ namespace PlaneGame
                 MinWidth = 600,
             };
             ClientPage page = new ClientPage();
+            page.PageExitEvent += (s, args) =>
+            {
+                window.Close();
+            };
             page.BtnBack.Visibility = Visibility.Collapsed;
             window.Content = page;
             window.Closing += (s, args) =>

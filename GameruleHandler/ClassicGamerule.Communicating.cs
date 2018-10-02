@@ -227,7 +227,7 @@ namespace GameruleHandler
                         GetTeam_Callback(UserName, int.Parse(Parameters[1]));
                         break;
                     case "PUTU":
-                        PlaceUnit(UserName, Parameters[1], int.Parse(Parameters[2]), int.Parse(Parameters[3]));
+                        PlaceUnit(UserName, Parameters[1], int.Parse(Parameters[2]), int.Parse(Parameters[3]),(GameBoard.PatternGameBoard.RoationMode)int.Parse(Parameters[5]), (GameBoard.PatternGameBoard.FlipMode)int.Parse(Parameters[4]));
                         break;
                     case "PUCR":
                         ResetBoard(UserName);

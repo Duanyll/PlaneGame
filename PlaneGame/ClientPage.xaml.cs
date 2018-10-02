@@ -181,10 +181,26 @@ namespace PlaneGame
                                     client.SendMessage("FPUS|");
                                 }
                             };
-                            p.Click += (x, y, name) =>
+                            p.Click += (x, y, name,f,r) =>
                             {
-                                client.SendMessage("PUTU|" + name + '|' + x + '|' + y);
+                                client.SendMessage("PUTU|" + name + '|' + x + '|' + y + '|' + f + '|' + r);
                             };
+                            if (bool.Parse(vs[1]))
+                            {
+                                p.BtnXFlip.Visibility = p.BtnYFlip.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                p.BtnXFlip.Visibility = p.BtnYFlip.Visibility = Visibility.Collapsed;
+                            }
+                            if (bool.Parse(vs[2]))
+                            {
+                                p.BtnRotate.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                p.BtnRotate.Visibility = Visibility.Hidden;
+                            }
                             NowPage = p;
                             break;
                         case "UNIT":

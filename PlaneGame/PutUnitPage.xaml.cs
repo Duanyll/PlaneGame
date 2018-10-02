@@ -30,7 +30,7 @@ namespace PlaneGame
             {
                 if (LBSelectUnit.SelectedItem != null)
                 {
-                    Click?.Invoke(x, y, (LBSelectUnit.SelectedItem as Badged).Content as string);
+                    Click?.Invoke(x, y, (LBSelectUnit.SelectedItem as Badged).Content as string,((int)(GVUnit.Board as GameBoard.PatternGameBoard).Flip).ToString(), ((int)(GVUnit.Board as GameBoard.PatternGameBoard).Roation).ToString());
                 }
             };
         }
@@ -42,7 +42,7 @@ namespace PlaneGame
                 GVMain.Board = value;
             }
         }
-        public event Action<int, int,string> Click;
+        public event Action<int, int,string,string,string> Click;
         Dictionary<string, Badged> UnitLabels = new Dictionary<string, Badged>();
         Dictionary<string, GameBoard.PatternGameBoard> UnitPreview = new Dictionary<string, GameBoard.PatternGameBoard>();
 
@@ -79,6 +79,40 @@ namespace PlaneGame
             {
                 GVUnit.Board = UnitPreview[(LBSelectUnit.SelectedItem as Badged).Content as string];
             }
+        }
+
+        private void BtnRotate_Click(object sender, RoutedEventArgs e)
+        {
+            if(GVUnit.Board == null)
+            {
+                return;
+            }
+            (GVUnit.Board as GameBoard.PatternGameBoard).Roation += 1;
+            if((int)(GVUnit.Board as GameBoard.PatternGameBoard).Roation == 4)
+            {
+                (GVUnit.Board as GameBoard.PatternGameBoard).Roation = GameBoard.PatternGameBoard.RoationMode.None;
+            }
+            GVUnit.Refresh();
+        }
+
+        private void BtnXFlip_Click(object sender, RoutedEventArgs e)
+        {
+            if (GVUnit.Board == null)
+            {
+                return;
+            }
+            (GVUnit.Board as GameBoard.PatternGameBoard).Flip ^= GameBoard.PatternGameBoard.FlipMode.FlipX;
+            GVUnit.Refresh();
+        }
+
+        private void BtnYFlip_Click(object sender, RoutedEventArgs e)
+        {
+            if (GVUnit.Board == null)
+            {
+                return;
+            }
+            (GVUnit.Board as GameBoard.PatternGameBoard).Flip ^= GameBoard.PatternGameBoard.FlipMode.FlipY;
+            GVUnit.Refresh();
         }
     }
 }

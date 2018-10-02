@@ -24,19 +24,19 @@
                     <RowDefinition Height="3*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <md:ColorZone md:ShadowAssist.ShadowDepth="Depth2" md:ShadowAssist.ShadowEdges="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Mode="PrimaryLight">
-                    <local:GameBoardView x:Name="GVUnit" BlockSize="12"></local:GameBoardView>
+                    <local:GameBoardView x:Name="GVUnit" BlockSize="15"></local:GameBoardView>
                 </md:ColorZone>
                 <ScrollViewer Grid.Row="1">
                     <ListBox SelectionChanged="LBSelectUnit_SelectionChanged" x:Name="LBSelectUnit" Margin="16"/>
                 </ScrollViewer>
                 <StackPanel md:RippleAssist.RippleSizeMultiplier="0.5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <Button Style="{StaticResource MaterialDesignToolButton}">
+                    <Button Name="BtnRotate" Click="BtnRotate_Click" Style="{StaticResource MaterialDesignToolButton}">
                         <md:PackIcon Kind="RotateRight"></md:PackIcon>
                     </Button>
-                    <Button Style="{StaticResource MaterialDesignToolButton}">
+                    <Button Name="BtnXFlip" Click="BtnXFlip_Click" Style="{StaticResource MaterialDesignToolButton}">
                         <md:PackIcon Kind="Send"></md:PackIcon>
                     </Button>
-                    <Button Style="{StaticResource MaterialDesignToolButton}">
+                    <Button Name="BtnYFlip" Click="BtnYFlip_Click" Style="{StaticResource MaterialDesignToolButton}">
                         <md:PackIcon Kind="Send" RenderTransformOrigin="0.5,0.5">
                             <md:PackIcon.RenderTransform>
                                 <TransformGroup>

@@ -38,7 +38,7 @@ namespace GameruleHandler
         void AllowPU(string UserName)
         {
             Server.SendTo(UserName, "MPSZ|" + Info.Mask.Width + '|' + Info.Mask.Height);
-            Server.SendTo(UserName, "SPUS|");
+            Server.SendTo(UserName, "SPUS|" + Info.AllowFlip + '|' + Info.AllowRoation);
             foreach (var Unit in RemainUnits[TeamOf[UserName]])
             {
                 Server.SendTo(UserName, "UNIT|" + Unit.Key + '|' + Unit.Value +'|' + Info.Patterns[Unit.Key].ToString());
@@ -89,8 +89,14 @@ namespace GameruleHandler
         {
             if (TeamOf.Keys.Contains(UserName) && !TeamsOKToAttack.Contains(TeamOf[UserName]))
             {
-                Info.Patterns[PatternName].Roation = roation;
-                Info.Patterns[PatternName].Flip = flip;
+                if (Info.AllowRoation)
+                {
+                    Info.Patterns[PatternName].Roation = roation;
+                }
+                if (Info.AllowFlip)
+                {
+                    Info.Patterns[PatternName].Flip = flip;
+                }                
                 if (RemainUnits[TeamOf[UserName]][PatternName] > 0)
                 {
                     if (GameBoards[TeamOf[UserName]].PutPatern(Info.Patterns[PatternName], x, y, Info.cornorMode))

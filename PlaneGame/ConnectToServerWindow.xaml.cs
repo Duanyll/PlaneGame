@@ -43,6 +43,7 @@ namespace PlaneGame
             {
                 Dispatcher.Invoke(() =>
                 {
+                    BtnOK.IsEnabled = true;
                     TBResult.Text = msg;
                 });
             };
@@ -65,6 +66,7 @@ namespace PlaneGame
 
         private void BtnOK_Click(object sender, RoutedEventArgs e)
         {
+            BtnOK.IsEnabled = false;
             client.Connect(TBUserName.Text, TBIPAddress.Text);
         }
     }
