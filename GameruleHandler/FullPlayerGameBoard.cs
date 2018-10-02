@@ -76,7 +76,7 @@ namespace GameruleHandler
                 {
                     foreach (char i in PatternChars.Keys)
                     {
-                        if (PatternChars[i].Equals(pattern))
+                        if (PatternChars[i] == pattern.Name)
                         {
                             pchar = i;
                             break;

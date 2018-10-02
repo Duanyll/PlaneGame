@@ -77,10 +77,14 @@ namespace PlaneGame
             }
         }
 
-        public GameBoardBlockView(GameBoardBlock block)
+        public GameBoardBlockView(GameBoardBlock block,bool showname = false)
         {
             InitializeComponent();
             Block = block;
+            if (showname&&char.IsLetter(((char)block)))
+            {
+                TBText.Text = ((char)block).ToString();
+            }
         }
 
         [System.Diagnostics.DebuggerStepThrough]

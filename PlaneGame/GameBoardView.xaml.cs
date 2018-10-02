@@ -100,7 +100,15 @@ namespace PlaneGame
                 BlockViews.Add(new List<GameBoardBlockView>());
                 for(int j = 0; j < board.Width; j++)
                 {
-                    GameBoardBlockView block = new GameBoardBlockView(Board[i,j]);
+                    GameBoardBlockView block;
+                    if(Board is GameBoard.PatternGameBoard)
+                    {
+                        block = new GameBoardBlockView(Board[i,j]);
+                    }
+                    else
+                    {
+                        block = new GameBoardBlockView(Board[i,j], true);
+                    }                    
                     block.SetValue(Grid.RowProperty, i);
                     block.SetValue(Grid.ColumnProperty, j);
                     block.XPos = i;
