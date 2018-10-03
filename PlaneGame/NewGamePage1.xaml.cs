@@ -199,5 +199,19 @@ namespace PlaneGame
             byte[] bytes = ms.GetBuffer();
             new LongTextDisplayWindow(Convert.ToBase64String(bytes)).Show();
         }
+
+        private void BtnStartGame_Click(object sender, RoutedEventArgs arg)
+        {
+            foreach (var i in SPRoundOrder.Children)
+            {
+                if (i is RadioButton e)
+                {
+                    if (e.IsChecked == true)
+                    {
+                        Info.RoundOrder = (GameruleHandler.GameInfo.RoundOrderType)Enum.Parse(Info.RoundOrder.GetType(), e.Tag as string);
+                    }
+                }
+            }
+        }
     }
 }

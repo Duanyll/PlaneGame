@@ -141,7 +141,10 @@ namespace PlaneGame
                             NowPage = page;
                             break;
                         case "SGTM":
-                            NowPage = new GameDefaultPage();
+                            if(NowPage is TeamSelectPage)
+                            {
+                                NowPage = new GameDefaultPage();
+                            }
                             break;
                         case "SCOR":
                             if (NameCards.TryGetValue(vs[1], out chip))
@@ -220,6 +223,14 @@ namespace PlaneGame
                             {
                                 pge.board = new GameBoard.FullPlayerGameBoard(vs[1].Split('\n'));
                             }
+                            break;
+                        case "ASRT":
+                            if(NowPage is PutUnitPage pe)
+                            {
+                                AttackPage attackPage = new AttackPage(pe.board);
+                                attackPage.UnitPreview = pe.UnitPreview;
+                                NowPage = attackPage;
+                            }                            
                             break;
                     }
                 }

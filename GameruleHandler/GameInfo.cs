@@ -196,9 +196,9 @@ namespace GameruleHandler
                 return mode;
             }
         }
-        public bool AllowFlip { get; set; } = false;
-        public bool AllowRoation { get; set; } = false;
-        public bool NoCornor { get; set; } = true;
+        public bool AllowFlip { get; set; } = true;
+        public bool AllowRoation { get; set; } = true;
+        public bool NoCornor { get; set; } = false;
         public bool NoEdge { get; set; } = false;
         /// <summary>
         /// 等待时的超时(秒)

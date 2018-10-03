@@ -74,17 +74,20 @@ namespace PlaneGame
                         TBText.Text = ((char)value).ToString();
                         break;
                 }
+                if (ShowName && char.IsLetter(((char)value)))
+                {
+                    TBText.Text = ((char)value).ToString();
+                }
             }
         }
+
+        bool ShowName = false;
 
         public GameBoardBlockView(GameBoardBlock block,bool showname = false)
         {
             InitializeComponent();
             Block = block;
-            if (showname&&char.IsLetter(((char)block)))
-            {
-                TBText.Text = ((char)block).ToString();
-            }
+            ShowName = showname;
         }
 
         [System.Diagnostics.DebuggerStepThrough]

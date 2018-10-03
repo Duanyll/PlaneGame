@@ -57,7 +57,7 @@ namespace GameruleHandler
 
         private void StartAttackState()
         {
-            if (MainThread.IsAlive)
+            if (MainThread!=null&&MainThread.IsAlive)
             {
                 MainThread.Abort();
             }

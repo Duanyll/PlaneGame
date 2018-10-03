@@ -152,7 +152,7 @@
                         <materialDesign:PackIcon Kind="ContentSave">
                         </materialDesign:PackIcon>
                     </Button>-->
-                    <Button x:Name="BtnStartGame" Style="{DynamicResource MaterialDesignRaisedAccentButton}" Content="开始游戏"/>
+                    <Button x:Name="BtnStartGame" Style="{DynamicResource MaterialDesignRaisedAccentButton}" Content="开始游戏" Click="BtnStartGame_Click"/>
 
                 </WrapPanel>
             </Grid>

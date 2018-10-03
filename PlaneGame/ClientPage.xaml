@@ -52,7 +52,7 @@
                 <Button HorizontalAlignment="Left" x:Name="BtnBack" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Click="BtnBack_Click">
                     <md:PackIcon Kind="ChevronLeft"/>
                 </Button>
-                <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="4"><Run Text="已连接到服务器"/></TextBlock>
+                <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="4"><Run Text="PlaneGame"/></TextBlock>
             </WrapPanel>
         </md:ColorZone>
     </Grid>

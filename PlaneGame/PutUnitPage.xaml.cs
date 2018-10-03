@@ -37,6 +37,10 @@ namespace PlaneGame
 
         public GameBoard.FullPlayerGameBoard board
         {
+            get
+            {
+                return GVMain.Board as GameBoard.FullPlayerGameBoard;
+            }
             set
             {
                 GVMain.Board = value;
@@ -44,7 +48,7 @@ namespace PlaneGame
         }
         public event Action<int, int,string,string,string> Click;
         Dictionary<string, Badged> UnitLabels = new Dictionary<string, Badged>();
-        Dictionary<string, GameBoard.PatternGameBoard> UnitPreview = new Dictionary<string, GameBoard.PatternGameBoard>();
+        public Dictionary<string, GameBoard.PatternGameBoard> UnitPreview = new Dictionary<string, GameBoard.PatternGameBoard>();
 
         public void UpdateUnit(string unit,int count)
         {
