@@ -256,9 +256,10 @@ namespace PlaneGame
             SPChat.Children.Add(new TextBlock()
             {
                 Text = msg,
-                Style = Resources["MaterialDesignBody1TextBlock"] as Style,
+                Style = Resources["MaterialDesignCaptionTextBlock"] as Style,
                 TextWrapping = TextWrapping.Wrap
             });
+            SVChat.ScrollToBottom();
         }
 
         private void Client_FailureCaused(string msg)

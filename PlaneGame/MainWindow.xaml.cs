@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
+using MaterialDesignThemes.Wpf.Transitions;
 
 namespace PlaneGame
 {
@@ -24,12 +26,34 @@ namespace PlaneGame
         public MainWindow()
         {
             InitializeComponent();
-            new MaterialDesignThemes.Wpf.PaletteHelper().SetLightDark(Properties.Settings.Default.UseDarkMode);
+            new PaletteHelper().SetLightDark(Properties.Settings.Default.UseDarkMode);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ToHomePage();
+        }
+
+        Page _pge;
+        Page NowPage
+        {
+            get => _pge;
+            set
+            {
+                _pge = value;
+                //Content = value;
+                TransitionerSlide slide = new TransitionerSlide();
+                slide.Content = new Frame()
+                {
+                    Content = value
+                };
+                TstMain.Items.Add(slide);
+                TstMain.SelectedIndex++;
+                if (TstMain.Items.Count > 3)
+                {
+                    TstMain.Items.RemoveAt(0);
+                }
+            }
         }
 
         private void ToHomePage()
@@ -47,7 +71,7 @@ namespace PlaneGame
             {
                 ToJoinGamePage();
             };
-            Content = page;
+            NowPage = page;
         }
 
         private void ToNewGamePage()
@@ -61,7 +85,7 @@ namespace PlaneGame
             {
                 ToHomePage();
             };
-            Content = page;
+            NowPage = page;
         }
 
         private void ToServerPage(GameruleHandler.GameInfo info)
@@ -72,7 +96,7 @@ namespace PlaneGame
                 page.Gamerule.AbortGame();
                 ToHomePage();
             };
-            Content = page;
+            NowPage = page;
         }
 
         private void ToSettingsPage()
@@ -82,7 +106,7 @@ namespace PlaneGame
             {
                 ToHomePage();
             };
-            Content = page;
+            NowPage = page;
         }
 
         private void ToJoinGamePage()
@@ -96,12 +120,12 @@ namespace PlaneGame
             {
                 ToHomePage();
             };
-            Content = page;
+            NowPage = page;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if(Content is ServerPage page)
+        {            
+            if(NowPage is ServerPage page)
             {
                 if(MaterialDesignMessageBox.Show("是否要关闭运行中的服务器？","提示",MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
                 {
@@ -114,7 +138,7 @@ namespace PlaneGame
             }
             else
             {
-                if(Content is ClientPage p)
+                if(NowPage is ClientPage p)
                 {
                     if (MaterialDesignMessageBox.Show("是否要退出游戏？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
                     {

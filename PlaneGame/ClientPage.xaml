@@ -37,7 +37,7 @@
                         <WrapPanel Name="WrPUsers" Margin="5"></WrapPanel>
                     </ScrollViewer>
                 </md:Card>
-                <ScrollViewer Grid.Row="1">
+                <ScrollViewer Name="SVChat" Grid.Row="1">
                     <StackPanel Name="SPChat"></StackPanel>
                 </ScrollViewer>
 
