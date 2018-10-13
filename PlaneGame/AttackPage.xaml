@@ -24,7 +24,7 @@
                         </TextBlock.LayoutTransform>
                     </TextBlock>
                 </Expander.Header>
-                <ListBox Name="LBTeam" Margin="16" SelectionMode="Single"></ListBox>
+                <ListBox Name="LBTeam" Margin="16" SelectionMode="Single" SelectionChanged="LBTeam_SelectionChanged"></ListBox>
             </Expander>
         </md:ColorZone>
         <md:ColorZone Grid.Column="2" VerticalAlignment="Stretch" md:ShadowAssist.ShadowDepth="Depth3">
@@ -51,9 +51,10 @@
         </ScrollViewer>
         <TextBlock Name="TBTeam" Style="{DynamicResource MaterialDesignHeadlineTextBlock}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8">Your Team</TextBlock>
         <md:Badged Name="BdgFireCount"  Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="16">
-            <Button Name="BtnAttack" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}">
+            <Button Click="BtnAttack_Click" Name="BtnAttack" Style="{DynamicResource MaterialDesignFloatingActionAccentButton}" IsEnabled="False">
                 <md:PackIcon Kind="Target" Width="32" Height="32"></md:PackIcon>
             </Button>
         </md:Badged>
+        <ProgressBar Name="PrBTimer" Grid.Column="1" VerticalAlignment="Bottom" Minimum="0" Maximum="100" Value="0"></ProgressBar>
     </Grid>
 </Page>

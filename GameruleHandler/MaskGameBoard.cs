@@ -50,7 +50,15 @@ namespace GameruleHandler
             }
 
             public FullPlayerGameBoard GetFullPlayerGameBoard() => new FullPlayerGameBoard(ToStrings());
-            public PlayerViewGameBoard GetPlayerViewGameBoard() => new PlayerViewGameBoard(ToStrings());
+            public PlayerViewGameBoard GetPlayerViewGameBoard()
+            {
+                string[] vs = ToStrings();
+                foreach(var i in vs)
+                {
+                    i.Replace(' ', '?');
+                }
+                return new PlayerViewGameBoard(vs);
+            }
         }
     }
 }

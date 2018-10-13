@@ -229,8 +229,40 @@ namespace PlaneGame
                             {
                                 AttackPage attackPage = new AttackPage(pe.board);
                                 attackPage.UnitPreview = pe.UnitPreview;
+                                attackPage.Attack += (t, pnt) =>
+                                {
+                                    client.SendMessage("ATCK|" + t.ToString() + '|' + pnt.Item1 + '|' + pnt.Item2);
+                                };
                                 NowPage = attackPage;
                             }                            
+                            break;
+                        case "AGBR":
+                            if(NowPage is AttackPage a)
+                            {
+                                a.AddBoard(int.Parse(vs[1]), new GameBoard.PlayerViewGameBoard(vs[2].Split('\n')));
+                            }
+                            break;
+                        case "SNOW":
+                            if (vs[1] == "")
+                            {
+                                TBHeader.Text = "现在轮到" + vs[2] + "队";
+                            }
+                            else
+                            {
+                                TBHeader.Text = "现在轮到玩家" + vs[1] + '(' + vs[2] + ')';
+                            }
+                            break;
+                        case "GPNT":
+                            a = NowPage as AttackPage;
+                            a.StartGetPoint(int.Parse(vs[1]), int.Parse(vs[2]));
+                            break;
+                        case "SGPT":
+                            a = NowPage as AttackPage;
+                            a.StopGetPoint();
+                            break;
+                        case "AUGB":
+                            a = NowPage as AttackPage;
+                            a.UpdetePoint(int.Parse(vs[1]), int.Parse(vs[2]), int.Parse(vs[3]), (GameBoardBlock)int.Parse(vs[5]), vs[4]);
                             break;
                     }
                 }

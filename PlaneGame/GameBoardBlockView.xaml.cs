@@ -40,27 +40,35 @@ namespace PlaneGame
                 {
                     case GameBoardBlock.Barrier:
                         CZBackGround.Mode = ColorZoneMode.Inverted;
+                        TBText.Text = "";
                         break;
                     case GameBoardBlock.Body:
                         CZBackGround.Mode = ColorZoneMode.PrimaryMid;
+                        TBText.Text = "";
                         break;
                     case GameBoardBlock.ModelBody:
                         CZBackGround.Mode = ColorZoneMode.PrimaryMid;
+                        TBText.Text = "";
                         break;
                     case GameBoardBlock.ModelHead:
                         CZBackGround.Mode = ColorZoneMode.Accent;
+                        TBText.Text = "";
                         break;
                     case GameBoardBlock.Head:
                         CZBackGround.Mode = ColorZoneMode.Accent;
+                        TBText.Text = "";
                         break;
                     case GameBoardBlock.Killed:
                         CZBackGround.Mode = ColorZoneMode.PrimaryLight;
+                        TBText.Text = "";
                         break;
                     case GameBoardBlock.Nothing:
                         CZBackGround.Mode = ColorZoneMode.Standard;
+                        TBText.Text = "_";
                         break;
                     case GameBoardBlock.Unknown:
                         CZBackGround.Mode = ColorZoneMode.Dark;
+                        TBText.Text = "";
                         break;
                     default:
                         if (char.IsUpper((char)value))
@@ -81,31 +89,47 @@ namespace PlaneGame
             }
         }
 
+        public bool Highlight
+        {
+            set
+            {
+                if (value)
+                {
+                    TBText.Text = "√";
+                }
+                else
+                {
+                    Block = Block;
+                }
+            }
+        }
+
         bool ShowName = false;
 
         public GameBoardBlockView(GameBoardBlock block,bool showname = false)
         {
             InitializeComponent();
-            Block = block;
             ShowName = showname;
+            Block = block;
+            
         }
 
         [System.Diagnostics.DebuggerStepThrough]
         private void CZBackGround_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Click(XPos, YPos, this);
+            Click?.Invoke(XPos, YPos, this);
         }
 
         [System.Diagnostics.DebuggerStepThrough]
         private void CZBackGround_TouchUp(object sender, TouchEventArgs e)
         {
-            Click(XPos, YPos, this);
+            Click?.Invoke(XPos, YPos, this);
         }
 
         [System.Diagnostics.DebuggerStepThrough]
         private void CZBackGround_StylusUp(object sender, StylusEventArgs e)
         {
-            Click(XPos, YPos, this);
+            Click?.Invoke(XPos, YPos, this);
         }
     }
 }

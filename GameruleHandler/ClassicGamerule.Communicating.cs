@@ -58,7 +58,7 @@ namespace GameruleHandler
         {
             if (Info.ShowKindWhileShoot)
             {
-                string msg = "AUGB|" + point.Team + '|' + point.X + '|' + point.Y + '|' + GameBoards[point.Team].CheckName(result);
+                string msg = "AUGB|" + point.Team + '|' + point.X + '|' + point.Y + '|' + GameBoards[point.Team].CheckName(result) + "|" + ((int)result).ToString();
                 foreach (string name in Teams[Team])
                 {
                     Server.SendTo(name, msg);
@@ -67,7 +67,7 @@ namespace GameruleHandler
             else
             {
                 string msg = "AUGB|" + point.Team + '|' + point.X + '|' + point.Y + '|';
-                if (Enum.IsDefined(result.GetType(), result))
+                if (Enum.IsDefined(result.GetType(), result) && result != GameBoardBlock.ModelBody && result != GameBoardBlock.ModelHead)
                 {
                     msg += result.ToString();
                 }
@@ -82,6 +82,7 @@ namespace GameruleHandler
                         msg += GameBoardBlock.Body.ToString();
                     }
                 }
+                msg += "|" + ((int)result).ToString();
                 foreach (string name in Teams[Team])
                 {
                     Server.SendTo(name, msg);
@@ -98,7 +99,7 @@ namespace GameruleHandler
             Server.BroadCastToAll("ASRT|");
             for(int i = 0; i < Info.TeamCount; i++)
             {
-                Server.BroadCastToAll("AGBR|" + i + '|' + Info.Mask.ToString());
+                Server.BroadCastToAll("AGBR|" + i + '|' + Info.Mask.GetPlayerViewGameBoard());
             }
         }
 

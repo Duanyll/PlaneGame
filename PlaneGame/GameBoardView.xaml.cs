@@ -113,12 +113,18 @@ namespace PlaneGame
                     block.SetValue(Grid.ColumnProperty, j);
                     block.XPos = i;
                     block.YPos = j;
+                    if(Board is GameBoard.PlayerViewGameBoard b)
+                    {
+                        block.ToolTip = b.GetDetail(i, j);
+                    }
                     block.Click += Block_Click;
                     BlockViews[i].Add(block);
                     GridMain.Children.Add(block);
                 }
             }
         }
+
+        public (int X, int Y) SelectedPoint { get; private set; } = (-1, -1);
 
         private void Block_Click(int x, int y, object sender)
         {
@@ -145,7 +151,13 @@ namespace PlaneGame
                     }
                     break;
                 case GameBoardClickMode.Attack:
+                    if (SelectedPoint != (-1, -1))
+                    {
+                        BlockViews[SelectedPoint.X][SelectedPoint.Y].Highlight = false;
+                    }
+                    SelectedPoint = (x, y);
                     Click?.Invoke(x, y);
+                    BlockViews[SelectedPoint.X][SelectedPoint.Y].Highlight = true;
                     break;
                 case GameBoardClickMode.PutUnit:
                     Click?.Invoke(x, y);
@@ -153,9 +165,22 @@ namespace PlaneGame
             }
         }
 
+        public void ClearSelection()
+        {
+            if (SelectedPoint != (-1, -1))
+            {
+                BlockViews[SelectedPoint.X][SelectedPoint.Y].Highlight = false;
+            }
+            SelectedPoint = (-1, -1);
+        }
+
         private void Board_BlockChanged(int x1, int y1)
         {
             BlockViews[x1][y1].Block = board[x1,y1];
+            if(Board is GameBoard.PlayerViewGameBoard b)
+            {
+                BlockViews[x1][y1].ToolTip = b.GetDetail(x1, y1);
+            }
         }
 
         public GameBoardView()
