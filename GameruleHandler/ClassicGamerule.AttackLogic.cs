@@ -48,6 +48,7 @@ namespace GameruleHandler
                     BroadcastMessage("还没有做这个游戏模式");
                     break;
             }
+            StartPUState();
         }
 
         /// <summary>

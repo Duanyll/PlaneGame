@@ -67,6 +67,8 @@ namespace PlaneGame
             });
         }
 
+        int MyTeam = -1;
+
         private void Client_MessageRecieved(string msg)
         {
             //throw new NotImplementedException();
@@ -137,6 +139,7 @@ namespace PlaneGame
                             page.Selected += (ch) =>
                             {
                                 client.SendMessage("STEM|" + ch);
+                                MyTeam = ch - '0';
                             };
                             NowPage = page;
                             break;
@@ -227,7 +230,7 @@ namespace PlaneGame
                         case "ASRT":
                             if(NowPage is PutUnitPage pe)
                             {
-                                AttackPage attackPage = new AttackPage(pe.board);
+                                AttackPage attackPage = new AttackPage(pe.board,MyTeam);
                                 attackPage.UnitPreview = pe.UnitPreview;
                                 attackPage.Attack += (t, pnt) =>
                                 {
@@ -283,6 +286,7 @@ namespace PlaneGame
             {
                 Text = UserName + " " + DateTime.Now.ToString(),
                 Style = Resources["MaterialDesignBody2TextBlock"] as Style,
+                FontWeight = FontWeights.Bold,
                 TextWrapping = TextWrapping.Wrap
             });
             SPChat.Children.Add(new TextBlock()

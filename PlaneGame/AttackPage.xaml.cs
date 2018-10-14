@@ -23,9 +23,11 @@ namespace PlaneGame
     /// </summary>
     public partial class AttackPage : Page
     {
-        public AttackPage(GameBoard.FullPlayerGameBoard yourboard)
+        int MyTeam;
+        public AttackPage(GameBoard.FullPlayerGameBoard yourboard,int team)
         {
             InitializeComponent();
+            MyTeam = team;
             YourBoard = yourboard;
             GVMain.Board = YourBoard;
             LBTeam.Items.Add("Your Team");
@@ -64,7 +66,7 @@ namespace PlaneGame
         public void AddBoard(int Team,GameBoard.PlayerViewGameBoard board)
         {
             Boards.Add(Team, board);
-            LBTeam.Items.Add("Team " + Team.ToString());
+            LBTeam.Items.Add("Team " + Team.ToString() + (MyTeam == Team ? "Your" : ""));
         }
 
         private void LBTeam_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -79,8 +81,16 @@ namespace PlaneGame
                 if (LBTeam.SelectedIndex != -1)
                 {
                     GVMain.Board = Boards[LBTeam.SelectedIndex - 1];
-                    TBTeam.Text = "Team " + LBTeam.SelectedIndex.ToString();
+                    TBTeam.Text = "Team " + (LBTeam.SelectedIndex - 1).ToString();
                 }
+            }
+            if (LBTeam.SelectedIndex == 0 || LBTeam.SelectedIndex - 1 == MyTeam)
+            {
+                BtnAttack.IsEnabled = false;
+            }
+            else
+            {
+                BtnAttack.IsEnabled = true;
             }
         }
 
@@ -107,7 +117,7 @@ namespace PlaneGame
 
         private void BtnAttack_Click(object sender, RoutedEventArgs e)
         {
-            if (LBTeam.SelectedIndex >= 1&&GVMain.SelectedPoint!=(-1,-1))
+            if (LBTeam.SelectedIndex >= 1 && GVMain.SelectedPoint != (-1, -1) && LBTeam.SelectedIndex - 1 != MyTeam)
             {
                 Attack?.Invoke(LBTeam.SelectedIndex - 1, GVMain.SelectedPoint);
                 StopGetPoint();
