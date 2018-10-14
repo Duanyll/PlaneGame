@@ -63,10 +63,17 @@ namespace PlaneGame
         public Dictionary<int, GameBoard.PlayerViewGameBoard> Boards = new Dictionary<int, GameBoard.PlayerViewGameBoard>();
         public GameBoard.FullPlayerGameBoard YourBoard;
 
-        public void AddBoard(int Team,GameBoard.PlayerViewGameBoard board)
+        public void UpdateBoard(int Team,GameBoard.PlayerViewGameBoard board)
         {
-            Boards.Add(Team, board);
-            LBTeam.Items.Add("Team " + Team.ToString() + (MyTeam == Team ? "Your" : ""));
+            if (!Boards.Keys.Contains(Team))
+            {
+                Boards.Add(Team, board);
+                LBTeam.Items.Add("Team " + Team.ToString() + (MyTeam == Team ? "(You)" : ""));
+            }
+            else
+            {
+                Boards[Team] = board;
+            }            
         }
 
         private void LBTeam_SelectionChanged(object sender, SelectionChangedEventArgs e)

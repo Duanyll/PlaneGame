@@ -48,6 +48,12 @@ namespace GameruleHandler
                     BroadcastMessage("还没有做这个游戏模式");
                     break;
             }
+            for(int i = 0; i < Info.TeamCount; i++)
+            {
+                Server.BroadCastToAll("LGAM|" + i + '|' + GameBoards[i].ToString());
+            }
+            Server.BroadCastToAll("LGED|");
+            System.Threading.Thread.Sleep(5000);
             StartPUState();
         }
 

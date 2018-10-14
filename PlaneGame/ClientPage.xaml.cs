@@ -135,6 +135,7 @@ namespace PlaneGame
                             MessageBox.Show(vs[1], "PlaneGame", MessageBoxButton.OK);
                             break;
                         case "GTEM":
+                            TBHeader.Text = "PlaneGame";
                             TeamSelectPage page = new TeamSelectPage(vs[1]);
                             page.Selected += (ch) =>
                             {
@@ -242,7 +243,7 @@ namespace PlaneGame
                         case "AGBR":
                             if(NowPage is AttackPage a)
                             {
-                                a.AddBoard(int.Parse(vs[1]), new GameBoard.PlayerViewGameBoard(vs[2].Split('\n')));
+                                a.UpdateBoard(int.Parse(vs[1]), new GameBoard.PlayerViewGameBoard(vs[2].Split('\n')));
                             }
                             break;
                         case "SNOW":
@@ -266,6 +267,23 @@ namespace PlaneGame
                         case "AUGB":
                             a = NowPage as AttackPage;
                             a.UpdetePoint(int.Parse(vs[1]), int.Parse(vs[2]), int.Parse(vs[3]), (GameBoardBlock)int.Parse(vs[5]), vs[4]);
+                            break;
+                        case "LGAM":
+                            a = NowPage as AttackPage;
+                            a.UpdateBoard(int.Parse(vs[1]), new GameBoard.PlayerViewGameBoard(vs[2].Split('\n')));
+                            break;
+                        case "LGED":
+                            Page detail = NowPage;
+                            NowPage = new GameDefaultPage();
+                            SnbMain.MessageQueue.Enqueue("即将开始下一局", "查看上局详情", () =>
+                            {
+                                new Window()
+                                {
+                                    Content = detail,
+                                    MinHeight = 400,
+                                    MinWidth = 600
+                                }.Show();
+                            });
                             break;
                     }
                 }
