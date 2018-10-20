@@ -12,7 +12,7 @@ namespace NetClient
     public class NetworkClient
     {
         Socket clientSocket = null;
-        public bool isListen { get; private set; } = true;
+        public bool isListen { get; private set; } = false;
         public string UserName { get; private set; }
         Thread thDataFromServer;
         IPAddress ipadr;
@@ -28,7 +28,7 @@ namespace NetClient
 
         public void SendMessage(string msg)
         {
-            if (String.IsNullOrWhiteSpace(msg.Trim()))
+            if (string.IsNullOrWhiteSpace(msg.Trim()))
             {
                 FailureCaused?.Invoke("发送内容不能为空哦~");
                 return;
@@ -147,7 +147,7 @@ namespace NetClient
                         {
                             clientSocket.Close();
                             clientSocket = null;
-
+                            isListen = false;
                             Info?.Invoke("服务器已关闭");
                             thDataFromServer.Abort();   //这一句必须放在最后，不然这个进程都关了后面的就不会执行了
 

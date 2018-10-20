@@ -35,6 +35,10 @@ namespace PlaneGame
             client.Info += Client_Info;
             Loaded += (s, args) =>
             {
+                if (client.isListen)
+                {
+                    return;
+                }
                 ConnectToServerWindow window = new ConnectToServerWindow(client);
                 window.Owner = Application.Current.MainWindow;
                 if (!window.ShowDialog())
