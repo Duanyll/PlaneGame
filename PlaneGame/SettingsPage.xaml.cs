@@ -24,6 +24,7 @@ namespace PlaneGame
         {
             InitializeComponent();
             TgBDarkMode.IsChecked = Properties.Settings.Default.UseDarkMode;
+            TgBLowGrapthcsMode.IsChecked = Properties.Settings.Default.LowGraphics;
             SlBlockSize.Value = Properties.Settings.Default.GBGridHeight;
         }
 
@@ -37,6 +38,12 @@ namespace PlaneGame
         private void BtnSaveBlockSize_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.GBGridHeight = Properties.Settings.Default.GBGridWidth = SlBlockSize.Value;
+            Properties.Settings.Default.Save();
+        }
+
+        private void TgBLowGrapthcsMode_Click(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.LowGraphics = TgBLowGrapthcsMode.IsChecked.Value;
             Properties.Settings.Default.Save();
         }
     }

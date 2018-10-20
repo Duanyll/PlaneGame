@@ -111,7 +111,11 @@ namespace PlaneGame
             InitializeComponent();
             ShowName = showname;
             Block = block;
-            
+            if (!Properties.Settings.Default.LowGraphics)
+            {
+                CZBackGround.SetValue(ShadowAssist.ShadowDepthProperty,ShadowDepth.Depth1);
+                CZBackGround.CornerRadius = new CornerRadius(3);
+            }
         }
 
         [System.Diagnostics.DebuggerStepThrough]

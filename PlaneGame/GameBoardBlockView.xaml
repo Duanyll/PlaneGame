@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="20">
     <Grid>
-        <materialdesign:ColorZone Name="CZBackGround" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="3" Margin="1" materialdesign:ShadowAssist.ShadowDepth="Depth1" MouseUp="CZBackGround_MouseUp" StylusUp="CZBackGround_StylusUp" TouchUp="CZBackGround_TouchUp">
+        <materialdesign:ColorZone Name="CZBackGround" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1" MouseUp="CZBackGround_MouseUp" StylusUp="CZBackGround_StylusUp" TouchUp="CZBackGround_TouchUp">
             <TextBlock Name="TBText" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
         </materialdesign:ColorZone>
     </Grid>

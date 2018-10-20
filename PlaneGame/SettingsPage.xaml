@@ -23,8 +23,9 @@
                     </md:ColorZone>
                     <ListView>
                         <WrapPanel>
-                            <TextBlock>夜间模式</TextBlock>
                             <ToggleButton Name="TgBDarkMode" Click="TgBDarkMode_Click"></ToggleButton>
+                            <TextBlock>夜间模式</TextBlock>
+                            
                         </WrapPanel>
                         <StackPanel>
                             <TextBlock>游戏方格大小</TextBlock>
@@ -33,6 +34,11 @@
                                 <Button Name="BtnSaveBlockSize" Style="{StaticResource MaterialDesignFlatButton}" Click="BtnSaveBlockSize_Click">保存</Button>
                             </WrapPanel>
                         </StackPanel>
+                        <WrapPanel>
+                            <ToggleButton Name="TgBLowGrapthcsMode" Click="TgBLowGrapthcsMode_Click"></ToggleButton>
+                            <TextBlock>低画质模式</TextBlock>
+                            
+                        </WrapPanel>
                     </ListView>
                 </StackPanel>
             </md:Card>

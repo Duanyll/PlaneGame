@@ -20,5 +20,8 @@
     <Setting Name="SnakeBarMessageDuration" Type="System.TimeSpan" Scope="User">
       <Value Profile="(Default)">00:00:03</Value>
     </Setting>
+    <Setting Name="LowGraphics" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
