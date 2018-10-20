@@ -50,14 +50,20 @@ namespace GameruleHandler
             }
 
             public FullPlayerGameBoard GetFullPlayerGameBoard() => new FullPlayerGameBoard(ToStrings());
-            public PlayerViewGameBoard GetPlayerViewGameBoard()
+            public string GetPlayerViewGameBoard()
             {
                 string[] vs = ToStrings();
+                for(int i = 0; i < vs.Length; i++)
+                {
+                    vs[i] = vs[i].Replace(' ', '?');
+                }
+                StringBuilder builder = new StringBuilder();
                 foreach(var i in vs)
                 {
-                    i.Replace(' ', '?');
+                    builder.Append(i+'\n');
                 }
-                return new PlayerViewGameBoard(vs);
+                builder.Remove(builder.Length - 1, 1);
+                return builder.ToString();
             }
         }
     }

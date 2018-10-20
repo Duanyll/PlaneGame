@@ -113,7 +113,7 @@ namespace GameruleHandler
             Width = int.MaxValue;
             for (int i = 0; i < Height; i++)
             {
-                Width = Math.Min(Width, vs[i].Length);
+                Width = Math.Min(Width, vs[i].Length);               
             }
             Blocks = new List<List<GameBoardBlock>>(Height);
             for (int i = 0; i < Height; i++)
