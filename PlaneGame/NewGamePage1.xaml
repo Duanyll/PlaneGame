@@ -50,7 +50,7 @@
                             <RadioButton Tag="PlayerWithTeam" Content="按照队伍顺序，每人单独攻击"/>
                             <RadioButton Tag="Shuffle" Content="按照随机顺序，每人单独攻击"/>
                             <RadioButton IsChecked="True" Tag="TeamTogether" Content="队伍中玩家同时攻击"/>
-                            <RadioButton Tag="Battle" IsEnabled="False" Content="混战模式(开发中)"/>
+                            <RadioButton Visibility="Collapsed" Tag="Battle" IsEnabled="False" Content="混战模式(开发中)"/>
                         </StackPanel>
                         <WrapPanel>
                             <ToggleButton x:Name="toggleButton" IsChecked="{Binding Info.BindFPRWithHeadCount, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:NewGamePage1}}}"/>
